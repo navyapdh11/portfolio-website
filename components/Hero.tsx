@@ -45,11 +45,11 @@ export default function Hero() {
             {/* Left Content */}
             <div className="text-center lg:text-left">
               <div className="inline-block px-4 py-2 bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 rounded-full text-sm font-semibold mb-6">
-                📍 Serving 10,247+ Suburbs Nationwide • Since 2015
+                📍 Perth Based • Since 2018 • Fully Insured
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
-                Australia's Most{" "}
+                Perth's Most{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-cyan-500">
                   Trusted
                 </span>{" "}
@@ -57,8 +57,8 @@ export default function Hero() {
               </h1>
               
               <p className="text-xl text-slate-600 dark:text-slate-300 mb-6">
-                AI-powered national cleaning platform. Residential, commercial & end-of-lease 
-                cleaning with police-checked cleaners, bond-back guarantee, and eco-friendly products.
+                Professional cleaning services in Perth. Residential, commercial & end-of-lease 
+                cleaning with police-checked cleaners, 100% satisfaction guarantee, and eco-friendly products.
               </p>
 
               {/* Key Stats */}
@@ -86,10 +86,10 @@ export default function Hero() {
                   Get Instant Quote
                 </a>
                 <a
-                  href="tel:1300253268"
+                  href="tel:0890000000"
                   className="px-8 py-4 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-xl hover:border-sky-500 hover:text-sky-500 dark:hover:border-sky-400 dark:hover:text-sky-400 transition-all text-center font-bold text-lg flex items-center justify-center gap-2"
                 >
-                  📞 1300 CLEAN
+                  📞 08 9000 0000
                 </a>
               </div>
 

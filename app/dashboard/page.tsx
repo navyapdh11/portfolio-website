@@ -1,252 +1,307 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { SuburbToggleTable } from "@/components/dashboard/SuburbToggleTable";
-import { StateSelector } from "@/components/dashboard/StateSelector";
-import { ServiceTypeSelector } from "@/components/dashboard/ServiceTypeSelector";
-import { CoverageMap } from "@/components/dashboard/CoverageMap";
-import { Save, RotateCcw, Search, ArrowLeft, MapPin, Zap, TrendingUp, DollarSign } from "lucide-react";
+import { useState, useEffect } from "react";
+
+interface Booking {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  address: string;
+  date: string;
+  time: string;
+  status: "pending" | "confirmed" | "completed" | "cancelled";
+  createdAt: string;
+}
+
+interface Quote {
+  id: string;
+  service: string;
+  bedrooms: number;
+  bathrooms: number;
+  frequency: string;
+  estimatedPrice: number;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  suburb: string;
+  status: "new" | "contacted" | "quoted" | "accepted" | "rejected";
+  createdAt: string;
+}
+
+interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  suburb: string;
+  totalBookings: number;
+  totalSpent: number;
+  lastBooking: string;
+  status: "active" | "inactive" | "prospect";
+  createdAt: string;
+}
 
 export default function DashboardPage() {
-  const [selectedState, setSelectedState] = useState("ALL");
-  const [selectedServices, setSelectedServices] = useState<string[]>([
-    "house-cleaning",
-    "end-of-lease",
-    "commercial",
-  ]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [pendingChanges, setPendingChanges] = useState<Map<string, boolean>>(new Map());
-  const [isSaving, setIsSaving] = useState(false);
+  const [activeTab, setActiveTab] = useState<"bookings" | "quotes" | "customers">("bookings");
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleToggleSuburb = (suburbId: string, enabled: boolean) => {
-    setPendingChanges((prev) => new Map(prev).set(suburbId, enabled));
-  };
-
-  const handleSaveChanges = async () => {
-    setIsSaving(true);
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setPendingChanges(new Map());
-      alert(`Successfully saved ${pendingChanges.size} changes!`);
-    } finally {
-      setIsSaving(false);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [bookingsRes, quotesRes, customersRes] = await Promise.all([
+          fetch("/api/bookings"),
+          fetch("/api/quotes"),
+          fetch("/api/customers"),
+        ]);
+        const bookingsData = await bookingsRes.json();
+        const quotesData = await quotesRes.json();
+        const customersData = await customersRes.json();
+        setBookings(bookingsData.data);
+        setQuotes(quotesData.data);
+        setCustomers(customersData.data);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      } finally {
+        setLoading(false);
+      }
     }
+    fetchData();
+  }, []);
+
+  const getStatusColor = (status: string) => {
+    const colors: Record<string, string> = {
+      pending: "bg-yellow-100 text-yellow-800",
+      confirmed: "bg-blue-100 text-blue-800",
+      completed: "bg-green-100 text-green-800",
+      cancelled: "bg-red-100 text-red-800",
+      new: "bg-purple-100 text-purple-800",
+      contacted: "bg-blue-100 text-blue-800",
+      quoted: "bg-cyan-100 text-cyan-800",
+      accepted: "bg-green-100 text-green-800",
+      rejected: "bg-red-100 text-red-800",
+      active: "bg-green-100 text-green-800",
+      inactive: "bg-gray-100 text-gray-800",
+      prospect: "bg-amber-100 text-amber-800",
+    };
+    return colors[status] || "bg-gray-100 text-gray-800";
   };
 
-  const handleBulkEnable = () => {
-    // Simulate enabling all visible suburbs
-    const sampleIds = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-    sampleIds.forEach((id) => handleToggleSuburb(id, true));
-  };
-
-  const handleBulkDisable = () => {
-    const sampleIds = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-    sampleIds.forEach((id) => handleToggleSuburb(id, false));
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-white text-xl">Loading dashboard...</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900">
-      {/* Header */}
-      <div className="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700 shadow-sm">
+    <div className="min-h-screen bg-slate-900 text-white">
+      <header className="bg-slate-800 border-b border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link
-                href="/"
-                className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
-              </Link>
-              <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <MapPin className="h-6 w-6 text-blue-600" />
-                  <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">
-                    National Coverage Control
-                  </h1>
-                  <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-sm font-medium">
-                    🇦🇺 Nationwide
-                  </span>
-                </div>
-                <p className="text-zinc-600 dark:text-zinc-400">
-                  Manage service availability across{" "}
-                  <span className="font-semibold text-blue-600">10,247 suburbs</span> •{" "}
-                  <span className="font-semibold text-green-600">8,323 active</span>
-                </p>
-              </div>
+            <div>
+              <h1 className="text-2xl font-bold">AASTACLEAN Admin</h1>
+              <p className="text-slate-400 text-sm">Business Management Dashboard</p>
             </div>
-
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={handleBulkEnable}
-                className="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors font-medium text-sm"
-              >
-                Enable All Visible
-              </button>
-              <button
-                onClick={handleBulkDisable}
-                className="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors font-medium text-sm"
-              >
-                Disable All Visible
-              </button>
-              <button
-                onClick={() => setPendingChanges(new Map())}
-                disabled={pendingChanges.size === 0}
-                className="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
-                <RotateCcw className="h-4 w-4" />
-                Reset
-              </button>
-              <button
-                onClick={handleSaveChanges}
-                disabled={pendingChanges.size === 0 || isSaving}
-                className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all font-medium text-sm shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
-                <Save className="h-4 w-4" />
-                {isSaving ? "Saving..." : `Save ${pendingChanges.size} Changes`}
-              </button>
-            </div>
+            <a
+              href="/"
+              className="px-4 py-2 bg-sky-500 hover:bg-sky-600 rounded-lg font-medium transition-colors"
+            >
+              ← Back to Website
+            </a>
           </div>
-
-          {/* Alert for pending changes */}
-          {pendingChanges.size > 0 && (
-            <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-              <p className="text-blue-700 dark:text-blue-400">
-                You have <strong>{pendingChanges.size}</strong> pending changes. Click &quot;Save Changes&quot; to apply them nationwide.
-              </p>
-            </div>
-          )}
         </div>
-      </div>
+      </header>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Quick Stats */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <StatCard
-            icon={<MapPin className="h-6 w-6 text-blue-600" />}
-            title="Total Suburbs"
-            value="10,247"
-            change="+127 this month"
-            changeType="positive"
-          />
-          <StatCard
-            icon={<Zap className="h-6 w-6 text-green-600" />}
-            title="Active Services"
-            value="8,323"
-            change="81% coverage"
-            changeType="positive"
-          />
-          <StatCard
-            icon={<TrendingUp className="h-6 w-6 text-purple-600" />}
-            title="Growth Rate"
-            value="+4.2%"
-            change="vs last month"
-            changeType="positive"
-          />
-          <StatCard
-            icon={<DollarSign className="h-6 w-6 text-emerald-600" />}
-            title="Monthly Revenue"
-            value="$39.1M"
-            change="+$2.3M"
-            changeType="positive"
-          />
-        </div>
-
-        {/* Filters */}
-        <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <StateSelector value={selectedState} onChange={setSelectedState} />
-            <ServiceTypeSelector value={selectedServices} onChange={setSelectedServices} />
-            <div className="lg:col-span-2 relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-400" />
-              <input
-                type="text"
-                placeholder="Search by suburb name, postcode, or state..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border-2 border-zinc-200 dark:border-zinc-700 rounded-lg bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              />
+          <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
+            <div className="text-slate-400 text-sm mb-2">Total Bookings</div>
+            <div className="text-3xl font-bold text-white">{bookings.length}</div>
+            <div className="text-green-400 text-sm mt-2">↑ 12% from last month</div>
+          </div>
+          <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
+            <div className="text-slate-400 text-sm mb-2">Pending Quotes</div>
+            <div className="text-3xl font-bold text-white">{quotes.filter(q => q.status === 'new').length}</div>
+            <div className="text-amber-400 text-sm mt-2">Requires attention</div>
+          </div>
+          <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
+            <div className="text-slate-400 text-sm mb-2">Active Customers</div>
+            <div className="text-3xl font-bold text-white">{customers.filter(c => c.status === 'active').length}</div>
+            <div className="text-sky-400 text-sm mt-2">From {customers.length} total</div>
+          </div>
+          <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
+            <div className="text-slate-400 text-sm mb-2">Total Revenue</div>
+            <div className="text-3xl font-bold text-green-400">
+              ${customers.reduce((sum, c) => sum + c.totalSpent, 0).toLocaleString()}
             </div>
+            <div className="text-slate-400 text-sm mt-2">Lifetime value</div>
           </div>
         </div>
 
-        {/* Interactive Map */}
-        <div className="mb-8">
-          <CoverageMap
-            state={selectedState}
-            services={selectedServices}
-            searchQuery={searchQuery}
-            onSuburbClick={(suburb) => {
-              setSearchQuery(suburb.name);
-            }}
-          />
+        <div className="mb-8 flex gap-4">
+          <button
+            onClick={() => setActiveTab("bookings")}
+            className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              activeTab === "bookings"
+                ? "bg-sky-500 text-white"
+                : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+            }`}
+          >
+            📅 Bookings ({bookings.length})
+          </button>
+          <button
+            onClick={() => setActiveTab("quotes")}
+            className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              activeTab === "quotes"
+                ? "bg-sky-500 text-white"
+                : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+            }`}
+          >
+            💰 Quotes ({quotes.length})
+          </button>
+          <button
+            onClick={() => setActiveTab("customers")}
+            className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              activeTab === "customers"
+                ? "bg-sky-500 text-white"
+                : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+            }`}
+          >
+            👥 Customers ({customers.length})
+          </button>
         </div>
 
-        {/* Suburb Toggle Table */}
-        <SuburbToggleTable
-          state={selectedState}
-          services={selectedServices}
-          searchQuery={searchQuery}
-          onToggle={handleToggleSuburb}
-          pendingChanges={pendingChanges}
-        />
+        {activeTab === "bookings" && (
+          <div className="bg-slate-800 rounded-xl overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-slate-700">
+                  <tr>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Customer</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Service</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Date & Time</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Address</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-700">
+                  {bookings.map((booking) => (
+                    <tr key={booking.id} className="hover:bg-slate-700/50">
+                      <td className="px-6 py-4">
+                        <div className="font-medium">{booking.name}</div>
+                        <div className="text-sm text-slate-400">{booking.email}</div>
+                        <div className="text-sm text-slate-400">{booking.phone}</div>
+                      </td>
+                      <td className="px-6 py-4">{booking.service}</td>
+                      <td className="px-6 py-4">
+                        <div>{booking.date}</div>
+                        <div className="text-sm text-slate-400">{booking.time}</div>
+                      </td>
+                      <td className="px-6 py-4">{booking.address}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(booking.status)}`}>
+                          {booking.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
-        {/* State Summary */}
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-          <StateStatCard title="NSW" value="2,987" total={3247} color="blue" />
-          <StateStatCard title="VIC" value="1,847" total={2156} color="green" />
-          <StateStatCard title="QLD" value="1,456" total={1892} color="orange" />
-          <StateStatCard title="WA" value="847" total={1234} color="purple" />
-          <StateStatCard title="SA" value="623" total={847} color="pink" />
-          <StateStatCard title="TAS" value="187" total={234} color="yellow" />
-          <StateStatCard title="ACT" value="142" total={156} color="indigo" />
-          <StateStatCard title="NT" value="234" total={481} color="red" />
-        </div>
-      </div>
-    </div>
-  );
-}
+        {activeTab === "quotes" && (
+          <div className="bg-slate-800 rounded-xl overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-slate-700">
+                  <tr>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Customer</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Service</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Property</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Price</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-700">
+                  {quotes.map((quote) => (
+                    <tr key={quote.id} className="hover:bg-slate-700/50">
+                      <td className="px-6 py-4">
+                        <div className="font-medium">{quote.customerName}</div>
+                        <div className="text-sm text-slate-400">{quote.customerEmail}</div>
+                        <div className="text-sm text-slate-400">{quote.customerPhone}</div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div>{quote.service}</div>
+                        <div className="text-sm text-slate-400">{quote.frequency}</div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div>{quote.bedrooms} bed / {quote.bathrooms} bath</div>
+                        <div className="text-sm text-slate-400">{quote.suburb}</div>
+                      </td>
+                      <td className="px-6 py-4 text-green-400 font-semibold">${quote.estimatedPrice}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
+                          {quote.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
-function StatCard({ icon, title, value, change, changeType }: any) {
-  return (
-    <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all">
-      <div className="flex items-center justify-between mb-3">
-        <div className="p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg">{icon}</div>
-      </div>
-      <p className="text-2xl font-bold text-zinc-900 dark:text-white">{value}</p>
-      <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">{title}</p>
-      <p
-        className={`text-xs font-medium mt-2 ${
-          changeType === "positive" ? "text-green-600" : "text-red-600"
-        }`}
-      >
-        {change}
-      </p>
-    </div>
-  );
-}
-
-function StateStatCard({ title, value, total, color }: any) {
-  const percentage = Math.round((parseInt(value.replace(/,/g, "")) / total) * 100);
-
-  return (
-    <div className="bg-white dark:bg-zinc-900 p-4 rounded-xl shadow-md hover:shadow-lg transition-all">
-      <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
-        {title}
-      </p>
-      <div className="mt-2">
-        <p className="text-2xl font-bold text-zinc-900 dark:text-white">{value}</p>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">of {total.toLocaleString()}</p>
-      </div>
-      <div className="mt-2 w-full bg-zinc-200 dark:bg-zinc-700 rounded-full h-1.5">
-        <div
-          className={`h-1.5 rounded-full bg-gradient-to-r from-${color}-500 to-${color}-600 transition-all duration-500`}
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
-      <p className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mt-1">{percentage}%</p>
+        {activeTab === "customers" && (
+          <div className="bg-slate-800 rounded-xl overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-slate-700">
+                  <tr>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Customer</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Contact</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Location</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Bookings</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Total Spent</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-700">
+                  {customers.map((customer) => (
+                    <tr key={customer.id} className="hover:bg-slate-700/50">
+                      <td className="px-6 py-4 font-medium">{customer.name}</td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm">{customer.email}</div>
+                        <div className="text-sm text-slate-400">{customer.phone}</div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div>{customer.address}</div>
+                        <div className="text-sm text-slate-400">{customer.suburb}</div>
+                      </td>
+                      <td className="px-6 py-4">{customer.totalBookings}</td>
+                      <td className="px-6 py-4 text-green-400 font-semibold">${customer.totalSpent}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(customer.status)}`}>
+                          {customer.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }

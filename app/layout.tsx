@@ -13,8 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CleanAgent Australia | National Scale AI-Powered Cleaning Services",
-  description: "Australia's leading AI-powered cleaning platform. 10,247+ suburbs covered. Residential, commercial & end-of-lease cleaning with police-checked staff and eco-friendly products.",
+  title: "AASTACLEAN | Professional Cleaning Services in Perth WA",
+  description: "Professional cleaning services in Perth, Western Australia. Residential, commercial & end-of-lease cleaning. Contact: 51 Tate Street, West Leederville 6007. Phone: 08 9000 0000, Mobile: 0405 866 459.",
+  keywords: "cleaning services, Perth WA, house cleaning, end of lease cleaning, commercial cleaning, West Leederville, AASTACLEAN",
+  authors: [{ name: "AASTACLEAN" }],
+  openGraph: {
+    title: "AASTACLEAN | Professional Cleaning Services in Perth",
+    description: "Professional cleaning services in Perth, Western Australia. Residential, commercial & end-of-lease cleaning.",
+    type: "website",
+    locale: "en_AU",
+    siteName: "AASTACLEAN",
+  },
 };
 
 export default function RootLayout({
