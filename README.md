@@ -1,4 +1,4 @@
-# 🚀 CleanAgent Australia - National Scale Cleaning Platform
+# 🚀 CleanAgent Australia - National Scale AI-Powered Cleaning Platform
 
 A professional cleaning service platform with AI-powered national coverage management across 10,247+ Australian suburbs.
 
@@ -6,10 +6,13 @@ A professional cleaning service platform with AI-powered national coverage manag
 
 ### 🏠 Public Website
 - **Smart Navigation** - Scroll-aware menu with smooth animations
-- **Services Showcase** - 6 professional cleaning services with pricing
+- **Trust Certifications** - Police checks, insurance, eco-friendly, bond-back guarantee
+- **Services Showcase** - 6 professional cleaning services with interactive pricing calculator
+- **Before/After Gallery** - Visual proof of cleaning quality
 - **National Coverage** - Real-time coverage statistics across all 8 states
-- **Transparent Pricing** - 3-tier pricing ($120-$280)
+- **Transparent Pricing** - 3-tier pricing with instant quote calculator
 - **Customer Reviews** - Testimonials with 4.9/5 average rating
+- **FAQ Section** - Common questions with expandable answers
 - **Online Booking** - Complete booking form with instant quotes
 - **Dark Mode** - Automatic theme switching
 
@@ -37,16 +40,9 @@ A professional cleaning service platform with AI-powered national coverage manag
 ## Getting Started
 
 ```bash
-# Install dependencies
 npm install
-
-# Run development server
 npm run dev
-
-# Build for production
 npm run build
-
-# Start production server
 npm start
 ```
 
@@ -62,14 +58,13 @@ Deploy to Vercel with one click:
 vercel --prod
 ```
 
-Or deploy to any platform supporting Next.js.
-
 ## Key Metrics
 
 - 🏘️ **10,247** Total Australian Suburbs
 - ✅ **8,323** Active Services (81% coverage)
 - 💰 **$39.1M** Monthly Revenue
 - 📈 **+4.2%** Growth Rate
+- ⭐ **99.7%** Satisfaction Rate
 
 ## Project Structure
 
@@ -85,6 +80,10 @@ portfolio-website/
 │   ├── Navbar.tsx              # Navigation bar
 │   ├── Hero.tsx                # Hero section with scroll menu
 │   ├── Services.tsx            # Services showcase
+│   ├── TrustCertifications.tsx  # Trust badges section
+│   ├── QuoteCalculator.tsx     # Interactive pricing calculator
+│   ├── BeforeAfterGallery.tsx   # Before/after gallery
+│   ├── FAQSection.tsx          # FAQ accordion
 │   ├── Coverage.tsx            # Coverage statistics
 │   ├── Pricing.tsx             # Pricing plans
 │   ├── Reviews.tsx             # Customer testimonials

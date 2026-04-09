@@ -69,7 +69,7 @@ export function SmartScrollMenu() {
         <div className="flex items-center justify-between">
           {/* Logo + Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 bg-gradient-to-r from-sky-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
               <Zap className="h-6 w-6 text-white" />
             </div>
             <div>
@@ -86,10 +86,10 @@ export function SmartScrollMenu() {
                 onClick={() => scrollToSection(item.href)}
                 className={`h-10 px-4 rounded-xl transition-all duration-300 font-medium flex items-center gap-2 ${
                   item.primary
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg hover:shadow-xl'
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg hover:shadow-xl'
                     : activeSection === item.href.substring(1)
-                    ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm'
-                    : 'hover:bg-gray-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300'
+                    ? 'bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 shadow-sm'
+                    : 'hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
                 }`}
               >
                 {item.icon && <item.icon className="h-4 w-4" />}
@@ -106,7 +106,7 @@ export function SmartScrollMenu() {
             </div>
             <button 
               onClick={() => scrollToSection('#booking')}
-              className="bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 h-11 px-6 rounded-xl font-semibold flex items-center gap-2"
+              className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 h-11 px-6 rounded-xl font-semibold flex items-center gap-2"
             >
               <Sparkles className="h-4 w-4" />
               Get Quote

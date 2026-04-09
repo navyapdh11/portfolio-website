@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "John Doe | Full Stack Developer",
-  description: "Personal portfolio showcasing my skills, projects, and experience as a full stack developer.",
+  title: "CleanAgent Australia | National Scale AI-Powered Cleaning Services",
+  description: "Australia's leading AI-powered cleaning platform. 10,247+ suburbs covered. Residential, commercial & end-of-lease cleaning with police-checked staff and eco-friendly products.",
 };
 
 export default function RootLayout({
