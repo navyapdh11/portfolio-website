@@ -5,11 +5,10 @@ import { useState, useEffect } from "react";
 const navLinks = [
   { href: "#home", label: "Home" },
   { href: "#services", label: "Services" },
-  { href: "#gallery", label: "Gallery" },
+  { href: "/projects", label: "Projects" },
   { href: "#coverage", label: "Coverage" },
   { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Contact" },
-  { href: "/projects", label: "Projects" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
