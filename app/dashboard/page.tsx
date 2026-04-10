@@ -44,12 +44,41 @@ interface Customer {
   createdAt: string;
 }
 
+interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  phone: string;
+  email: string;
+  photo: string;
+  active: boolean;
+}
+
+interface SocialLink {
+  platform: string;
+  url: string;
+  icon: string;
+  followers: number;
+  engagement: number;
+}
+
 export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState<"bookings" | "quotes" | "customers">("bookings");
+  const [activeTab, setActiveTab] = useState<"bookings" | "quotes" | "customers" | "team" | "social">("bookings");
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
+  const [team, setTeam] = useState<TeamMember[]>([
+    { id: "1", name: "Sarah Mitchell", role: "Operations Manager", phone: "0412 345 678", email: "sarah@aastaclean.com.au", photo: "SM", active: true },
+    { id: "2", name: "James Chen", role: "Lead Technician", phone: "0412 345 679", email: "james@aastaclean.com.au", photo: "JC", active: true },
+    { id: "3", name: "Emily Rodriguez", role: "Customer Success", phone: "0412 345 680", email: "emily@aastaclean.com.au", photo: "ER", active: true },
+  ]);
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([
+    { platform: "Facebook", url: "https://facebook.com/aastaclean", icon: "📘", followers: 2500, engagement: 4.2 },
+    { platform: "Instagram", url: "https://instagram.com/aastaclean", icon: "📸", followers: 1800, engagement: 5.8 },
+    { platform: "Google", url: "https://google.com/aastaclean", icon: "🔍", followers: 150, engagement: 8.5 },
+  ]);
   const [loading, setLoading] = useState(true);
+  const [editingItem, setEditingItem] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -92,6 +121,36 @@ export default function DashboardPage() {
     return colors[status] || "bg-gray-100 text-gray-800";
   };
 
+  const updateBookingStatus = async (id: string, newStatus: string) => {
+    try {
+      const res = await fetch(`/api/bookings/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      if (res.ok) {
+        setBookings(bookings.map(b => b.id === id ? { ...b, status: newStatus as Booking['status'] } : b));
+      }
+    } catch (error) {
+      console.error("Failed to update booking:", error);
+    }
+  };
+
+  const updateQuoteStatus = async (id: string, newStatus: string) => {
+    try {
+      const res = await fetch(`/api/quotes/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      if (res.ok) {
+        setQuotes(quotes.map(q => q.id === id ? { ...q, status: newStatus as Quote['status'] } : q));
+      }
+    } catch (error) {
+      console.error("Failed to update quote:", error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
@@ -109,12 +168,14 @@ export default function DashboardPage() {
               <h1 className="text-2xl font-bold">AASTACLEAN Admin</h1>
               <p className="text-slate-400 text-sm">Business Management Dashboard</p>
             </div>
-            <a
-              href="/"
-              className="px-4 py-2 bg-sky-500 hover:bg-sky-600 rounded-lg font-medium transition-colors"
-            >
-              ← Back to Website
-            </a>
+            <div className="flex gap-3">
+              <a href="/projects" className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors">
+                View Projects
+              </a>
+              <a href="/" className="px-4 py-2 bg-sky-500 hover:bg-sky-600 rounded-lg font-medium transition-colors">
+                ← Back to Website
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -145,7 +206,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="mb-8 flex gap-4">
+        <div className="mb-8 flex flex-wrap gap-4">
           <button
             onClick={() => setActiveTab("bookings")}
             className={`px-6 py-3 rounded-lg font-medium transition-all ${
@@ -176,6 +237,26 @@ export default function DashboardPage() {
           >
             👥 Customers ({customers.length})
           </button>
+          <button
+            onClick={() => setActiveTab("team")}
+            className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              activeTab === "team"
+                ? "bg-sky-500 text-white"
+                : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+            }`}
+          >
+            👷 Team ({team.length})
+          </button>
+          <button
+            onClick={() => setActiveTab("social")}
+            className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              activeTab === "social"
+                ? "bg-sky-500 text-white"
+                : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+            }`}
+          >
+            📱 Social ({socialLinks.length})
+          </button>
         </div>
 
         {activeTab === "bookings" && (
@@ -189,6 +270,7 @@ export default function DashboardPage() {
                     <th className="px-6 py-4 text-left text-sm font-semibold">Date & Time</th>
                     <th className="px-6 py-4 text-left text-sm font-semibold">Address</th>
                     <th className="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-700">
@@ -210,6 +292,18 @@ export default function DashboardPage() {
                           {booking.status}
                         </span>
                       </td>
+                      <td className="px-6 py-4">
+                        <select
+                          value={booking.status}
+                          onChange={(e) => updateBookingStatus(booking.id, e.target.value)}
+                          className="bg-slate-700 text-white text-sm px-2 py-1 rounded border border-slate-600"
+                        >
+                          <option value="pending">Pending</option>
+                          <option value="confirmed">Confirmed</option>
+                          <option value="completed">Completed</option>
+                          <option value="cancelled">Cancelled</option>
+                        </select>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -229,6 +323,7 @@ export default function DashboardPage() {
                     <th className="px-6 py-4 text-left text-sm font-semibold">Property</th>
                     <th className="px-6 py-4 text-left text-sm font-semibold">Price</th>
                     <th className="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-700">
@@ -252,6 +347,19 @@ export default function DashboardPage() {
                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
                           {quote.status}
                         </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <select
+                          value={quote.status}
+                          onChange={(e) => updateQuoteStatus(quote.id, e.target.value)}
+                          className="bg-slate-700 text-white text-sm px-2 py-1 rounded border border-slate-600"
+                        >
+                          <option value="new">New</option>
+                          <option value="contacted">Contacted</option>
+                          <option value="quoted">Quoted</option>
+                          <option value="accepted">Accepted</option>
+                          <option value="rejected">Rejected</option>
+                        </select>
                       </td>
                     </tr>
                   ))}
@@ -298,6 +406,130 @@ export default function DashboardPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "team" && (
+          <div className="bg-slate-800 rounded-xl overflow-hidden">
+            <div className="p-6 border-b border-slate-700 flex justify-between items-center">
+              <h3 className="text-lg font-semibold">Team Members</h3>
+              <button className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-medium transition-colors">
+                + Add Team Member
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+              {team.map((member) => (
+                <div key={member.id} className="bg-slate-700 rounded-xl p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                      <span className="text-xl text-white font-semibold">{member.photo}</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white">{member.name}</h4>
+                      <p className="text-sm text-slate-400">{member.role}</p>
+                    </div>
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2 text-slate-300">
+                      <span>📱</span>
+                      <span>{member.phone}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-300">
+                      <span>✉️</span>
+                      <span>{member.email}</span>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <button className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors">
+                      Edit
+                    </button>
+                    <button className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${member.active ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}`}>
+                      {member.active ? 'Deactivate' : 'Activate'}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "social" && (
+          <div className="space-y-6">
+            <div className="bg-slate-800 rounded-xl p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-lg font-semibold">Social Media Connections</h3>
+                <button className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-medium transition-colors">
+                  + Add Platform
+                </button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {socialLinks.map((social) => (
+                  <div key={social.platform} className="bg-slate-700 rounded-xl p-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <span className="text-4xl">{social.icon}</span>
+                      <div>
+                        <h4 className="font-semibold text-white">{social.platform}</h4>
+                        <p className="text-sm text-slate-400">{social.followers.toLocaleString()} followers</p>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-slate-400">Engagement Rate</span>
+                        <span className="text-green-400 font-medium">{social.engagement}%</span>
+                      </div>
+                      <div className="h-2 bg-slate-600 rounded-full overflow-hidden">
+                        <div className="h-full bg-green-500" style={{ width: `${social.engagement * 10}%` }}></div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        defaultValue={social.url}
+                        className="flex-1 bg-slate-600 text-white text-sm px-3 py-2 rounded border border-slate-500"
+                        placeholder="Enter URL..."
+                      />
+                      <button className="px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors">
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-slate-800 rounded-xl p-6">
+              <h3 className="text-lg font-semibold mb-6">Community Work Gallery</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                  <div key={i} className="aspect-square bg-slate-700 rounded-lg flex items-center justify-center hover:bg-slate-600 cursor-pointer transition-colors group">
+                    <span className="text-4xl opacity-50 group-hover:opacity-100">📷</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 flex justify-center">
+                <button className="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors">
+                  Upload Photos
+                </button>
+              </div>
+            </div>
+
+            <div className="bg-slate-800 rounded-xl p-6">
+              <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button className="p-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors text-center">
+                  📘 Post to Facebook
+                </button>
+                <button className="p-4 bg-pink-600 hover:bg-pink-700 rounded-lg font-medium transition-colors text-center">
+                  📸 Post to Instagram
+                </button>
+                <button className="p-4 bg-green-600 hover:bg-green-700 rounded-lg font-medium transition-colors text-center">
+                  ✉️ Send Newsletter
+                </button>
+                <button className="p-4 bg-orange-600 hover:bg-orange-700 rounded-lg font-medium transition-colors text-center">
+                  ⭐ Request Reviews
+                </button>
+              </div>
             </div>
           </div>
         )}
