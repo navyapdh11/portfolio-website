@@ -134,7 +134,12 @@ export function QuoteCalculator() {
           </div>
         </div>
 
-        <a href="#booking" className="block w-full py-3 bg-gradient-to-r from-sky-500 to-cyan-500 text-white rounded-lg hover:from-sky-600 hover:to-cyan-600 transition-all font-bold text-center">
+        <a href="#booking" onClick={() => {
+          const bookingSection = document.getElementById('booking');
+          if (bookingSection) {
+            bookingSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }} className="block w-full py-3 bg-gradient-to-r from-sky-500 to-cyan-500 text-white rounded-lg hover:from-sky-600 hover:to-cyan-600 transition-all font-bold text-center">
           Book This Service →
         </a>
       </div>
