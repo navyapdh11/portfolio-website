@@ -45,6 +45,17 @@ export default function Navbar() {
             AA<span className="text-sky-500">STACLEAN</span>
           </a>
 
+          <div className="hidden lg:flex items-center flex-1 max-w-sm mx-8">
+            <div className="relative w-full">
+              <input 
+                type="text" 
+                placeholder="Ask AI Librarian..." 
+                className="w-full bg-zinc-100 dark:bg-zinc-800 border-none rounded-full px-4 py-1.5 text-xs focus:ring-2 focus:ring-sky-500 text-zinc-900 dark:text-white pl-10"
+              />
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">🔍</span>
+            </div>
+          </div>
+
           <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <a

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import NanochatAssistant from "@/components/NanochatAssistant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -8,18 +9,18 @@ const geistSans = Geist({
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-geist-mono-",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "AASTACLEAN | Professional Cleaning Services in Perth WA",
-  description: "Professional cleaning services in Perth, Western Australia. Residential, commercial & end-of-lease cleaning. Contact: 51 Tate Street, West Leederville 6007. Phone: 08 9000 0000, Mobile: 0405 866 459.",
-  keywords: "cleaning services, Perth WA, house cleaning, end of lease cleaning, commercial cleaning, West Leederville, AASTACLEAN",
+  title: "AASTACLEAN | AI-Native Cleaning Services in Perth WA",
+  description: "2026 Enterprise-grade cleaning services in Perth, Western Australia. Powered by Nanochat AI. Contact: 51 Tate Street, West Leederville 6007.",
+  keywords: "cleaning services, Perth WA, AI-native cleaning, nanochat, house cleaning, end of lease cleaning, commercial cleaning, AASTACLEAN",
   authors: [{ name: "AASTACLEAN" }],
   openGraph: {
-    title: "AASTACLEAN | Professional Cleaning Services in Perth",
-    description: "Professional cleaning services in Perth, Western Australia. Residential, commercial & end-of-lease cleaning.",
+    title: "AASTACLEAN | AI-Native Professional Cleaning Services in Perth",
+    description: "Enterprise-grade cleaning services powered by Next-Gen AI models. Residential, commercial & end-of-lease cleaning.",
     type: "website",
     locale: "en_AU",
     siteName: "AASTACLEAN",
@@ -36,7 +37,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <NanochatAssistant />
+      </body>
     </html>
   );
 }
