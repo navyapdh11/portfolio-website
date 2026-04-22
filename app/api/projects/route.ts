@@ -1,12 +1,19 @@
 import { NextResponse } from 'next/server';
 
-const projects = [
+let projects = [
   { id: "cbd-office", title: "CBD Office Tower - Commercial Complex", category: "Commercial Cleaning", location: "Perth CBD", description: "Complete weekly maintenance cleaning for a 20-story commercial tower.", before: "🏢" },
   { id: "west-leederville-home", title: "West Leederville Family Home", category: "Residential Cleaning", location: "West Leederville", description: "Regular fortnightly cleaning service.", before: "🏠" },
 ];
 
 export async function GET() {
   return NextResponse.json({ data: projects });
+}
+
+export async function POST(request: Request) {
+  const newProject = await request.json();
+  const project = { id: Date.now().toString(), ...newProject };
+  projects.push(project);
+  return NextResponse.json({ success: true, project });
 }
 
 export async function PATCH(request: Request) {
@@ -17,4 +24,10 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ success: true, project: projects[index] });
   }
   return NextResponse.json({ success: false }, { status: 404 });
+}
+
+export async function DELETE(request: Request) {
+  const { id } = await request.json();
+  projects = projects.filter(p => p.id !== id);
+  return NextResponse.json({ success: true });
 }

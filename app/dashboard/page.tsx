@@ -281,13 +281,21 @@ export default function DashboardPage() {
              <div className="space-y-6">
                 <div>
                    <label className="block text-sm font-semibold mb-2">CTA Title</label>
-                   <input className="w-full p-3 bg-slate-700 rounded-lg border border-slate-600" defaultValue="Ready to Work With Us?" />
+                   <input className="w-full p-3 bg-slate-700 rounded-lg border border-slate-600" defaultValue="Ready to Work With Us?" id="cta-title" />
                 </div>
                 <div>
                    <label className="block text-sm font-semibold mb-2">CTA Description</label>
-                   <textarea className="w-full p-3 bg-slate-700 rounded-lg border border-slate-600" defaultValue="Get a free quote for your cleaning project. Whether it's residential, commercial, or end-of-lease, we deliver exceptional results." />
+                   <textarea className="w-full p-3 bg-slate-700 rounded-lg border border-slate-600" defaultValue="Get a free quote for your cleaning project. Whether it's residential, commercial, or end-of-lease, we deliver exceptional results." id="cta-desc" />
                 </div>
-                <button className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold">Apply Changes</button>
+                <button onClick={async () => {
+                  const title = (document.getElementById('cta-title') as HTMLInputElement).value;
+                  const description = (document.getElementById('cta-desc') as HTMLTextAreaElement).value;
+                  await fetch('/api/config', {
+                    method: 'PATCH',
+                    body: JSON.stringify({ cta: { title, description } })
+                  });
+                  alert('CTA Updated');
+                }} className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold">Apply Changes</button>
              </div>
           </div>
         )}
