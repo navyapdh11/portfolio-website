@@ -29,6 +29,22 @@ export function QuoteCalculator() {
     return msg;
   })();
 
+  const pricing = {
+    house: { base: 120, perBed: 25, perBath: 35 },
+    office: { base: 180, perBed: 0, perBath: 40 },
+    endoflease: { base: 200, perBed: 35, perBath: 45 },
+    carpet: { base: 90, perBed: 20, perBath: 0 },
+    window: { base: 80, perBed: 15, perBath: 20 },
+    deep: { base: 250, perBed: 40, perBath: 50 },
+  };
+
+  const discounts = {
+    weekly: 0.20,
+    biweekly: 0.15,
+    monthly: 0.10,
+    once: 0,
+  };
+
   const calc = pricing[serviceType as keyof typeof pricing];
   const subtotal = calc.base + (bedrooms * calc.perBed) + (bathrooms * calc.perBath);
   const discount = discounts[frequency as keyof typeof discounts];
