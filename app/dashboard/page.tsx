@@ -264,16 +264,34 @@ export default function DashboardPage() {
             👷 Team ({team.length})
           </button>
           <button
-            onClick={() => setActiveTab("social")}
+            onClick={() => setActiveTab("ai-audit")}
             className={`px-6 py-3 rounded-lg font-medium transition-all ${
-              activeTab === "social"
-                ? "bg-sky-500 text-white"
+              activeTab === "ai-audit"
+                ? "bg-indigo-600 text-white"
                 : "bg-slate-800 text-slate-300 hover:bg-slate-700"
             }`}
           >
-            📱 Social/CTA Config
+            🧠 AI Reasoning Audit
           </button>
         </div>
+
+        {activeTab === "ai-audit" && (
+          <div className="bg-slate-800 rounded-xl p-8 shadow-lg">
+            <h2 className="text-xl font-bold mb-6">Real-Time Reasoning Audit</h2>
+            <div className="space-y-4">
+              <button onClick={async () => {
+                const res = await fetch('/api/ai/audit', {
+                    method: 'POST',
+                    body: JSON.stringify({ query: 'Deep cleaning in Perth', location: 'Perth' })
+                });
+                const data = await res.json();
+                alert(JSON.stringify(data, null, 2));
+              }} className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-bold">
+                Run Reasoning Audit
+              </button>
+            </div>
+          </div>
+        )}
 
         {activeTab === "social" && (
           <div className="bg-slate-800 rounded-xl p-8 shadow-lg">
