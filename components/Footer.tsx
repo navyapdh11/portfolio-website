@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -75,14 +77,11 @@ export default function Footer() {
             © {currentYear} AASTACLEAN. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
-            <a href="#" className="hover:text-sky-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-sky-400 transition-colors">Terms of Service</a>
+            <Link href="/privacy" className="hover:text-sky-400 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-sky-400 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
-    </footer>
-  );
-}      </div>
     </footer>
   );
 }
