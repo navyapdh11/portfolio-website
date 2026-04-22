@@ -65,7 +65,7 @@ interface SocialLink {
 }
 
 export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState<"bookings" | "quotes" | "customers" | "team" | "social">("bookings");
+  const [activeTab, setActiveTab] = useState<"bookings" | "quotes" | "customers" | "team" | "social" | "ai-audit">("bookings");
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
