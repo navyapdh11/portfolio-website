@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
-import { PriceCalculator } from "@/components/calculators/PriceCalculator";
-import { BookingFlow } from "@/components/booking/BookingFlow";
-import { FAQSection } from "@/components/content/FAQSection";
-import { ComplianceFooter } from "@/components/compliance/ComplianceFooter";
-import { cleaningServices } from "@/db/schema/services";
+import { QuoteCalculator } from "@/components/QuoteCalculator";
+import Booking from "@/components/Booking";
+
+const cleaningServices: any = {
+  "domestic-cleaning": { name: "Domestic Cleaning", slug: "domestic-cleaning", basePrice: { min: 50, max: 65 }, description: "Standard home cleaning" },
+  "end-of-lease-cleaning": { name: "End of Lease Cleaning", slug: "end-of-lease-cleaning", basePrice: { min: 450, max: 2000 }, description: "Bond-back cleaning" },
+};
 
 export default async function ServiceGeoPage({ 
   params 
@@ -24,12 +26,12 @@ export default async function ServiceGeoPage({
         <div className="grid lg:grid-cols-2 gap-12">
           <section className="space-y-6">
             <p className="text-lg text-slate-600 dark:text-slate-300">
-              {service.description} Servicing {city} with local expertise and professional care.
+              {service.description} Servicing {city} with local expertise.
             </p>
-            <PriceCalculator service={service} state={state} city={city} />
+            <QuoteCalculator />
           </section>
           <section>
-            <BookingFlow serviceId={service.slug} state={state} city={city} />
+            <Booking />
           </section>
         </div>
       </div>
@@ -39,5 +41,5 @@ export default async function ServiceGeoPage({
 
 export async function generateStaticParams() {
   const services = Object.keys(cleaningServices);
-  return services.map(service => ({ service }));
+  return services.map(service => ({ service, state: "wa", city: "perth" }));
 }
