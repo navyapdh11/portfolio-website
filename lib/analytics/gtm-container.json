@@ -1,0 +1,26 @@
+{
+  "containerVersion": {
+    "path": "containers/1",
+    "versionId": "1",
+    "name": "CleanPro AU GTM Container",
+    "tag": [
+      {
+        "tagId": "1",
+        "name": "GA4 Configuration",
+        "type": "googletagmanager",
+        "parameter": [
+          { "type": "template", "key": "measurementId", "value": "G-XXXXXXXXXX" }
+        ],
+        "firingTriggerId": ["2"]
+      }
+    ],
+    "trigger": [
+      {
+        "triggerId": "2",
+        "name": "All Pages",
+        "type": "pageview",
+        "customEventFilter": []
+      }
+    ]
+  }
+}
