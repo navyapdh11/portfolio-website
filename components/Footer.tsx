@@ -39,9 +39,9 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Company</h4>
             <ul className="space-y-3 text-sm">
               <li><a href="#about" className="hover:text-sky-400 transition-colors">About Us</a></li>
-              <li><a href="#coverage" className="hover:text-sky-400 transition-colors">Service Areas</a></li>
+              <li><Link href="/blog" className="hover:text-sky-400 transition-colors">Blog</Link></li>
+              <li><Link href="/events" className="hover:text-sky-400 transition-colors">Events</Link></li>
               <li><a href="#faq" className="hover:text-sky-400 transition-colors">FAQ</a></li>
-              <li><a href="#gallery" className="hover:text-sky-400 transition-colors">Gallery</a></li>
               <li><a href="#contact" className="hover:text-sky-400 transition-colors">Contact</a></li>
               <li><a href="/dashboard" className="hover:text-sky-400 transition-colors">Dashboard</a></li>
             </ul>
@@ -80,6 +80,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
+    </footer>
+  );
+}      </div>
     </footer>
   );
 }
