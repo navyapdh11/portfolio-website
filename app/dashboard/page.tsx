@@ -3,6 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import GalleryUpload from "@/components/dashboard/GalleryUpload";
+import { LaunchPulseDashboard } from "@/components/dashboard/LaunchPulseDashboard";
+
+// ... inside DashboardPage ...
+        <div className="mb-8">
+            <LaunchPulseDashboard />
+        </div>
 
 interface Booking {
   id: string;
