@@ -87,7 +87,7 @@ export function FAQSection() {
 
         <div className="mt-12 text-center">
           <p className="text-slate-600 dark:text-slate-400 mb-4">
-            Still have questions? We're here to help!
+            Still have questions? We&apos;re here to help!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="tel:1300253268" className="px-6 py-3 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors font-semibold">

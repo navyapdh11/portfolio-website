@@ -67,7 +67,7 @@ export default function Booking() {
         <div className="bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-2xl">
           {submitStatus === "success" && (
             <div className="mb-6 p-4 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg">
-              ✓ Booking request sent successfully! We'll contact you within 2 hours.
+              ✓ Booking request sent successfully! We&apos;ll contact you within 2 hours.
             </div>
           )}
 

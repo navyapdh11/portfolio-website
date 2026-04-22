@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-let projects = [
+const projects = [
   { id: "cbd-office", title: "CBD Office Tower - Commercial Complex", category: "Commercial Cleaning", location: "Perth CBD", description: "Complete weekly maintenance cleaning for a 20-story commercial tower.", before: "🏢" },
   { id: "west-leederville-home", title: "West Leederville Family Home", category: "Residential Cleaning", location: "West Leederville", description: "Regular fortnightly cleaning service.", before: "🏠" },
 ];

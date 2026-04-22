@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import GalleryUpload from "@/components/dashboard/GalleryUpload";
 
 interface Booking {
   id: string;
@@ -169,12 +171,12 @@ export default function DashboardPage() {
               <p className="text-slate-400 text-sm">Business Management Dashboard</p>
             </div>
             <div className="flex gap-3">
-              <a href="/projects" className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors">
+              <Link href="/projects" className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors">
                 View Projects
-              </a>
-              <a href="/" className="px-4 py-2 bg-sky-500 hover:bg-sky-600 rounded-lg font-medium transition-colors">
+              </Link>
+              <Link href="/" className="px-4 py-2 bg-sky-500 hover:bg-sky-600 rounded-lg font-medium transition-colors">
                 ← Back to Website
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -516,8 +518,6 @@ export default function DashboardPage() {
             </div>
 
             <div className="bg-slate-800 rounded-xl p-6">
-import GalleryUpload from "@/components/dashboard/GalleryUpload";
-...
                 {/* Community Work Gallery */}
                 <h3 className="text-lg font-semibold mb-6">Community Work Gallery</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

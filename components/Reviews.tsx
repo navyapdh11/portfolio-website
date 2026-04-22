@@ -72,7 +72,7 @@ export default function Reviews() {
             Customer <span className="text-blue-500">Reviews</span>
           </h2>
           <p className="text-zinc-600 dark:text-zinc-400 mt-4 max-w-2xl mx-auto">
-            Don't just take our word for it - hear from our satisfied customers
+            Don&apos;t just take our word for it - hear from our satisfied customers
           </p>
 
           {/* Rating Summary */}
