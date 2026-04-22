@@ -1,11 +1,7 @@
 import { notFound } from "next/navigation";
 import { QuoteCalculator } from "@/components/QuoteCalculator";
 import Booking from "@/components/Booking";
-
-const cleaningServices: any = {
-  "domestic-cleaning": { name: "Domestic Cleaning", slug: "domestic-cleaning", basePrice: { min: 50, max: 65 }, description: "Standard home cleaning" },
-  "end-of-lease-cleaning": { name: "End of Lease Cleaning", slug: "end-of-lease-cleaning", basePrice: { min: 450, max: 2000 }, description: "Bond-back cleaning" },
-};
+import { cleaningServices, australianCities } from "@/lib/constants/services";
 
 export default async function ServiceGeoPage({ 
   params 
@@ -13,7 +9,7 @@ export default async function ServiceGeoPage({
   params: Promise<{ service: string, state: string, city: string }> 
 }) {
   const { service: serviceSlug, state, city } = await params;
-  const service = cleaningServices[serviceSlug as keyof typeof cleaningServices];
+  const service = cleaningServices.find(s => s.slug === serviceSlug);
 
   if (!service) notFound();
 
@@ -26,7 +22,7 @@ export default async function ServiceGeoPage({
         <div className="grid lg:grid-cols-2 gap-12">
           <section className="space-y-6">
             <p className="text-lg text-slate-600 dark:text-slate-300">
-              {service.description} Servicing {city} with local expertise.
+              {service.name} services in {city} with local expertise.
             </p>
             <QuoteCalculator />
           </section>
@@ -40,6 +36,15 @@ export default async function ServiceGeoPage({
 }
 
 export async function generateStaticParams() {
-  const services = Object.keys(cleaningServices);
-  return services.map(service => ({ service, state: "wa", city: "perth" }));
+  const params = [];
+  for (const service of cleaningServices) {
+    for (const city of australianCities) {
+      params.push({
+        service: service.slug,
+        state: city.state,
+        city: city.slug
+      });
+    }
+  }
+  return params;
 }
