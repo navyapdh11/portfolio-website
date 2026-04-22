@@ -7,26 +7,7 @@ export function QuoteCalculator() {
   const [bedrooms, setBedrooms] = useState(3);
   const [bathrooms, setBathrooms] = useState(2);
   const [frequency, setFrequency] = useState("once");
-  const [aiSuggestion, setAiSuggestion] = useState("Analyzing your cleaning needs...");
-
-  const pricing = {
-    house: { base: 120, perBed: 25, perBath: 35 },
-    office: { base: 180, perBed: 0, perBath: 40 },
-    endoflease: { base: 200, perBed: 35, perBath: 45 },
-    carpet: { base: 90, perBed: 20, perBath: 0 },
-    window: { base: 80, perBed: 15, perBath: 20 },
-    deep: { base: 250, perBed: 40, perBath: 50 },
-  };
-
-  const discounts = {
-    weekly: 0.20,
-    biweekly: 0.15,
-    monthly: 0.10,
-    once: 0,
-  };
-
-  useEffect(() => {
-    // Generate Nanochat AI suggestion based on selection
+  const aiSuggestion = (() => {
     let msg = "Nanochat AI Suggests: ";
     if (serviceType === "office") {
       msg += frequency === "once" ? "For commercial spaces, a weekly schedule reduces dust buildup by 40% and includes a 20% discount!" : "Great choice! A regular office clean boosts employee productivity.";
@@ -45,8 +26,8 @@ export function QuoteCalculator() {
         msg += "A standard house clean covers all essential areas. Setting it to a weekly frequency will save you 20% off each visit.";
       }
     }
-    setAiSuggestion(msg);
-  }, [serviceType, bedrooms, bathrooms, frequency]);
+    return msg;
+  })();
 
   const calc = pricing[serviceType as keyof typeof pricing];
   const subtotal = calc.base + (bedrooms * calc.perBed) + (bathrooms * calc.perBath);

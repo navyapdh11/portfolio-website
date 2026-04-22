@@ -93,7 +93,7 @@ export default function MicrotasksContent() {
   ];
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setLeaderboard([
       { rank: 1, name: "Sarah W.", earnings: 245.50, tasks: 156, badge: "🥇" },
       { rank: 2, name: "James C.", earnings: 198.75, tasks: 134, badge: "🥈" },

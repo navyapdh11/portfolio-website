@@ -36,7 +36,7 @@ export default function EarnContent() {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setPayoutAmount(stats.pendingPayout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
