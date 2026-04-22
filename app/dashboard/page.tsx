@@ -124,6 +124,7 @@ export default function DashboardPage() {
   };
 
   const updateBookingStatus = async (id: string, newStatus: string) => {
+    setLoading(true);
     try {
       const res = await fetch(`/api/bookings/${id}`, {
         method: "PATCH",
@@ -132,13 +133,20 @@ export default function DashboardPage() {
       });
       if (res.ok) {
         setBookings(bookings.map(b => b.id === id ? { ...b, status: newStatus as Booking['status'] } : b));
+        console.log(`Booking ${id} updated to ${newStatus}`);
+      } else {
+        alert("Failed to update booking status");
       }
     } catch (error) {
       console.error("Failed to update booking:", error);
+      alert("Error occurred while updating booking");
+    } finally {
+      setLoading(false);
     }
   };
 
   const updateQuoteStatus = async (id: string, newStatus: string) => {
+    setLoading(true);
     try {
       const res = await fetch(`/api/quotes/${id}`, {
         method: "PATCH",
@@ -147,9 +155,15 @@ export default function DashboardPage() {
       });
       if (res.ok) {
         setQuotes(quotes.map(q => q.id === id ? { ...q, status: newStatus as Quote['status'] } : q));
+        console.log(`Quote ${id} updated to ${newStatus}`);
+      } else {
+        alert("Failed to update quote status");
       }
     } catch (error) {
       console.error("Failed to update quote:", error);
+      alert("Error occurred while updating quote");
+    } finally {
+      setLoading(false);
     }
   };
 
