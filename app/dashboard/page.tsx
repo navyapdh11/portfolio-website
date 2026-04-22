@@ -516,38 +516,38 @@ export default function DashboardPage() {
             </div>
 
             <div className="bg-slate-800 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-6">Community Work Gallery</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                  <div key={i} className="aspect-square bg-slate-700 rounded-lg flex items-center justify-center hover:bg-slate-600 cursor-pointer transition-colors group">
-                    <span className="text-4xl opacity-50 group-hover:opacity-100">📷</span>
-                  </div>
-                ))}
+import GalleryUpload from "@/components/dashboard/GalleryUpload";
+...
+                {/* Community Work Gallery */}
+                <h3 className="text-lg font-semibold mb-6">Community Work Gallery</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="aspect-square bg-slate-700 rounded-lg flex items-center justify-center hover:bg-slate-600 cursor-pointer transition-colors group">
+                      <span className="text-4xl opacity-50 group-hover:opacity-100">📷</span>
+                    </div>
+                  ))}
+                </div>
+                <GalleryUpload />
               </div>
-              <div className="mt-4 flex justify-center">
-                <button className="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors">
-                  Upload Photos
-                </button>
-              </div>
-            </div>
 
-            <div className="bg-slate-800 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <button className="p-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors text-center">
-                  📘 Post to Facebook
-                </button>
-                <button className="p-4 bg-pink-600 hover:bg-pink-700 rounded-lg font-medium transition-colors text-center">
-                  📸 Post to Instagram
-                </button>
-                <button className="p-4 bg-green-600 hover:bg-green-700 rounded-lg font-medium transition-colors text-center">
-                  ✉️ Send Newsletter
-                </button>
-                <button className="p-4 bg-orange-600 hover:bg-orange-700 rounded-lg font-medium transition-colors text-center">
-                  ⭐ Request Reviews
-                </button>
+              {/* Quick Actions */}
+              <div className="bg-slate-800 rounded-xl p-6">
+                <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <button onClick={() => window.open('https://facebook.com/aastaclean', '_blank')} className="p-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors text-center">
+                    📘 Post to Facebook
+                  </button>
+                  <button onClick={() => window.open('https://instagram.com/aastaclean', '_blank')} className="p-4 bg-pink-600 hover:bg-pink-700 rounded-lg font-medium transition-colors text-center">
+                    📸 Post to Instagram
+                  </button>
+                  <button onClick={() => alert("Newsletter feature under development")} className="p-4 bg-green-600 hover:bg-green-700 rounded-lg font-medium transition-colors text-center">
+                    ✉️ Send Newsletter
+                  </button>
+                  <button onClick={() => alert("Review request system triggered")} className="p-4 bg-orange-600 hover:bg-orange-700 rounded-lg font-medium transition-colors text-center">
+                    ⭐ Request Reviews
+                  </button>
+                </div>
               </div>
-            </div>
           </div>
         )}
       </main>
