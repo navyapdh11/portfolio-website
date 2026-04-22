@@ -11,8 +11,7 @@ const initialProjects = [
     location: "Perth CBD",
     description: "Complete weekly maintenance cleaning for a 20-story commercial tower including lobby, offices, and common areas.",
     services: ["Weekly Maintenance", "Deep Cleaning", "Window Cleaning", "Carpet Care"],
-    images: { before: "🏢", after: "✨" },
-    stats: { size: "50,000 sqm", frequency: "Weekly", staff: 8 },
+    before: "🏢", after: "✨",
     testimonial: "AASTACLEAN has maintained our building to the highest standards for over 3 years.",
     client: "Perth CBD Properties",
   },
@@ -23,22 +22,9 @@ const initialProjects = [
     location: "West Leederville",
     description: "Regular fortnightly cleaning service for a 4-bedroom family home including deep cleaning of kitchen and bathrooms.",
     services: ["Regular Cleaning", "Deep Clean", "Kitchen Sanitation", "Bathroom Treatment"],
-    images: { before: "🏠", after: "🌟" },
-    stats: { size: "280 sqm", frequency: "Fortnightly", staff: 2 },
+    before: "🏠", after: "🌟",
     testimonial: "Our home has never looked better. The team is reliable and thorough.",
     client: "Residential Client",
-  },
-  {
-    id: "subiaco-lease",
-    title: "Subiaco Apartment - End of Lease",
-    category: "End of Lease",
-    location: "Subiaco",
-    description: "Comprehensive end-of-lease clean for a 2-bedroom apartment ensuring full bond return. Includes carpet steam cleaning.",
-    services: ["End of Lease", "Carpet Steam Clean", "Wall Spot Removal", "Window Clean"],
-    images: { before: "🔑", after: "✅" },
-    stats: { size: "95 sqm", frequency: "One-time", staff: 2 },
-    testimonial: "Got full bond back! The place looked brand new. Highly recommend.",
-    client: "Tenant",
   },
 ];
 
@@ -75,6 +61,8 @@ export default function ProjectsPage() {
                   <input value={p.title} onChange={e => updateProject(p.id, 'title', e.target.value)} className="w-full font-bold border-b mb-2" />
                   <label className="block text-[10px] font-bold uppercase text-zinc-500">Description</label>
                   <textarea value={p.description} onChange={e => updateProject(p.id, 'description', e.target.value)} className="w-full text-sm border-b" />
+                  <label className="block text-[10px] font-bold uppercase text-zinc-500">Location</label>
+                  <input value={p.location} onChange={e => updateProject(p.id, 'location', e.target.value)} className="w-full text-sm border-b" />
                 </div>
               ))}
             </div>
@@ -88,11 +76,12 @@ export default function ProjectsPage() {
             {projects.map((project) => (
               <article key={project.id} className="bg-white dark:bg-zinc-700 rounded-2xl shadow-lg overflow-hidden">
                 <div className="h-48 bg-zinc-100 dark:bg-zinc-600 flex items-center justify-center text-6xl">
-                  {project.images.before}
+                  {project.before}
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-2">{project.title}</h3>
                   <p className="text-zinc-600 dark:text-zinc-300 text-sm mb-4">{project.description}</p>
+                  <div className="text-xs text-zinc-500">{project.location}</div>
                 </div>
               </article>
             ))}
