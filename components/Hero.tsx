@@ -19,7 +19,9 @@ export default function Hero() {
             <div className="text-center lg:text-left">
               <div className="inline-block px-4 py-2 bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 rounded-full text-sm font-semibold mb-6">📍 Perth Based • Since 2018</div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
-                Perth&apos;s Most <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-cyan-500">Trusted</span> Cleaning Service
+                <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+                  Australia's #1 <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-cyan-500">AI-Driven Cleaning Service</span>: Same-Day Domestic, Commercial & Bond-Back Experts
+                </h1>
               </h1>
               <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">Professional cleaning services with police-checked cleaners, 100% satisfaction guarantee, and eco-friendly products.</p>
               
