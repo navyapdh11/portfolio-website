@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-export function ScrollFix() {
+function ScrollFixInternal() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -25,4 +25,12 @@ export function ScrollFix() {
   }, [pathname, searchParams]);
 
   return null;
+}
+
+export function ScrollFix() {
+  return (
+    <Suspense fallback={null}>
+      <ScrollFixInternal />
+    </Suspense>
+  );
 }
