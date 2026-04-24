@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { FloatingHomeButton } from "@/components/FloatingHomeButton";
+import FloatingHomeButton from "@/components/FloatingHomeButton";
 
 export default function RootLayout({
   children,
