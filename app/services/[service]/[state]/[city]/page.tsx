@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { QuoteCalculator } from "@/components/QuoteCalculator";
 import Booking from "@/components/Booking";
 import { cleaningServices, australianCities } from "@/lib/constants/services";
+import { ClientCaseStudies } from "@/components/ClientCaseStudies";
 
 export default async function ServiceGeoPage({ 
   params 
@@ -25,7 +26,7 @@ export default async function ServiceGeoPage({
         <h1 className="text-4xl font-bold mb-6">
           {service.name} in {city.toUpperCase()}, {state.toUpperCase()}
         </h1>
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-12 mb-16">
           <section className="space-y-6">
             <p className="text-lg text-slate-600 dark:text-slate-300">
               {service.name} services in {city} with local expertise.
@@ -40,6 +41,7 @@ export default async function ServiceGeoPage({
             <Booking />
           </section>
         </div>
+        <ClientCaseStudies />
       </div>
     </main>
   );
