@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { QuoteCalculator } from "@/components/QuoteCalculator";
 import Booking from "@/components/Booking";
-import { cleaningServices, australianCities } from "@/lib/constants/services";
+import { cleaningServices } from "@/lib/constants/services";
 
 export default async function ServiceGeoPage({ 
   params 
@@ -24,6 +24,10 @@ export default async function ServiceGeoPage({
             <p className="text-lg text-slate-600 dark:text-slate-300">
               {service.name} services in {city} with local expertise.
             </p>
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800">
+                <h3 className="text-lg font-bold mb-2 text-blue-900 dark:text-blue-100">Why AASTACLEAN?</h3>
+                <p>We combine AI-driven booking precision with local experts. Our platform outranks local competitors in price transparency and bond-back reliability.</p>
+            </div>
             <QuoteCalculator />
           </section>
           <section>
