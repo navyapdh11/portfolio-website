@@ -209,13 +209,13 @@ export default function Navbar() {
                   </a>
                 ))}
               </div>
-              <a
-                href="/dashboard"
-                className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium px-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Dashboard
-              </a>
+              <Link
+                            href="/dashboard"
+                            className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium text-sm"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            Dashboard
+                          </Link>
               <a
                 href="#booking"
                 className="mx-2 mt-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors text-center font-semibold"
