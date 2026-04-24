@@ -1,99 +1,49 @@
 "use client";
 
 import { useState } from "react";
+import { serviceDetails } from "@/lib/constants/serviceDetails";
 
 interface BookingProps {
   serviceSlug?: string;
 }
 
-export default function Booking({ serviceSlug }: BookingProps) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    suburb: "",
-    state: "",
-    service: serviceSlug || "",
-    date: "",
-    frequency: "one-time",
-    message: "",
-    // Service-specific addons
-    ovenCleaning: false,
-    carpetSteam: false,
-    windowCleaning: false
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<string | null>(null);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const value = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value;
-    setFormData({
-      ...formData,
-      [e.target.name]: value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setSubmitStatus("success");
-    setTimeout(() => setSubmitStatus(null), 5000);
+export default function Booking({ serviceSlug = "domestic-cleaning" }: BookingProps) {
+  const details = serviceDetails[serviceSlug] || serviceDetails["domestic-cleaning"];
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+  
+  const toggleAddon = (value: string) => {
+    setSelectedAddons(prev => 
+      prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]
+    );
   };
 
   return (
-    <section id="booking" className="py-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-white">
-            Book Your <span className="text-blue-500 capitalize">{serviceSlug?.replace(/-/g, ' ')}</span>
-          </h2>
-        </div>
+    <section id="booking" className="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-8 border border-zinc-200 dark:border-zinc-800">
+      <h2 className="text-2xl font-bold mb-4 capitalize">{serviceSlug.replace(/-/g, ' ')} Booking</h2>
+      <p className="text-zinc-600 mb-6">{details.description}</p>
+      
+      <div className="mb-6">
+        <h4 className="font-semibold mb-3">Service Inclusions:</h4>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-zinc-600">
+          {details.included.map((item, i) => <li key={i}>✓ {item}</li>)}
+        </ul>
+      </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-2xl">
-          {submitStatus === "success" && (
-            <div className="mb-6 p-4 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg">
-              ✓ Booking request sent! We will contact you shortly.
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Common fields ... */}
-              <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Full Name" className="w-full px-4 py-3 border rounded-lg" />
-              <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="Email" className="w-full px-4 py-3 border rounded-lg" />
-            </div>
-
-            {/* Service-Specific Fields */}
-            {serviceSlug === 'end-of-lease-cleaning' && (
-              <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200">
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" name="carpetSteam" checked={formData.carpetSteam} onChange={handleChange} />
-                  Include Carpet Steam Cleaning (Recommended for bond back)
-                </label>
-              </div>
-            )}
-            
-            {serviceSlug === 'domestic-cleaning' && (
-              <div className="grid grid-cols-2 gap-4">
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" name="ovenCleaning" checked={formData.ovenCleaning} onChange={handleChange} /> Oven
-                </label>
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" name="windowCleaning" checked={formData.windowCleaning} onChange={handleChange} /> Windows
-                </label>
-              </div>
-            )}
-
-            <button type="submit" disabled={isSubmitting} className="w-full px-8 py-4 bg-blue-600 text-white rounded-lg">
-              {isSubmitting ? "Booking..." : "Submit Booking"}
+      <div className="mb-8">
+        <h4 className="font-semibold mb-3">Custom Add-ons:</h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {details.addons.map((addon) => (
+            <button 
+              key={addon.value}
+              onClick={() => toggleAddon(addon.value)}
+              className={`p-3 rounded-lg border text-left text-sm ${selectedAddons.includes(addon.value) ? 'border-blue-500 bg-blue-50' : 'border-zinc-200'}`}
+            >
+              {addon.label} (+$ {addon.price})
             </button>
-          </form>
+          ))}
         </div>
       </div>
+      {/* ... booking form fields ... */}
     </section>
   );
 }
