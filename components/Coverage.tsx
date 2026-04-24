@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Coverage() {
   const states = [
     { name: "NSW", suburbs: 3247, active: 2987, coverage: 92, color: "blue" },
@@ -64,8 +66,6 @@ export default function Coverage() {
             <p className="text-zinc-600 dark:text-zinc-400">
               Click to explore service availability by region
             </p>
-import Link from "next/link";
-// ... (rest of file)
             <Link
               href="/dashboard"
               className="inline-block mt-4 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
