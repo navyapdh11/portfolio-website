@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { serviceDetails } from "@/lib/constants/serviceDetails";
 import { BookingAddons } from "./booking/BookingAddons";
+import PaymentStep from "./booking/PaymentStep";
 
 interface BookingProps {
   serviceSlug?: string;
@@ -54,8 +55,32 @@ export default function Booking({ serviceSlug = "domestic-cleaning", state = "WA
           </button>
         </div>
       )}
-      
-      {/* Additional steps 2-4 implementation... */}
+
+      {step === 2 && (
+        <div className="space-y-4">
+          <h3 className="font-bold text-lg">Schedule Your Service</h3>
+          <input type="date" className="w-full p-3 border rounded-lg" onChange={(e) => setFormData({...formData, date: e.target.value})} />
+          <input type="text" placeholder="Preferred Time" className="w-full p-3 border rounded-lg" onChange={(e) => setFormData({...formData, time: e.target.value})} />
+          <button onClick={() => setStep(3)} className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700">
+            Continue to Contact
+          </button>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="space-y-4">
+          <h3 className="font-bold text-lg">Contact Information</h3>
+          <input type="text" placeholder="Full Name" className="w-full p-3 border rounded-lg" onChange={(e) => setFormData({...formData, name: e.target.value})} />
+          <input type="email" placeholder="Email Address" className="w-full p-3 border rounded-lg" onChange={(e) => setFormData({...formData, email: e.target.value})} />
+          <button onClick={() => setStep(4)} className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700">
+            Continue to Payment
+          </button>
+        </div>
+      )}
+
+      {step === 4 && (
+        <PaymentStep serviceSlug={serviceSlug} />
+      )}
     </section>
   );
 }
