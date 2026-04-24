@@ -138,12 +138,12 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-            <a
+            <Link
               href="/dashboard"
               className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium text-sm"
             >
               Dashboard
-            </a>
+            </Link>
             <a
               href="#booking"
               className="px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors font-semibold text-sm"
