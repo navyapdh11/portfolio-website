@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { QuoteCalculator } from "@/components/QuoteCalculator";
 import Booking from "@/components/Booking";
-import { cleaningServices } from "@/lib/constants/services";
+import { cleaningServices, australianCities } from "@/lib/constants/services";
 
 export default async function ServiceGeoPage({ 
   params 
