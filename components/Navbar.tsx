@@ -3,12 +3,26 @@
 import { useState, useEffect } from "react";
 
 const serviceLinks = [
-  { href: "/services/house-cleaning", label: "House Cleaning" },
+  { href: "/services/domestic-cleaning", label: "House Cleaning" },
   { href: "/services/end-of-lease-cleaning", label: "End of Lease Cleaning" },
   { href: "/services/commercial-cleaning", label: "Commercial Cleaning" },
+  { href: "/services/office-cleaning", label: "Office Cleaning" },
+  { href: "/services/industrial-cleaning", label: "Industrial Cleaning" },
+  { href: "/services/builders-cleaning", label: "Builders Cleaning" },
+  { href: "/services/retail-cleaning", label: "Retail Cleaning" },
+  { href: "/services/strata-cleaning", label: "Strata Cleaning" },
   { href: "/services/carpet-cleaning", label: "Carpet Cleaning" },
   { href: "/services/window-cleaning", label: "Window Cleaning" },
   { href: "/services/deep-cleaning", label: "Deep Cleaning" },
+  { href: "/services/move-in-out-cleaning", label: "Move In/Out Cleaning" },
+  { href: "/services/oven-cleaning", label: "Oven Cleaning" },
+  { href: "/services/upholstery-cleaning", label: "Upholstery Cleaning" },
+  { href: "/services/tile-grout-cleaning", label: "Tile & Grout Cleaning" },
+  { href: "/services/pressure-washing", label: "Pressure Washing" },
+  { href: "/services/disinfection-sanitization", label: "Disinfection & Sanitization" },
+  { href: "/services/laundry-services", label: "Laundry Services" },
+  { href: "/services/school-educational-cleaning", label: "School Cleaning" },
+  { href: "/services/medical-healthcare-cleaning", label: "Medical Cleaning" },
 ];
 
 const navLinks = [

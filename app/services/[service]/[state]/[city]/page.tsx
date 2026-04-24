@@ -9,7 +9,13 @@ export default async function ServiceGeoPage({
   params: Promise<{ service: string, state: string, city: string }> 
 }) {
   const { service: serviceSlug, state, city } = await params;
-  const service = cleaningServices.find(s => s.slug === serviceSlug);
+  
+  // Map friendly slug to internal taxonomy
+  const slugMap: Record<string, string> = {
+    "house-cleaning": "domestic-cleaning"
+  };
+  const actualSlug = slugMap[serviceSlug] || serviceSlug;
+  const service = cleaningServices.find(s => s.slug === actualSlug);
 
   if (!service) notFound();
 
