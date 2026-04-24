@@ -38,7 +38,7 @@ export default async function ServiceGeoPage({
             <QuoteCalculator />
           </section>
           <section>
-            <Booking />
+            <Booking serviceSlug={actualSlug} />
           </section>
         </div>
         <ClientCaseStudies />
