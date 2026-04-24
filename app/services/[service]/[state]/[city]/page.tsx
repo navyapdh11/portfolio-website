@@ -13,7 +13,8 @@ export default async function ServiceGeoPage({
   
   // Map friendly slug to internal taxonomy
   const slugMap: Record<string, string> = {
-    "house-cleaning": "domestic-cleaning"
+    "house-cleaning": "domestic-cleaning",
+    "end-of-lease-cleaning": "end-of-lease-cleaning"
   };
   const actualSlug = slugMap[serviceSlug] || serviceSlug;
   const service = cleaningServices.find(s => s.slug === actualSlug);
@@ -37,7 +38,7 @@ export default async function ServiceGeoPage({
             </div>
             <QuoteCalculator />
           </section>
-          <section>
+          <section id="booking">
             <Booking serviceSlug={actualSlug} />
           </section>
         </div>
