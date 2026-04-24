@@ -45,7 +45,7 @@ export default function Footer() {
               <li><Link href="/events" className="hover:text-sky-400 transition-colors">Events</Link></li>
               <li><a href="#faq" className="hover:text-sky-400 transition-colors">FAQ</a></li>
               <li><a href="#contact" className="hover:text-sky-400 transition-colors">Contact</a></li>
-              <li><a href="/dashboard" className="hover:text-sky-400 transition-colors">Dashboard</a></li>
+              <li><Link href="/dashboard" className="hover:text-sky-400 transition-colors">Dashboard</Link></li>
             </ul>
           </div>
 
