@@ -28,6 +28,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { FloatingHomeButton } from "@/components/FloatingHomeButton";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,6 +42,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ScrollFix />
+        <FloatingHomeButton />
         {children}
         <NanochatAssistant />
       </body>
