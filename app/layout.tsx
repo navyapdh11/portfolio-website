@@ -28,6 +28,9 @@ export const metadata: Metadata = {
   },
 };
 
+import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -42,6 +45,8 @@ export default function RootLayout({
         <ScrollFix />
         {children}
         <NanochatAssistant />
+        <Analytics />
+        <GoogleAnalytics gaId="G-XXXXXXXXXX" />
       </body>
     </html>
   );
