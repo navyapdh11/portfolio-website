@@ -3,10 +3,6 @@
 import { useState } from "react";
 import { serviceDetails } from "@/lib/constants/serviceDetails";
 
-interface CustomerDashboardProps {
-  // Add backend data fetching props here
-}
-
 export default function CustomerDashboard() {
   const [activeTab, setActiveTab] = useState("bookings");
 

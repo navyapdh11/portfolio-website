@@ -2,7 +2,18 @@
 
 import { useState } from "react";
 
-export default function PaymentStep({ formData, addons }: { formData: any, addons: string[] }) {
+interface PaymentStepProps {
+  formData: {
+    name: string;
+    email: string;
+    phone: string;
+    date: string;
+    time: string;
+  };
+  addons: string[];
+}
+
+export default function PaymentStep({ formData, addons }: PaymentStepProps) {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePayment = async () => {
