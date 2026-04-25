@@ -79,7 +79,7 @@ export default function Booking({ serviceSlug = "domestic-cleaning", state = "WA
       )}
 
       {step === 4 && (
-        <PaymentStep serviceSlug={serviceSlug} />
+        <PaymentStep formData={formData} addons={selectedAddons} />
       )}
     </section>
   );
