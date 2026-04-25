@@ -2,16 +2,16 @@ import Link from "next/link";
 
 export default function PricingPage() {
   const services = [
-    { name: "Domestic Cleaning", base: 50, model: "per hour" },
-    { name: "End of Lease Cleaning", base: 450, model: "per property" },
-    { name: "Commercial Cleaning", base: 45, model: "per hour" },
-    { name: "Office Cleaning", base: 55, model: "per hour" },
-    { name: "Industrial Cleaning", base: 65, model: "per hour" },
-    { name: "Builders Cleaning", base: 55, model: "per hour" },
-    { name: "Retail Cleaning", base: 50, model: "per hour" },
-    { name: "Strata Cleaning", base: 60, model: "per hour" },
-    { name: "Carpet Cleaning", base: 30, model: "per room" },
-    { name: "Window Cleaning", base: 40, model: "per pane" },
+    { name: "Domestic Cleaning", slug: "domestic-cleaning", base: 50, model: "per hour" },
+    { name: "End of Lease Cleaning", slug: "end-of-lease-cleaning", base: 450, model: "per property" },
+    { name: "Commercial Cleaning", slug: "commercial-cleaning", base: 45, model: "per hour" },
+    { name: "Office Cleaning", slug: "office-cleaning", base: 55, model: "per hour" },
+    { name: "Industrial Cleaning", slug: "industrial-cleaning", base: 65, model: "per hour" },
+    { name: "Builders Cleaning", slug: "builders-cleaning", base: 55, model: "per hour" },
+    { name: "Retail Cleaning", slug: "retail-cleaning", base: 50, model: "per hour" },
+    { name: "Strata Cleaning", slug: "strata-cleaning", base: 60, model: "per hour" },
+    { name: "Carpet Cleaning", slug: "carpet-cleaning", base: 30, model: "per room" },
+    { name: "Window Cleaning", slug: "window-cleaning", base: 40, model: "per pane" },
   ];
 
   return (
