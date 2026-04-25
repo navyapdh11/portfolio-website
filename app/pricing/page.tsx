@@ -22,7 +22,7 @@ export default function PricingPage() {
           {services.map((service) => (
             <div key={service.name} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
               <h3 className="text-xl font-bold mb-2">{service.name}</h3>
-              <p className="text-3xl font-bold text-blue-600 mb-4">${service.basePrice?.min || service.base}<span className="text-sm font-normal text-slate-500"> {service.model}</span></p>
+              <p className="text-3xl font-bold text-blue-600 mb-4">${service.base}<span className="text-sm font-normal text-slate-500"> {service.model}</span></p>
               <Link href={`/services/${service.slug || service.name.toLowerCase().replace(/ /g, '-')}`} className="block w-full py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-center font-medium">
                 View Service & Book
               </Link>
