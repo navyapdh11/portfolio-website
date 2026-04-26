@@ -7,7 +7,7 @@ export function BookingAddons({ serviceSlug, selectedAddons, toggleAddon }: {
   selectedAddons: string[], 
   toggleAddon: (v: string) => void 
 }) {
-  const details = serviceDetails[serviceSlug] || serviceDetails["domestic-cleaning"];
+  const details = serviceDetails[serviceSlug as keyof typeof serviceDetails] || serviceDetails["domestic-cleaning"];
 
   return (
     <div className="space-y-6">
