@@ -12,7 +12,7 @@ export default async function ServiceGeoPage({
 }) {
   const { service: serviceSlug, state, city } = await params;
   const service = cleaningServices.find(s => s.slug === serviceSlug);
-  const details = serviceDetails[serviceSlug];
+  const details = serviceDetails[serviceSlug as keyof typeof serviceDetails];
 
   if (!service) notFound();
 
