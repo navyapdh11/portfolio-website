@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export function QuoteCalculator() {
   const [serviceType, setServiceType] = useState("house");
   const [bedrooms, setBedrooms] = useState(3);
   const [bathrooms, setBathrooms] = useState(2);
   const [frequency, setFrequency] = useState("once");
+  
   const aiSuggestion = (() => {
     let msg = "Nanochat AI Suggests: ";
     if (serviceType === "office") {
@@ -124,30 +125,26 @@ export function QuoteCalculator() {
           </div>
         </div>
 
-        {/* AI Suggestion Display */}
         <div className="p-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 rounded-lg border border-indigo-200 dark:border-indigo-800 text-sm font-medium flex items-start gap-3 shadow-sm transition-all">
           <span className="text-xl animate-pulse">🤖</span>
           <p className="leading-relaxed">{aiSuggestion}</p>
         </div>
 
-        {/* Pricing Comparison */}
         <div className="mt-4 p-4 bg-slate-900 text-white rounded-lg text-xs space-y-2">
             <div className="font-bold uppercase text-sky-400">Competitive Efficiency Matrix</div>
             <div className="flex justify-between"><span>Boutique Avg</span> <span>+$145</span></div>
             <div className="flex justify-between font-bold"><span>CleanPro Enterprise</span> <span>-$60 Efficiency</span></div>
         </div>
+
+        <div className="p-4 bg-gradient-to-r from-sky-50 to-cyan-50 dark:from-sky-900/20 dark:to-cyan-900/20 rounded-lg border-2 border-sky-200 dark:border-sky-800">
           <div className="flex justify-between items-center mb-2">
             <span className="text-slate-600 dark:text-slate-400 text-sm">Base Price</span>
             <span className="text-slate-700 dark:text-slate-300 font-semibold">${calc.base}</span>
           </div>
-          {serviceType !== "office" && (
-            <>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-slate-600 dark:text-slate-400 text-sm">Additional Rooms</span>
-                <span className="text-slate-700 dark:text-slate-300 font-semibold">${subtotal - calc.base}</span>
-              </div>
-            </>
-          )}
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-slate-600 dark:text-slate-400 text-sm">Additional Rooms</span>
+            <span className="text-slate-700 dark:text-slate-300 font-semibold">${subtotal - calc.base}</span>
+          </div>
           {discount > 0 && (
             <div className="flex justify-between items-center mb-2 text-emerald-600">
               <span className="text-sm font-semibold">✓ Discount ({discount * 100}%)</span>
@@ -159,9 +156,6 @@ export function QuoteCalculator() {
               <span className="text-slate-900 dark:text-white font-bold text-lg">Estimated Total:</span>
               <span className="text-4xl font-bold text-sky-600">${total}</span>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-              *GST included. Final price confirmed after brief consultation.
-            </p>
           </div>
         </div>
 
