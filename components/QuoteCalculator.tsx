@@ -130,8 +130,12 @@ export function QuoteCalculator() {
           <p className="leading-relaxed">{aiSuggestion}</p>
         </div>
 
-        {/* Price Display */}
-        <div className="p-4 bg-gradient-to-r from-sky-50 to-cyan-50 dark:from-sky-900/20 dark:to-cyan-900/20 rounded-lg border-2 border-sky-200 dark:border-sky-800">
+        {/* Pricing Comparison */}
+        <div className="mt-4 p-4 bg-slate-900 text-white rounded-lg text-xs space-y-2">
+            <div className="font-bold uppercase text-sky-400">Competitive Efficiency Matrix</div>
+            <div className="flex justify-between"><span>Boutique Avg</span> <span>+$145</span></div>
+            <div className="flex justify-between font-bold"><span>CleanPro Enterprise</span> <span>-$60 Efficiency</span></div>
+        </div>
           <div className="flex justify-between items-center mb-2">
             <span className="text-slate-600 dark:text-slate-400 text-sm">Base Price</span>
             <span className="text-slate-700 dark:text-slate-300 font-semibold">${calc.base}</span>
