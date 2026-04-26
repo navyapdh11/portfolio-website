@@ -10,7 +10,7 @@ interface BookingProps {
 }
 
 export default function Booking({ serviceSlug = "domestic-cleaning", state = "WA", city = "Perth" }: BookingProps) {
-  const details = serviceDetails[serviceSlug] || serviceDetails["domestic-cleaning"];
+  const details = serviceDetails[serviceSlug as keyof typeof serviceDetails] || serviceDetails["domestic-cleaning"];
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
