@@ -1,3 +1,5 @@
+"use client";
+
 import { serviceDetails } from "@/lib/constants/serviceDetails";
 
 export function BookingAddons({ serviceSlug, selectedAddons, toggleAddon }: { 
@@ -5,26 +7,25 @@ export function BookingAddons({ serviceSlug, selectedAddons, toggleAddon }: {
   selectedAddons: string[], 
   toggleAddon: (v: string) => void 
 }) {
-  const details = serviceDetails[serviceSlug];
-  if (!details) return null;
+  const details = serviceDetails[serviceSlug] || serviceDetails["domestic-cleaning"];
 
   return (
-    <div className="space-y-4">
-      <h4 className="font-semibold text-lg">Custom Add-ons</h4>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <div className="space-y-6">
+      <h4 className="font-bold text-lg text-primary">Comprehensive Add-ons</h4>
+      <div className="grid grid-cols-1 gap-4">
         {details.addons.map((addon) => (
-          <button 
-            key={addon.value}
-            onClick={() => toggleAddon(addon.value)}
-            className={`p-4 rounded-xl border transition-all text-left ${
-              selectedAddons.includes(addon.value) 
-                ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20' 
-                : 'border-zinc-200 dark:border-zinc-700 hover:border-blue-300'
-            }`}
-          >
-            <div className="font-medium text-sm">{addon.label}</div>
-            <div className="text-xs text-zinc-500">+$ {addon.price}</div>
-          </button>
+          <div key={addon.value} className="flex items-center justify-between p-4 bg-zinc-50 dark:bg-zinc-800 rounded-xl border">
+            <div>
+              <p className="font-medium text-sm">{addon.label}</p>
+              <p className="text-xs text-zinc-500">${addon.price}</p>
+            </div>
+            <button 
+              onClick={() => toggleAddon(addon.value)}
+              className={`px-4 py-2 rounded-lg font-bold text-xs ${selectedAddons.includes(addon.value) ? 'bg-blue-600 text-white' : 'bg-zinc-200'}`}
+            >
+              {selectedAddons.includes(addon.value) ? 'Selected' : 'Add'}
+            </button>
+          </div>
         ))}
       </div>
     </div>

@@ -1,35 +1,21 @@
-import { cleaningServices } from "@/lib/constants/services";
-
-export const serviceDetails: Record<string, {
-  included: string[];
-  addons: { label: string, value: string, price: number }[];
-  description: string;
-}> = {
+export const serviceDetails = {
   "domestic-cleaning": {
-    description: "Our professional domestic cleaning ensures your home stays immaculate with our proven 50-point checklist.",
-    included: ["Dusting all surfaces", "Vacuuming & mopping", "Kitchen benchtop sanitization", "Bathroom deep clean", "Mirror polishing"],
+    description: "Standard home cleaning for immaculate results.",
+    included: ["Dusting", "Vacuuming", "Mopping", "Kitchen Sanitization"],
     addons: [
-      { label: "Oven Cleaning", value: "oven", price: 80 },
-      { label: "Internal Windows", value: "windows", price: 60 },
-      { label: "Inside Fridge", value: "fridge", price: 50 },
+      { label: "Window (Ground Floor)", value: "window_ground", price: 12 },
+      { label: "Window (2nd Floor)", value: "window_2nd", price: 20 },
+      { label: "Sliding Door", value: "sliding_door", price: 12 },
+      { label: "Hard Water Treatment", value: "calcium_removal", price: 15 },
     ]
   },
-  "end-of-lease-cleaning": {
-    description: "Strictly compliant with state residential tenancy laws, ensuring your bond is returned in full.",
-    included: ["Wall washing", "Inside kitchen cabinets", "Rangehood degreasing", "Exhaust fan cleaning", "Carpet steam cleaning", "Skirting boards"],
+  "window-cleaning": {
+    description: "Enterprise glass care.",
+    included: ["Streak-free cleaning", "Frame wipe", "Glass polishing"],
     addons: [
-      { label: "Carpet Steam (Extra Rooms)", value: "carpet", price: 40 },
-      { label: "Wall Spot Cleaning", value: "walls", price: 100 },
-      { label: "Garage Deep Clean", value: "garage", price: 90 },
+      { label: "French Window", value: "win_french", price: 20 },
+      { label: "Partitioned Window", value: "win_part", price: 18 },
+      { label: "Pressure Wash (sqm)", value: "pressure_wash", price: 2.5 }
     ]
-  },
-  "commercial-cleaning": {
-    description: "Enterprise-grade commercial cleaning for offices, ensuring professional presentation and WHS compliance.",
-    included: ["Common area sanitation", "Floor buffing", "Bin management", "Kitchen/Breakroom sanitization"],
-    addons: [
-      { label: "High-level Dusting", value: "high_dust", price: 150 },
-      { label: "Disinfection Fogging", value: "fogging", price: 200 },
-    ]
-  },
-  // ... maps to all 20 services
+  }
 };
