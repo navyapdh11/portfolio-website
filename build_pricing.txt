@@ -13,12 +13,14 @@
   Running TypeScript ...
 Failed to type check.
 
-./app/[state]/[suburb]/page.tsx:1:10
-Type error: Module '"next"' has no exported member 'notFound'. Did you mean to use 'import notFound from "next"' instead?
+./app/pricing/page.tsx:153:94
+Type error: Property 'name' does not exist on type '{ slug: string; base: number; model: string; unit: string; freq: string; popular: boolean; }'.
 
-[31m[1m>[0m [90m1 |[0m [36mimport[0m { notFound } [36mfrom[0m [32m"next"[0m;
-  [90m  |[0m          [31m[1m^[0m
-  [90m2 |[0m [36mimport[0m [36mtype[0m { [33mMetadata[0m } [36mfrom[0m [32m"next"[0m;
-  [90m3 |[0m [36mimport[0m { suburbsByState, getSuburbBySlug, [36mtype[0m [33mSuburb[0m } [36mfrom[0m [32m"@/lib/data/suburbs"[0m;
-  [90m4 |[0m [36mimport[0m { cleaningServices } [36mfrom[0m [32m"@/lib/constants/services"[0m;
+  [90m151 |[0m ...[32mex-col"[0m>
+  [90m152 |[0m ...
+[31m[1m>[0m [90m153 |[0m ...[32m text-slate-900 dark:text-white mb-1"[0m>{svc.name}</h3>
+  [90m    |[0m                                               [31m[1m^[0m
+  [90m154 |[0m ...[32m-500 dark:text-slate-400 mb-4"[0m>
+  [90m155 |[0m ..., [35m100[0m)}...
+  [90m156 |[0m ...
 Next.js build worker exited with code: 1 and signal: null
