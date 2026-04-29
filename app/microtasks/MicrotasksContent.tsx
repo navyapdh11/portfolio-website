@@ -108,7 +108,7 @@ export default function MicrotasksContent() {
       { rank: 4, name: "Mike T.", earnings: 165.00, tasks: 98, badge: "⭐" },
       { rank: 5, name: "Lisa K.", earnings: 142.50, tasks: 87, badge: "⭐" },
     ]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, []);
 
   const openTaskModal = (task: Task) => {
