@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -39,11 +41,11 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Company</h4>
             <ul className="space-y-3 text-sm">
               <li><a href="#about" className="hover:text-sky-400 transition-colors">About Us</a></li>
-              <li><a href="#coverage" className="hover:text-sky-400 transition-colors">Service Areas</a></li>
+              <li><Link href="/blog" className="hover:text-sky-400 transition-colors">Blog</Link></li>
+              <li><Link href="/events" className="hover:text-sky-400 transition-colors">Events</Link></li>
               <li><a href="#faq" className="hover:text-sky-400 transition-colors">FAQ</a></li>
-              <li><a href="#gallery" className="hover:text-sky-400 transition-colors">Gallery</a></li>
               <li><a href="#contact" className="hover:text-sky-400 transition-colors">Contact</a></li>
-              <li><a href="/dashboard" className="hover:text-sky-400 transition-colors">Dashboard</a></li>
+              <li><Link href="/dashboard" className="hover:text-sky-400 transition-colors">Dashboard</Link></li>
             </ul>
           </div>
 
@@ -75,8 +77,8 @@ export default function Footer() {
             © {currentYear} AASTACLEAN. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
-            <a href="#" className="hover:text-sky-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-sky-400 transition-colors">Terms of Service</a>
+            <Link href="/privacy" className="hover:text-sky-400 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-sky-400 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

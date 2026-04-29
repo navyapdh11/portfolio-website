@@ -7,6 +7,28 @@ export function QuoteCalculator() {
   const [bedrooms, setBedrooms] = useState(3);
   const [bathrooms, setBathrooms] = useState(2);
   const [frequency, setFrequency] = useState("once");
+  
+  const aiSuggestion = (() => {
+    let msg = "Nanochat AI Suggests: ";
+    if (serviceType === "office") {
+      msg += frequency === "once" ? "For commercial spaces, a weekly schedule reduces dust buildup by 40% and includes a 20% discount!" : "Great choice! A regular office clean boosts employee productivity.";
+    } else if (serviceType === "endoflease") {
+      msg += "End of lease cleaning guarantees bond return. Consider adding professional carpet cleaning if required by your lease.";
+    } else if (serviceType === "deep") {
+      msg += "Deep cleaning is perfect for spring. We recommend scheduling this comprehensive service twice a year.";
+    } else if (serviceType === "window") {
+      msg += "Spotless windows improve natural lighting by up to 30%. Highly recommended before house inspections.";
+    } else if (serviceType === "carpet") {
+      msg += "Professional hot water extraction removes allergens trapped deep in carpets.";
+    } else {
+      if (bedrooms > 3) {
+        msg += "For larger homes, a bi-weekly service helps maintain a pristine environment efficiently with a 15% discount.";
+      } else {
+        msg += "A standard house clean covers all essential areas. Setting it to a weekly frequency will save you 20% off each visit.";
+      }
+    }
+    return msg;
+  })();
 
   const pricing = {
     house: { base: 120, perBed: 25, perBath: 35 },
@@ -103,20 +125,26 @@ export function QuoteCalculator() {
           </div>
         </div>
 
-        {/* Price Display */}
+        <div className="p-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 rounded-lg border border-indigo-200 dark:border-indigo-800 text-sm font-medium flex items-start gap-3 shadow-sm transition-all">
+          <span className="text-xl animate-pulse">🤖</span>
+          <p className="leading-relaxed">{aiSuggestion}</p>
+        </div>
+
+        <div className="mt-4 p-4 bg-slate-900 text-white rounded-lg text-xs space-y-2">
+            <div className="font-bold uppercase text-sky-400">Competitive Efficiency Matrix</div>
+            <div className="flex justify-between"><span>Boutique Avg</span> <span>+$145</span></div>
+            <div className="flex justify-between font-bold"><span>CleanPro Enterprise</span> <span>-$60 Efficiency</span></div>
+        </div>
+
         <div className="p-4 bg-gradient-to-r from-sky-50 to-cyan-50 dark:from-sky-900/20 dark:to-cyan-900/20 rounded-lg border-2 border-sky-200 dark:border-sky-800">
           <div className="flex justify-between items-center mb-2">
             <span className="text-slate-600 dark:text-slate-400 text-sm">Base Price</span>
             <span className="text-slate-700 dark:text-slate-300 font-semibold">${calc.base}</span>
           </div>
-          {serviceType !== "office" && (
-            <>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-slate-600 dark:text-slate-400 text-sm">Additional Rooms</span>
-                <span className="text-slate-700 dark:text-slate-300 font-semibold">${subtotal - calc.base}</span>
-              </div>
-            </>
-          )}
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-slate-600 dark:text-slate-400 text-sm">Additional Rooms</span>
+            <span className="text-slate-700 dark:text-slate-300 font-semibold">${subtotal - calc.base}</span>
+          </div>
           {discount > 0 && (
             <div className="flex justify-between items-center mb-2 text-emerald-600">
               <span className="text-sm font-semibold">✓ Discount ({discount * 100}%)</span>
@@ -128,9 +156,6 @@ export function QuoteCalculator() {
               <span className="text-slate-900 dark:text-white font-bold text-lg">Estimated Total:</span>
               <span className="text-4xl font-bold text-sky-600">${total}</span>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-              *GST included. Final price confirmed after brief consultation.
-            </p>
           </div>
         </div>
 
@@ -139,7 +164,7 @@ export function QuoteCalculator() {
           if (bookingSection) {
             bookingSection.scrollIntoView({ behavior: 'smooth' });
           }
-        }} className="block w-full py-3 bg-gradient-to-r from-sky-500 to-cyan-500 text-white rounded-lg hover:from-sky-600 hover:to-cyan-600 transition-all font-bold text-center">
+        }} className="block w-full py-3 bg-gradient-to-r from-sky-500 to-cyan-500 text-white rounded-lg hover:from-sky-600 hover:to-cyan-600 transition-all font-bold text-center shadow-md">
           Book This Service →
         </a>
       </div>

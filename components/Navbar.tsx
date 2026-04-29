@@ -1,13 +1,37 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+
+const serviceLinks = [
+  { href: "/services/domestic-cleaning", label: "House Cleaning" },
+  { href: "/services/end-of-lease-cleaning", label: "End of Lease Cleaning" },
+  { href: "/services/commercial-cleaning", label: "Commercial Cleaning" },
+  { href: "/services/office-cleaning", label: "Office Cleaning" },
+  { href: "/services/industrial-cleaning", label: "Industrial Cleaning" },
+  { href: "/services/builders-cleaning", label: "Builders Cleaning" },
+  { href: "/services/retail-cleaning", label: "Retail Cleaning" },
+  { href: "/services/strata-cleaning", label: "Strata Cleaning" },
+  { href: "/services/carpet-cleaning", label: "Carpet Cleaning" },
+  { href: "/services/window-cleaning", label: "Window Cleaning" },
+  { href: "/services/deep-cleaning", label: "Deep Cleaning" },
+  { href: "/services/move-in-out-cleaning", label: "Move In/Out Cleaning" },
+  { href: "/services/oven-cleaning", label: "Oven Cleaning" },
+  { href: "/services/upholstery-cleaning", label: "Upholstery Cleaning" },
+  { href: "/services/tile-grout-cleaning", label: "Tile & Grout Cleaning" },
+  { href: "/services/pressure-washing", label: "Pressure Washing" },
+  { href: "/services/disinfection-sanitization", label: "Disinfection & Sanitization" },
+  { href: "/services/laundry-services", label: "Laundry Services" },
+  { href: "/services/school-educational-cleaning", label: "School Cleaning" },
+  { href: "/services/medical-healthcare-cleaning", label: "Medical Cleaning" },
+];
 
 const navLinks = [
   { href: "#home", label: "Home" },
-  { href: "#services", label: "Services" },
   { href: "/projects", label: "Projects" },
-  { href: "/microtasks", label: "Earn" },
-  { href: "/flashcards", label: "Strategy" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/blog", label: "Blog" },
+  { href: "/events", label: "Events" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -69,6 +93,31 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors text-sm font-medium"
+              >
+                Services
+                <svg className={`w-4 h-4 ml-1 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-zinc-800 rounded-xl shadow-lg border border-zinc-200 dark:border-zinc-700 py-2 z-50">
+                  {serviceLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className="block px-4 py-2 text-sm text-slate-600 hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-slate-300"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="relative">
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="flex items-center text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors"
               >
                 More
@@ -91,12 +140,12 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-            <a
+            <Link
               href="/dashboard"
               className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium text-sm"
             >
               Dashboard
-            </a>
+            </Link>
             <a
               href="#booking"
               className="px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors font-semibold text-sm"
@@ -161,13 +210,13 @@ export default function Navbar() {
                   </a>
                 ))}
               </div>
-              <a
-                href="/dashboard"
-                className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium px-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Dashboard
-              </a>
+              <Link
+                            href="/dashboard"
+                            className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium text-sm"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            Dashboard
+                          </Link>
               <a
                 href="#booking"
                 className="mx-2 mt-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors text-center font-semibold"

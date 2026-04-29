@@ -3,6 +3,15 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import GalleryUpload from "@/components/dashboard/GalleryUpload";
+<<<<<<< HEAD
+=======
+import { LaunchPulseDashboard } from "@/components/dashboard/LaunchPulseDashboard";
+
+// ... inside DashboardPage ...
+        <div className="mb-8">
+            <LaunchPulseDashboard />
+        </div>
+>>>>>>> origin/main
 
 interface Booking {
   id: string;
@@ -65,7 +74,7 @@ interface SocialLink {
 }
 
 export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState<"bookings" | "quotes" | "customers" | "team" | "social">("bookings");
+  const [activeTab, setActiveTab] = useState<"bookings" | "quotes" | "customers" | "team" | "social" | "ai-audit">("bookings");
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -123,6 +132,7 @@ export default function DashboardPage() {
   };
 
   const updateBookingStatus = async (id: string, newStatus: string) => {
+    setLoading(true);
     try {
       const res = await fetch(`/api/bookings/${id}`, {
         method: "PATCH",
@@ -131,13 +141,20 @@ export default function DashboardPage() {
       });
       if (res.ok) {
         setBookings(bookings.map(b => b.id === id ? { ...b, status: newStatus as Booking['status'] } : b));
+        console.log(`Booking ${id} updated to ${newStatus}`);
+      } else {
+        alert("Failed to update booking status");
       }
     } catch (error) {
       console.error("Failed to update booking:", error);
+      alert("Error occurred while updating booking");
+    } finally {
+      setLoading(false);
     }
   };
 
   const updateQuoteStatus = async (id: string, newStatus: string) => {
+    setLoading(true);
     try {
       const res = await fetch(`/api/quotes/${id}`, {
         method: "PATCH",
@@ -146,9 +163,15 @@ export default function DashboardPage() {
       });
       if (res.ok) {
         setQuotes(quotes.map(q => q.id === id ? { ...q, status: newStatus as Quote['status'] } : q));
+        console.log(`Quote ${id} updated to ${newStatus}`);
+      } else {
+        alert("Failed to update quote status");
       }
     } catch (error) {
       console.error("Failed to update quote:", error);
+      alert("Error occurred while updating quote");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -170,9 +193,13 @@ export default function DashboardPage() {
               <p className="text-slate-400 text-sm">Business Management Dashboard</p>
             </div>
             <div className="flex gap-3">
-              <a href="/projects" className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors">
+              <Link href="/projects" className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors">
                 View Projects
+<<<<<<< HEAD
               </a>
+=======
+              </Link>
+>>>>>>> origin/main
               <Link href="/" className="px-4 py-2 bg-sky-500 hover:bg-sky-600 rounded-lg font-medium transition-colors">
                 ← Back to Website
               </Link>
@@ -249,16 +276,34 @@ export default function DashboardPage() {
             👷 Team ({team.length})
           </button>
           <button
-            onClick={() => setActiveTab("social")}
+            onClick={() => setActiveTab("ai-audit")}
             className={`px-6 py-3 rounded-lg font-medium transition-all ${
-              activeTab === "social"
-                ? "bg-sky-500 text-white"
+              activeTab === "ai-audit"
+                ? "bg-indigo-600 text-white"
                 : "bg-slate-800 text-slate-300 hover:bg-slate-700"
             }`}
           >
-            📱 Social/CTA Config
+            🧠 AI Reasoning Audit
           </button>
         </div>
+
+        {activeTab === "ai-audit" && (
+          <div className="bg-slate-800 rounded-xl p-8 shadow-lg">
+            <h2 className="text-xl font-bold mb-6">Real-Time Reasoning Audit</h2>
+            <div className="space-y-4">
+              <button onClick={async () => {
+                const res = await fetch('/api/ai/audit', {
+                    method: 'POST',
+                    body: JSON.stringify({ query: 'Deep cleaning in Perth', location: 'Perth' })
+                });
+                const data = await res.json();
+                alert(JSON.stringify(data, null, 2));
+              }} className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-bold">
+                Run Reasoning Audit
+              </button>
+            </div>
+          </div>
+        )}
 
         {activeTab === "social" && (
           <div className="bg-slate-800 rounded-xl p-8 shadow-lg">
@@ -266,13 +311,21 @@ export default function DashboardPage() {
              <div className="space-y-6">
                 <div>
                    <label className="block text-sm font-semibold mb-2">CTA Title</label>
-                   <input className="w-full p-3 bg-slate-700 rounded-lg border border-slate-600" defaultValue="Ready to Work With Us?" />
+                   <input className="w-full p-3 bg-slate-700 rounded-lg border border-slate-600" defaultValue="Ready to Work With Us?" id="cta-title" />
                 </div>
                 <div>
                    <label className="block text-sm font-semibold mb-2">CTA Description</label>
-                   <textarea className="w-full p-3 bg-slate-700 rounded-lg border border-slate-600" defaultValue="Get a free quote for your cleaning project. Whether it's residential, commercial, or end-of-lease, we deliver exceptional results." />
+                   <textarea className="w-full p-3 bg-slate-700 rounded-lg border border-slate-600" defaultValue="Get a free quote for your cleaning project. Whether it's residential, commercial, or end-of-lease, we deliver exceptional results." id="cta-desc" />
                 </div>
-                <button className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold">Apply Changes</button>
+                <button onClick={async () => {
+                  const title = (document.getElementById('cta-title') as HTMLInputElement).value;
+                  const description = (document.getElementById('cta-desc') as HTMLTextAreaElement).value;
+                  await fetch('/api/config', {
+                    method: 'PATCH',
+                    body: JSON.stringify({ cta: { title, description } })
+                  });
+                  alert('CTA Updated');
+                }} className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold">Apply Changes</button>
              </div>
           </div>
         )}

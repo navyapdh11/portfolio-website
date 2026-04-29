@@ -9,6 +9,13 @@ export async function GET() {
   return NextResponse.json({ data: projects });
 }
 
+export async function POST(request: Request) {
+  const newProject = await request.json();
+  const project = { id: Date.now().toString(), ...newProject };
+  projects.push(project);
+  return NextResponse.json({ success: true, project });
+}
+
 export async function PATCH(request: Request) {
   const body = await request.json();
   const index = projects.findIndex(p => p.id === body.id);
@@ -17,4 +24,10 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ success: true, project: projects[index] });
   }
   return NextResponse.json({ success: false }, { status: 404 });
+}
+
+export async function DELETE(request: Request) {
+  const { id } = await request.json();
+  projects = projects.filter(p => p.id !== id);
+  return NextResponse.json({ success: true });
 }
