@@ -130,11 +130,11 @@ export default function Hero() {
                   </span>
                 </a>
                 <a
-                  href="tel:1300000000"
+                  href="tel:1300253268"
                   className="group px-8 py-4 glass-strong rounded-2xl font-bold text-lg text-slate-700 dark:text-slate-200 hover:bg-white/90 transition-all duration-300 hover:-translate-y-1 border border-white/30"
                 >
                   <span className="flex items-center justify-center gap-2">
-                    📞 1300 000 000
+                    📞 1300 CLEAN
                     <span className="text-xs text-slate-500 font-normal hidden sm:inline">Toll-Free</span>
                   </span>
                 </a>

@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/data/store';
 import { validateRequired, sanitize, sanitizeEmail } from '@/lib/middleware/validation';
+import { validateAuth } from '@/lib/middleware/auth';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const bookings = db.bookings.getAll();
   return NextResponse.json({ data: bookings });
 }

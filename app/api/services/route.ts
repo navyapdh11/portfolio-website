@@ -1,13 +1,18 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/data/store';
 import { validateRequired, sanitize } from '@/lib/middleware/validation';
+import { validateAuth } from '@/lib/middleware/auth';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const services = db.services.getAll();
   return NextResponse.json({ data: services });
 }
 
 export async function POST(request: Request) {
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const body = await request.json();
   const validation = validateRequired(body, ['title', 'basePrice']);
   if (!validation.success) return NextResponse.json({ error: validation.errors }, { status: 400 });
@@ -27,6 +32,8 @@ export async function POST(request: Request) {
 }
 
 export async function PATCH(request: Request) {
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const body = await request.json();
   if (!body.id) return NextResponse.json({ error: 'ID required' }, { status: 400 });
   const service = db.services.update(body.id, body);
@@ -35,6 +42,8 @@ export async function PATCH(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await request.json();
   if (!db.services.delete(id)) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   return NextResponse.json({ success: true });

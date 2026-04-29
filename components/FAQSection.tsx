@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     question: "Are your cleaners police checked and insured?",
-    answer: "Absolutely. Every CleanAgent cleaner has a current National Police Check. We also hold $20M public liability insurance, so you&apos;re fully protected. Certificates available on request.",
+    answer: "Absolutely. Every AASTACLEAN cleaner has a current National Police Check. We also hold $20M public liability insurance, so you&apos;re fully protected. Certificates available on request.",
   },
   {
     question: "What's your bond-back guarantee?",

@@ -37,9 +37,6 @@ const navLinks = [
 
 const dropdownLinks = [
   { href: "/contact", label: "Contact" },
-  { href: "/ads", label: "Ads Manager" },
-  { href: "/analytics", label: "Analytics" },
-  { href: "/flashcards", label: "Flashcards" },
 ];
 
 export default function Navbar() {
@@ -71,15 +68,9 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden lg:flex items-center flex-1 max-w-sm mx-8">
-            <div className="relative w-full">
-              <input
-                type="text"
-                placeholder="Search services..."
-                className="w-full bg-zinc-100 dark:bg-zinc-800 border-none rounded-full px-4 py-1.5 text-xs focus:ring-2 focus:ring-sky-500 text-zinc-900 dark:text-white pl-10"
-                aria-label="Search services"
-              />
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">🔍</span>
-            </div>
+            <Link href="/contact" className="px-5 py-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 rounded-full text-sm font-medium transition-colors border border-sky-500/20">
+              💬 Get a Free Quote
+            </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-6">
@@ -169,6 +160,7 @@ export default function Navbar() {
             className="md:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
           >
             <svg className="w-6 h-6 text-slate-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMenuOpen ? (

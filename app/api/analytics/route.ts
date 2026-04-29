@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
 import { getAnalytics, db } from '@/lib/data/store';
+import { validateAuth } from '@/lib/middleware/auth';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const analytics = getAnalytics();
   const bookingsByStatus = db.bookings.getAll().reduce((acc, b) => {
     acc[b.status] = (acc[b.status] || 0) + 1;

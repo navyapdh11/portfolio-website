@@ -17,7 +17,7 @@ const reviews = [
     name: "Michael Chen",
     location: "South Yarra, VIC",
     rating: 5,
-    text: "We use CleanAgent for our office every week. Consistent quality, friendly staff, and reasonable prices. Best cleaning service we&apos;ve ever used.",
+    text: "We use AASTACLEAN for our office every week. Consistent quality, friendly staff, and reasonable prices. Best cleaning service we&apos;ve ever used.",
     service: "Commercial Cleaning",
     avatar: "👨",
   },

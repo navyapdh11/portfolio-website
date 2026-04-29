@@ -3,7 +3,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
-const ADMIN_TOKEN = process.env.ADMIN_SECRET || 'aasta-clean-admin-2026';
+const ADMIN_TOKEN = process.env.ADMIN_SECRET;
 const CUSTOMER_TOKEN_PREFIX = 'cust_';
 
 export interface AuthUser {
@@ -13,7 +13,8 @@ export interface AuthUser {
   email: string;
 }
 
-export function validateAuth(request: NextRequest): AuthUser | null {
+export function validateAuth(request: Request): AuthUser | null {
+  if (!ADMIN_TOKEN) return null;
   const authHeader = request.headers.get('authorization');
   if (!authHeader?.startsWith('Bearer ')) return null;
 
@@ -35,7 +36,7 @@ export function withAuth(handler: (request: NextRequest, user: AuthUser) => Prom
   return async (request: NextRequest) => {
     const user = validateAuth(request);
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized — ADMIN_SECRET not set or invalid token' }, { status: 401 });
     }
     if (requiredRole && user.role !== requiredRole) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
