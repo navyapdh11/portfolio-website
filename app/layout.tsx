@@ -15,13 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AASTACLEAN | AI-Native Cleaning Services in Perth WA",
-  description: "2026 Enterprise-grade cleaning services in Perth, Western Australia. Powered by Nanochat AI. Contact: 51 Tate Street, West Leederville 6007.",
-  keywords: "cleaning services, Perth WA, AI-native cleaning, nanochat, house cleaning, end of lease cleaning, commercial cleaning, AASTACLEAN",
+  title: "AASTACLEAN | Australia's Premier Cleaning Services — Nationwide Coverage",
+  description: "Enterprise-grade cleaning services across all Australian states. 20+ specialist services, 8,000+ suburbs, police-checked & fully insured. Book online today.",
+  keywords: "cleaning services Australia, end of lease cleaning, commercial cleaning, domestic cleaning, carpet cleaning, window cleaning, nationwide cleaning, AASTACLEAN",
   authors: [{ name: "AASTACLEAN" }],
   openGraph: {
-    title: "AASTACLEAN | AI-Native Professional Cleaning Services in Perth",
-    description: "Enterprise-grade cleaning services powered by Next-Gen AI models. Residential, commercial & end-of-lease cleaning.",
+    title: "AASTACLEAN | Australia's Premier Cleaning Network",
+    description: "Enterprise-grade cleaning services across all Australian states. 20+ specialist services, 8,000+ suburbs, police-checked & fully insured.",
     type: "website",
     locale: "en_AU",
     siteName: "AASTACLEAN",

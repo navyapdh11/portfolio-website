@@ -1,0 +1,320 @@
+// Australian suburbs database — AASTACLEAN enterprise SEO/GEO coverage
+// Real postcodes from ABS 2021 + Data.gov.au
+
+export interface Suburb { name: string; slug: string; postcode: string; state: string; }
+export interface State { name: string; slug: string; abbr: string; }
+
+export const states: State[] = [
+  { name: "New South Wales", slug: "nsw", abbr: "NSW" },
+  { name: "Victoria", slug: "vic", abbr: "VIC" },
+  { name: "Queensland", slug: "qld", abbr: "QLD" },
+  { name: "Western Australia", slug: "wa", abbr: "WA" },
+  { name: "South Australia", slug: "sa", abbr: "SA" },
+  { name: "Tasmania", slug: "tas", abbr: "TAS" },
+  { name: "Australian Capital Territory", slug: "act", abbr: "ACT" },
+  { name: "Northern Territory", slug: "nt", abbr: "NT" },
+];
+
+// Compact suburb generator: [name, postcode]
+const S = (n: string, p: string, st: string): Suburb => ({
+  name: n, slug: n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""), postcode: p, state: st
+});
+
+// NSW — Sydney Metro + Regional
+const nswRaw = [
+  ["Sydney","2000"],["Bondi","2026"],["Bondi Junction","2022"],["Bronte","2024"],["Clovelly","2031"],
+  ["Coogee","2034"],["Darlinghurst","2010"],["Double Bay","2028"],["Elizabeth Bay","2011"],
+  ["Kingsford","2032"],["Kingsgrove","2208"],["Kirribilli","2061"],["Lane Cove","2066"],
+  ["Manly","2095"],["Maroubra","2035"],["Mascot","2020"],["Milsons Point","2061"],
+  ["Mosman","2088"],["Neutral Bay","2089"],["Newtown","2042"],["North Sydney","2060"],
+  ["Paddington","2021"],["Parramatta","2150"],["Pyrmont","2009"],["Randwick","2031"],
+  ["Redfern","2016"],["Rhodes","2138"],["Rockdale","2216"],["Roseville","2069"],
+  ["Ryde","2112"],["Strathfield","2135"],["Surry Hills","2010"],["Woollahra","2025"],
+  ["Zetland","2017"],["Chatswood","2067"],["Hurstville","2220"],["Bankstown","2200"],
+  ["Blacktown","2148"],["Campbelltown","2560"],["Castle Hill","2154"],["Eastwood","2122"],
+  ["Epping","2121"],["Fairfield","2165"],["Homebush","2140"],["Liverpool","2170"],
+  ["Manly Vale","2093"],["North Ryde","2113"],["Penrith","2750"],["Sutherland","2232"],
+  ["Dee Why","2099"],["Collaroy","2097"],["Narrabeen","2101"],["Mona Vale","2103"],
+  ["Avalon","2107"],["Palm Beach","2108"],["Terrey Hills","2084"],["Dural","2158"],
+  ["Baulkham Hills","2153"],["Carlingford","2118"],["Kellyville","2155"],["Gordon","2072"],
+  ["Eastgardens","2036"],["Glebe","2037"],["Annandale","2038"],["Balmain","2041"],
+  ["Rozelle","2039"],["Leichhardt","2040"],["Concord","2137"],["Burwood","2134"],
+  ["Ashfield","2131"],["Cabramatta","2166"],["Canley Vale","2166"],["Mount Druitt","2770"],
+  ["St Marys","2760"],["Rooty Hill","2766"],["Wollongong","2500"],["Fairlight","2094"],
+  ["Curl Curl","2096"],["Freshwater","2096"],["Queenscliff","2096"],["Warriewood","2102"],
+  ["St Ives","2075"],["Turramurra","2074"],["Wahroonga","2076"],["Normanhurst","2076"],
+  ["Waitara","2077"],["Asquith","2077"],["Hornsby","2077"],["Mount Colah","2079"],
+  ["Caringbah","2229"],["Cronulla","2230"],["Bundeena","2230"],["Lilli Pilli","2229"],
+  ["Kurnell","2231"],["Woy Woy","2256"],["Erina","2250"],["Terrigal","2260"],
+  ["Avoca Beach","2251"],["Toukley","2263"],["Budgewoi","2262"],["The Entrance","2261"],
+  ["Gorokan","2263"],["Lake Haven","2263"],["Gosford","2250"],["Point Clare","2250"],
+  ["Newport","2106"],["Bayview","2104"],["Church Point","2105"],["Ingleside","2101"],
+  ["Bilgola","2107"],["Clareville","2107"],["Whale Beach","2107"],["Barrenjoey","2108"],
+  ["Bowral","2576"],["Mittagong","2575"],["Moss Vale","2577"],["Goulburn","2580"],
+  ["Queanbeyan","2620"],["Yass","2582"],["Cooma","2630"],["Jindabyne","2627"],
+  ["Bega","2550"],["Merimbula","2548"],["Narooma","2546"],["Batemans Bay","2536"],
+  ["Nowra","2541"],["Berry","2535"],["Kiama","2533"],["Shellharbour","2529"],
+  ["Albury","2640"],["Wagga Wagga","2650"],["Griffith","2680"],["Dubbo","2830"],
+  ["Orange","2800"],["Bathurst","2795"],["Lithgow","2790"],["Katoomba","2780"],
+  ["Richmond","2753"],["Windsor","2756"],["Tamworth","2340"],["Armidale","2350"],
+  ["Bellevue Hill","2023"],["Dover Heights","2030"],["Rose Bay","2029"],["Vaucluse","2030"],
+  ["Watsons Bay","2030"],["Point Piper","2027"],["Darling Point","2027"],["Edgecliff","2027"],
+  ["Rushcutters Bay","2011"],["Potts Point","2011"],["Woolloomooloo","2011"],
+  ["Haymarket","2000"],["Ultimo","2007"],["Camperdown","2050"],["Stanmore","2048"],
+  ["Lewisham","2049"],["Petersham","2049"],["Summer Hill","2130"],["Dulwich Hill","2203"],
+  ["Marrickville","2204"],["Tempe","2044"],["Sydenham","2044"],["St Peters","2044"],
+  ["Alexandria","2015"],["Waterloo","2017"],["Beaconsfield","2015"],["Rosebery","2018"],
+  ["Eastlakes","2018"],["Banksmeadow","2011"],["Botany","2019"],["Hillsdale","2036"],
+  ["Pagewood","2035"],["Daceyville","2032"],["Kensington","2033"],["Chifley","2036"],
+  ["La Perouse","2036"],["Little Bay","2036"],["Matraville","2036"],["Malabar","2036"],
+];
+export const nsw = nswRaw.map(([n, p]) => S(n, p, "nsw"));
+
+// VIC — Melbourne Metro + Regional
+const vicRaw = [
+  ["Melbourne","3000"],["South Yarra","3141"],["Richmond","3121"],["Hawthorn","3122"],
+  ["Kew","3101"],["Camberwell","3124"],["Box Hill","3128"],["Glen Waverley","3150"],
+  ["Brighton","3186"],["St Kilda","3182"],["Southbank","3006"],["Docklands","3008"],
+  ["Carlton","3053"],["Fitzroy","3065"],["Collingwood","3066"],["Abbotsford","3067"],
+  ["Northcote","3070"],["Thornbury","3071"],["Preston","3072"],["Reservoir","3073"],
+  ["Coburg","3058"],["Brunswick","3056"],["Pascoe Vale","3044"],["Essendon","3040"],
+  ["Moonee Ponds","3039"],["Flemington","3031"],["Kensington","3031"],["Footscray","3011"],
+  ["Yarraville","3013"],["Williamstown","3016"],["Altona","3018"],["Newport","3015"],
+  ["Seddon","3011"],["Sunshine","3020"],["St Albans","3021"],["Deer Park","3023"],
+  ["Caroline Springs","3023"],["Tarneit","3029"],["Werribee","3030"],["Hoppers Crossing","3029"],
+  ["Point Cook","3030"],["Williams Landing","3027"],["Truganina","3029"],
+  ["Dandenong","3175"],["Springvale","3171"],["Noble Park","3174"],["Clayton","3168"],
+  ["Oakleigh","3166"],["Hughesdale","3166"],["Chadstone","3148"],["Malvern","3144"],
+  ["Armadale","3143"],["Toorak","3142"],["South Melbourne","3205"],["Port Melbourne","3207"],
+  ["Middle Park","3206"],["Albert Park","3206"],["Elwood","3184"],["Balaclava","3183"],
+  ["Elsternwick","3185"],["Caulfield","3162"],["Carnegie","3163"],["Murrumbeena","3163"],
+  ["Bentleigh","3204"],["McKinnon","3204"],["Ormond","3204"],["Hampton","3188"],
+  ["Sandringham","3191"],["Black Rock","3193"],["Beaumaris","3193"],["Mentone","3194"],
+  ["Mordialloc","3195"],["Aspendale","3195"],["Cheltenham","3192"],["Highett","3190"],
+  ["Parkdale","3195"],["Bonbeach","3196"],["Carrum","3197"],["Patterson Lakes","3197"],
+  ["Cranbourne","3977"],["Berwick","3806"],["Narre Warren","3805"],["Fountain Gate","3805"],
+  ["Endeavour Hills","3802"],["Rowville","3178"],["Ferntree Gully","3156"],
+  ["Ringwood","3134"],["Croydon","3136"],["Lilydale","3140"],["Healesville","3777"],
+  ["Geelong","3220"],["South Geelong","3220"],["Newtown","3220"],["Belmont","3216"],
+  ["Grovedale","3216"],["Waurn Ponds","3216"],["Highton","3216"],["Armstrong Creek","3217"],
+  ["Drysdale","3222"],["Clifton Springs","3222"],["Portarlington","3223"],
+  ["Torquay","3228"],["Anglesea","3230"],["Lorne","3232"],["Apollo Bay","3233"],
+  ["Colac","3250"],["Ballarat","3350"],["Wendouree","3355"],["Alfredton","3350"],
+  ["Delacombe","3356"],["Lucas","3350"],["Creswick","3363"],["Daylesford","3460"],
+  ["Kyneton","3444"],["Bendigo","3550"],["Eaglehawk","3556"],["Castlemaine","3450"],
+  ["Mildura","3500"],["Swan Hill","3585"],["Horsham","3400"],["Wangaratta","3677"],
+  ["Shepparton","3630"],["Traralgon","3844"],["Morwell","3840"],["Sale","3850"],
+  ["Warragul","3825"],["Drouin","3818"],["Wonthaggi","3995"],
+  ["Frankston","3199"],["Mornington","3931"],["Mt Eliza","3930"],["Hastings","3915"],
+  ["Somerville","3912"],["Baxter","3911"],["Langwarrin","3910"],["Seaford","3198"],
+  ["Carrum Downs","3201"],["Skye","3977"],["Sunbury","3429"],["Craigieburn","3064"],
+  ["Roxburgh Park","3064"],["Coolaroo","3048"],["Meadow Heights","3048"],
+  ["Broadmeadows","3047"],["Glenroy","3046"],["Oak Park","3046"],
+  ["Airport West","3042"],["Niddrie","3042"],["Keilor","3036"],["Taylors Lakes","3038"],
+  ["Sydenham","3037"],["Watergardens","3037"],["Hillside","3037"],
+  ["Phillip Island","3922"],["Cowes","3922"],["San Remo","3925"],
+];
+export const vic = vicRaw.map(([n, p]) => S(n, p, "vic"));
+
+// QLD
+const qldRaw = [
+  ["Brisbane","4000"],["South Brisbane","4101"],["West End","4101"],["Fortitude Valley","4006"],
+  ["New Farm","4005"],["Teneriffe","4005"],["Newstead","4006"],["Bowen Hills","4006"],
+  ["Herston","4006"],["Kelvin Grove","4059"],["Paddington","4064"],["Milton","4064"],
+  ["Toowong","4066"],["Indooroopilly","4068"],["Taringa","4068"],["St Lucia","4067"],
+  ["Kenmore","4069"],["Chapel Hill","4069"],["Fig Tree Pocket","4069"],["Brookfield","4069"],
+  ["Ashgrove","4060"],["The Gap","4061"],["Alderley","4051"],["Wilston","4051"],
+  ["Grange","4051"],["Lutwyche","4030"],["Windsor","4030"],["Wooloowin","4030"],
+  ["Clayfield","4011"],["Ascot","4007"],["Hamilton","4007"],["Eagle Farm","4009"],
+  ["Nudgee","4014"],["Boondall","4034"],["Geebung","4034"],["Zillmere","4034"],["Taigum","4018"],
+  ["Dakabin","4503"],["Deception Bay","4508"],["Redcliffe","4020"],["Woody Point","4019"],
+  ["Margate","4019"],["Clontarf","4019"],["Scarborough","4020"],["Rothwell","4022"],
+  ["Kippa-Ring","4021"],["Mango Hill","4509"],["North Lakes","4509"],
+  ["Burpengary","4505"],["Caboolture","4510"],["Morayfield","4506"],
+  ["Gold Coast","4217"],["Surfers Paradise","4217"],["Broadbeach","4218"],
+  ["Mermaid Beach","4218"],["Burleigh Heads","4220"],["Burleigh Waters","4220"],
+  ["Varsity Lakes","4227"],["Robina","4226"],["Main Beach","4217"],["Southport","4215"],
+  ["Labrador","4215"],["Runaway Bay","4216"],["Hollywell","4216"],["Biggera Waters","4216"],
+  ["Hope Island","4212"],["Paradise Point","4216"],["Palm Beach","4221"],
+  ["Tugun","4224"],["Coolangatta","4225"],["Kirra","4225"],["Bilinga","4225"],
+  ["Currumbin","4223"],["Elanora","4221"],["Mudgeeraba","4213"],["Springbrook","4213"],
+  ["Worongary","4213"],["Tallai","4213"],["Gaven","4211"],["Nerang","4211"],["Benowa","4211"],
+  ["Arundel","4214"],["Parkwood","4214"],["Molendinar","4214"],["Oxenford","4210"],
+  ["Wynnum","4178"],["Manly","4179"],["Lota","4179"],["Tingalpa","4179"],
+  ["Murarrie","4172"],["Cannon Hill","4170"],["Bulimba","4171"],["Balmoral","4171"],
+  ["Hawthorne","4171"],["Carindale","4152"],["Belmont","4153"],["Chandler","4155"],
+  ["Mackenzie","4156"],["Rochedale","4123"],["Daisy Hill","4127"],["Underwood","4119"],
+  ["Logan Central","4114"],["Woodridge","4114"],["Marsden","4132"],["Springwood","4127"],
+  ["Eight Mile Plains","4113"],["Upper Mount Gravatt","4122"],["Mount Gravatt","4122"],
+  ["Sunnybank","4109"],["Sunnybank Hills","4109"],["Algester","4114"],
+  ["Parkinson","4115"],["Calamvale","4116"],["Stretton","4116"],
+  ["Carina","4152"],["Norman Park","4170"],["Greenslopes","4120"],["Woolloongabba","4102"],
+  ["East Brisbane","4169"],["Kangaroo Point","4169"],["Camp Hill","4152"],["Coorparoo","4151"],
+  ["Ipswich","4305"],["Goodna","4300"],["Redbank Plains","4301"],["Springfield","4300"],
+  ["Springfield Lakes","4300"],["Toowoomba","4350"],["Warwick","4370"],
+  ["Kingaroy","4610"],["Gympie","4570"],["Maryborough","4650"],["Hervey Bay","4655"],
+  ["Scarness","4655"],["Pialba","4655"],["Torquay","4655"],["Urangan","4655"],
+  ["Maroochydore","4558"],["Mooloolaba","4557"],["Alexandra Headland","4572"],
+  ["Buddina","4575"],["Kawana","4575"],["Caloundra","4551"],["Golden Beach","4551"],
+  ["Pelican Waters","4551"],["Beerwah","4519"],["Noosa Heads","4567"],
+  ["Noosaville","4566"],["Cooroy","4563"],["Pomona","4568"],
+];
+export const qld = qldRaw.map(([n, p]) => S(n, p, "qld"));
+
+// WA
+const waRaw = [
+  ["Perth","6000"],["Fremantle","6160"],["South Perth","6151"],["Subiaco","6008"],
+  ["West Leederville","6007"],["Northbridge","6003"],["East Perth","6004"],["West Perth","6005"],
+  ["Leederville","6007"],["Highgate","6003"],["Mount Lawley","6050"],["Inglewood","6052"],
+  ["Bedford","6052"],["Yokine","6060"],["Tuart Hill","6060"],["Osborne Park","6017"],
+  ["Stirling","6021"],["Balga","6061"],["Warwick","6024"],["Greenwood","6024"],
+  ["Joondalup","6027"],["Edgewater","6027"],["Currambine","6028"],["Clarkson","6030"],
+  ["Butler","6036"],["Ridgewood","6030"],["Rockingham","6168"],["Waikiki","6169"],
+  ["Secret Harbour","6173"],["Port Kennedy","6173"],["Singleton","6173"],["Golden Bay","6177"],
+  ["Mandurah","6210"],["Falcon","6210"],["Greenfields","6210"],["Halls Head","6210"],
+  ["Bunbury","6230"],["Carey Park","6230"],["Withers","6230"],["Eaton","6232"],["Australind","6233"],
+  ["Busselton","6280"],["Dunsborough","6281"],["Yallingup","6294"],["Margaret River","6285"],
+  ["Cowaramup","6284"],["Augusta","6290"],["Pemberton","6260"],
+  ["Armadale","6112"],["Kelmscott","6111"],["Roleystone","6111"],
+  ["Canning Vale","6155"],["Willetton","6155"],["Bateman","6150"],["Bull Creek","6149"],
+  ["Lynwood","6147"],["Riverton","6148"],["Rossmoyne","6155"],["Shelley","6148"],
+  ["Applecross","6153"],["Ardross","6153"],["Myaree","6154"],["Melville","6156"],
+  ["Palmyra","6157"],["North Fremantle","6159"],["Beaconsfield","6162"],["Hilton","6163"],
+  ["South Fremantle","6162"],["O'Connor","6163"],["Spearwood","6163"],["Hamilton Hill","6163"],
+  ["Bibra Lake","6163"],["Success","6164"],["Hammond Park","6164"],["Aubin Grove","6164"],
+  ["Forrestdale","6112"],["Harrisdale","6112"],["Piara Waters","6112"],
+  ["Joondanna","6060"],["Wembley","6014"],["Jolimont","6014"],["Floreat","6014"],
+  ["City Beach","6015"],["Wembley Downs","6019"],["Swanbourne","6010"],["Claremont","6010"],
+  ["Nedlands","6009"],["Dalkeith","6009"],["Crawley","6008"],["Shenton Park","6008"],
+  ["Daglish","6008"],["Mount Claremont","6010"],
+  ["Midland","6056"],["Guildford","6055"],["Bayswater","6053"],["Embleton","6053"],
+  ["Morley","6062"],["Noranda","6062"],["Ellenbrook","6069"],["Aveley","6069"],
+  ["The Vines","6069"],["Kalgoorlie","6430"],["Geraldton","6530"],["Carnarvon","6701"],
+  ["Exmouth","6707"],["Broome","6725"],["Karratha","6714"],["Port Hedland","6721"],
+  ["South Hedland","6722"],["Dampier","6713"],["Wickham","6714"],
+];
+export const wa = waRaw.map(([n, p]) => S(n, p, "wa"));
+
+// SA
+const saRaw = [
+  ["Adelaide","5000"],["North Adelaide","5006"],["Glenelg","5045"],["Brighton","5048"],
+  ["Henley Beach","5022"],["West Beach","5024"],["Semaphore","5019"],["Grange","5022"],
+  ["Seaton","5023"],["Fulham","5024"],["Lockleys","5032"],["Brooklyn Park","5032"],
+  ["Underdale","5033"],["Cowandilla","5033"],["Mile End","5031"],["Thebarton","5031"],
+  ["Bowden","5007"],["Brompton","5007"],["Torrensville","5031"],["West Croydon","5008"],
+  ["Welland","5007"],["Croydon","5008"],["Croydon Park","5008"],["Woodville","5011"],
+  ["Pennington","5013"],["West Lakes","5021"],["Tennyson","5022"],
+  ["Magill","5072"],["Beulah Park","5067"],["Norwood","5067"],["Kensington","5068"],
+  ["Kensington Gardens","5068"],["Stonyfell","5066"],["Stepney","5069"],["Hackney","5069"],
+  ["College Park","5069"],["Unley","5061"],["Parkside","5063"],["Goodwood","5034"],
+  ["Millswood","5034"],["Wayville","5034"],["Forestville","5035"],["Black Forest","5035"],
+  ["Kings Park","5049"],["Malvern","5061"],["Eastwood","5063"],["Hawthorn","5062"],
+  ["Mitcham","5062"],["Torrens Park","5062"],["Lynton","5062"],["Netherby","5062"],
+  ["Clarence Park","5034"],["Burnside","5066"],["Glenside","5065"],["Beaumont","5066"],
+  ["Hazelwood Park","5066"],["Glen Osmond","5064"],
+  ["Stirling","5152"],["Aldgate","5154"],["Crafers","5152"],["Bridgewater","5155"],
+  ["Heathfield","5153"],["Upper Sturt","5156"],
+  ["McLaren Vale","5171"],["Willunga","5172"],["Sellicks Beach","5174"],["Maslin Beach","5170"],
+  ["Aldinga Beach","5173"],["Christies Beach","5165"],["Noarlunga Centre","5168"],
+  ["Moana","5169"],["Seaford","5169"],["Hallett Cove","5158"],
+  ["Reynella","5161"],["Happy Valley","5159"],["Aberfoyle Park","5159"],["Flagstaff Hill","5159"],
+  ["Coromandel Valley","5051"],["Clarendon","5157"],["Woodcroft","5162"],
+  ["Pooraka","5095"],["Ingle Farm","5098"],["Salisbury","5108"],["Salisbury North","5108"],
+  ["Mawson Lakes","5095"],["Parafield","5107"],["Parafield Gardens","5107"],
+  ["Gepps Cross","5094"],["Windsor Gardens","5087"],["Blair Athol","5084"],
+  ["Kilburn","5084"],["Clearview","5085"],["Enfield","5085"],["Walkerville","5081"],
+  ["Prospect","5082"],["Nailsworth","5083"],["Sefton Park","5083"],["Medindie","5081"],
+  ["Hope Valley","5090"],["Fairview Park","5126"],["Golden Grove","5125"],
+  ["Modbury","5092"],["Modbury North","5092"],["Holden Hill","5088"],
+  ["Elizabeth","5112"],["Elizabeth Downs","5113"],["Elizabeth North","5113"],["Elizabeth Vale","5112"],
+  ["Smithfield","5114"],["Smithfield Plains","5114"],["Davoren Park","5114"],
+  ["Munno Para","5115"],["Angle Vale","5117"],
+];
+export const sa = saRaw.map(([n, p]) => S(n, p, "sa"));
+
+// TAS
+const tasRaw = [
+  ["Hobart","7000"],["South Hobart","7004"],["West Hobart","7000"],["North Hobart","7000"],
+  ["Mount Stuart","7000"],["Battery Point","7004"],["Sandy Bay","7005"],["New Town","7008"],
+  ["Glenorchy","7010"],["Moonah","7009"],["Lindisfarne","7015"],["Rokeby","7019"],
+  ["Howrah","7018"],["Tranmere","7018"],["Bellerive","7018"],["Warrane","7018"],
+  ["Richmond","7025"],["Sorell","7017"],["Dodges Ferry","7173"],
+  ["Kingston","7050"],["Kingston Beach","7050"],["Blackmans Bay","7052"],["Taroona","7053"],
+  ["Margate","7054"],["Snug","7054"],["Woodbridge","7162"],["Kettering","7053"],
+  ["Launceston","7250"],["South Launceston","7249"],["Newstead","7250"],
+  ["East Launceston","7250"],["West Launceston","7250"],["Youngtown","7249"],
+  ["Prospect","7250"],["Legana","7277"],["Devonport","7310"],["Burnie","7320"],
+  ["Ulverstone","7315"],["Penguin","7316"],["Smithton","7330"],["Stanley","7331"],
+  ["George Town","7253"],["Beaconsfield","7301"],["Scottsdale","7260"],
+  ["St Helens","7216"],["Bicheno","7215"],["Coles Bay","7215"],
+  ["Strahan","7321"],["Queenstown","7467"],["Sheffield","7306"],
+  ["Deloraine","7304"],["Longford","7301"],["Ross","7209"],
+  ["New Norfolk","7140"],["Brighton","7030"],["Pontville","7030"],
+  ["Sorell","7017"],["Cambridge","7170"],["Claremont","7011"],
+];
+export const tas = tasRaw.map(([n, p]) => S(n, p, "tas"));
+
+// ACT
+const actRaw = [
+  ["Canberra","2600"],["Barton","2600"],["Parkes","2600"],["Deakin","2600"],
+  ["Red Hill","2603"],["Griffith","2603"],["Kingston","2604"],["Manuka","2603"],
+  ["Fyshwick","2609"],["Mitchell","2911"],["Hume","2620"],["Symonston","2609"],
+  ["Narrabundah","2604"],["Braddon","2612"],["Turner","2612"],["Civic","2601"],
+  ["Campbell","2612"],["Russell","2600"],["Reid","2612"],["Acton","2601"],
+  ["Dickson","2602"],["Lyneham","2602"],["Downer","2602"],["O'Connor","2602"],
+  ["Watson","2602"],["Hackett","2602"],["Ainslie","2602"],
+  ["Gungahlin","2912"],["Franklin","2913"],["Harrison","2914"],["Crace","2911"],
+  ["Bonner","2914"],["Amaroo","2914"],["Kenny","2911"],["Throsby","2914"],
+  ["Nicholls","2913"],["Ngunnawal","2913"],
+  ["Belconnen","2617"],["Bruce","2617"],["Aranda","2614"],["Cook","2614"],
+  ["Page","2614"],["Macgregor","2615"],["Dunlop","2615"],["Holt","2615"],
+  ["Florey","2615"],["Higgins","2615"],["Kambah","2902"],
+  ["Woden","2606"],["Philip","2606"],["Curtin","2605"],["Chifley","2606"],
+  ["Lyons","2606"],["Garran","2605"],["Farrer","2607"],["Mawson","2607"],
+  ["Pearce","2607"],["Torrens","2607"],["Isaacs","2607"],["Hughes","2605"],
+  ["Weston","2611"],["Rivett","2611"],["Holder","2611"],
+  ["Tuggeranong","2900"],["Greenway","2900"],["Calwell","2902"],["Isabella Plains","2902"],
+  ["Gilmore","2905"],["Chisholm","2905"],["Banks","2906"],["Bonython","2905"],
+  ["Richardson","2905"],["Conder","2906"],["Gordon","2906"],
+  ["Wanniassa","2903"],["Fadden","2904"],
+];
+export const act = actRaw.map(([n, p]) => S(n, p, "act"));
+
+// NT
+const ntRaw = [
+  ["Darwin","0800"],["Darwin CBD","0800"],["The Gardens","0820"],["Fannie Bay","0820"],
+  ["Parap","0820"],["Stuart Park","0820"],["Woolner","0820"],["Coconut Grove","0810"],
+  ["Bayview","0820"],["Cullen Bay","0820"],["Larrakeyah","0820"],
+  ["Nightcliff","0810"],["Rapid Creek","0810"],["Sanderson","0812"],
+  ["Millner","0810"],["Moil","0810"],["Casuarina","0810"],
+  ["Brinkin","0810"],["Lee Point","0810"],["Wanguri","0810"],
+  ["Malak","0812"],["Alawa","0812"],["Leanyer","0812"],["Karama","0812"],
+  ["Durack","0812"],["Marrara","0812"],["Woodroffe","0832"],["Johnston","0832"],
+  ["Rosebery","0832"],["Humpty Doo","0836"],["Zuccoli","0832"],["Bellamack","0832"],
+  ["Knuckey Lagoon","0812"],["Berrimah","0828"],["Winnellie","0820"],
+  ["Palmerston","0830"],["Gray","0830"],["Driver","0830"],
+  ["Moulden","0830"],["Bakewell","0830"],["Farina","0830"],
+  ["Alice Springs","0870"],["Tennant Creek","0860"],["Nhulunbuy","0880"],
+  ["Katherine","0850"],["Pine Creek","0847"],["Batchelor","0845"],
+  ["Howard Springs","0835"],["Coolalinga","0835"],["Adelaide River","0846"],
+];
+export const nt = ntRaw.map(([n, p]) => S(n, p, "nt"));
+
+// Combined exports
+export const suburbsByState: Record<string, Suburb[]> = {
+  nsw, vic, qld, wa, sa, tas, act, nt
+};
+
+export const allSuburbs: Suburb[] = [...nsw, ...vic, ...qld, ...wa, ...sa, ...tas, ...act, ...nt];
+
+// Lookup helpers
+export function getSuburbBySlug(slug: string): Suburb | undefined {
+  return allSuburbs.find(s => s.slug === slug);
+}
+
+export function getSuburbsByState(stateSlug: string): Suburb[] {
+  return suburbsByState[stateSlug] || [];
+}
+
+export const totalSuburbCount = allSuburbs.length;
+
