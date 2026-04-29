@@ -398,7 +398,10 @@ body {
    ============================================ */
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-cyan-500 to-sky-500 animate-gradient;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(to right, #0ea5e9, #06b6d4, #0ea5e9);
+    background-size: 200% auto;
+    animation: gradient-shift 6s ease infinite;
   }
 
   .bg-gradient-mesh {

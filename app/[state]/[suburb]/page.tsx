@@ -1,4 +1,4 @@
-import { notFound } from "next";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { suburbsByState, getSuburbBySlug, type Suburb } from "@/lib/data/suburbs";
 import { cleaningServices } from "@/lib/constants/services";
