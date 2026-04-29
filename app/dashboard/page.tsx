@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import GalleryUpload from "@/components/dashboard/GalleryUpload";
 
 interface Booking {
   id: string;
@@ -67,18 +69,17 @@ export default function DashboardPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
-  const [team, setTeam] = useState<TeamMember[]>([
+  const [team] = useState<TeamMember[]>([
     { id: "1", name: "Sarah Mitchell", role: "Operations Manager", phone: "0412 345 678", email: "sarah@aastaclean.com.au", photo: "SM", active: true },
     { id: "2", name: "James Chen", role: "Lead Technician", phone: "0412 345 679", email: "james@aastaclean.com.au", photo: "JC", active: true },
     { id: "3", name: "Emily Rodriguez", role: "Customer Success", phone: "0412 345 680", email: "emily@aastaclean.com.au", photo: "ER", active: true },
   ]);
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([
+  const [socialLinks] = useState<SocialLink[]>([
     { platform: "Facebook", url: "https://facebook.com/aastaclean", icon: "📘", followers: 2500, engagement: 4.2 },
     { platform: "Instagram", url: "https://instagram.com/aastaclean", icon: "📸", followers: 1800, engagement: 5.8 },
     { platform: "Google", url: "https://google.com/aastaclean", icon: "🔍", followers: 150, engagement: 8.5 },
   ]);
   const [loading, setLoading] = useState(true);
-  const [editingItem, setEditingItem] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -172,9 +173,9 @@ export default function DashboardPage() {
               <a href="/projects" className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors">
                 View Projects
               </a>
-              <a href="/" className="px-4 py-2 bg-sky-500 hover:bg-sky-600 rounded-lg font-medium transition-colors">
+              <Link href="/" className="px-4 py-2 bg-sky-500 hover:bg-sky-600 rounded-lg font-medium transition-colors">
                 ← Back to Website
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -516,8 +517,6 @@ export default function DashboardPage() {
             </div>
 
             <div className="bg-slate-800 rounded-xl p-6">
-import GalleryUpload from "@/components/dashboard/GalleryUpload";
-...
                 {/* Community Work Gallery */}
                 <h3 className="text-lg font-semibold mb-6">Community Work Gallery</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

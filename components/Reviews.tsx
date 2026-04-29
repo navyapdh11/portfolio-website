@@ -17,7 +17,7 @@ const reviews = [
     name: "Michael Chen",
     location: "South Yarra, VIC",
     rating: 5,
-    text: "We use CleanAgent for our office every week. Consistent quality, friendly staff, and reasonable prices. Best cleaning service we've ever used.",
+    text: "We use CleanAgent for our office every week. Consistent quality, friendly staff, and reasonable prices. Best cleaning service we&apos;ve ever used.",
     service: "Commercial Cleaning",
     avatar: "👨",
   },
@@ -50,7 +50,7 @@ const reviews = [
   },
   {
     id: 6,
-    name: "James O'Brien",
+    name: "James O&apos;Brien",
     location: "Braddon, ACT",
     rating: 5,
     text: "Outstanding window cleaning service! They handled our 3-story home safely and efficiently. Windows are spotless. Very impressed with the attention to safety.",
@@ -72,7 +72,7 @@ export default function Reviews() {
             Customer <span className="text-blue-500">Reviews</span>
           </h2>
           <p className="text-zinc-600 dark:text-zinc-400 mt-4 max-w-2xl mx-auto">
-            Don't just take our word for it - hear from our satisfied customers
+            Don&apos;t just take our word for it - hear from our satisfied customers
           </p>
 
           {/* Rating Summary */}

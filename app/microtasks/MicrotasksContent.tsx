@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 
 interface Task {
@@ -45,7 +45,7 @@ export default function MicrotasksContent() {
   const [activeSection, setActiveSection] = useState<string>("tasks");
   const [userBalance, setUserBalance] = useState(24.75);
   const [tasksCompleted, setTasksCompleted] = useState(47);
-  const [streak, setStreak] = useState(5);
+  const [streak] = useState(5);
   const [availableTasks, setAvailableTasks] = useState(12);
   const [showUserStatus, setShowUserStatus] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
@@ -53,12 +53,20 @@ export default function MicrotasksContent() {
   const [capturing, setCapturing] = useState(false);
   const [qualityScore, setQualityScore] = useState(0);
   const [aiScore, setAiScore] = useState("Pending");
-  const [rarityBonus, setRarityBonus] = useState(0.20);
-  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-  const [badges, setBadges] = useState<string[]>([]);
-  const [jobOffers, setJobOffers] = useState<Offer[]>([]);
-  
-  const mapRef = useRef<HTMLDivElement>(null);
+  const [rarityBonus] = useState(0.20);
+
+  const leaderboardDefault: LeaderboardEntry[] = [
+    { rank: 1, name: "Sarah W.", earnings: 245.50, tasks: 156, badge: "🥇" },
+    { rank: 2, name: "James C.", earnings: 198.75, tasks: 134, badge: "🥈" },
+    { rank: 3, name: "Emily R.", earnings: 187.25, tasks: 121, badge: "🥉" },
+    { rank: 4, name: "Mike T.", earnings: 165.00, tasks: 98, badge: "⭐" },
+    { rank: 5, name: "Lisa K.", earnings: 142.50, tasks: 87, badge: "⭐" },
+  ];
+  const badgesDefault = ["🏠", "🧹", "⚡", "🔥", "💎", "🎯"];
+
+  const [leaderboard] = useState<LeaderboardEntry[]>(leaderboardDefault);
+  const [badges] = useState<string[]>(badgesDefault);
+
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const videoStreamRef = useRef<MediaStream | null>(null);
 
@@ -92,18 +100,6 @@ export default function MicrotasksContent() {
     { id: 3, client: "Nedlands Medical", job: "Daily 8AM", pay: 95, time: "Starting Monday" },
   ];
 
-  useEffect(() => {
-    setLeaderboard([
-      { rank: 1, name: "Sarah W.", earnings: 245.50, tasks: 156, badge: "🥇" },
-      { rank: 2, name: "James C.", earnings: 198.75, tasks: 134, badge: "🥈" },
-      { rank: 3, name: "Emily R.", earnings: 187.25, tasks: 121, badge: "🥉" },
-      { rank: 4, name: "Mike T.", earnings: 165.00, tasks: 98, badge: "⭐" },
-      { rank: 5, name: "Lisa K.", earnings: 142.50, tasks: 87, badge: "⭐" },
-    ]);
-    setBadges(["🏠", "🧹", "⚡", "🔥", "💎", "🎯"]);
-    setJobOffers(offers);
-  }, []);
-
   const openTaskModal = (task: Task) => {
     setSelectedTask(task);
     setShowModal(true);
@@ -128,7 +124,7 @@ export default function MicrotasksContent() {
         setQualityScore(Math.floor(Math.random() * 30) + 70);
         setAiScore(Math.random() > 0.3 ? "Approved" : "Needs Revision");
       }, 3000);
-    } catch (err) {
+    } catch {
       setCapturing(false);
       setQualityScore(Math.floor(Math.random() * 30) + 70);
       setAiScore(Math.random() > 0.3 ? "Approved" : "Needs Revision");

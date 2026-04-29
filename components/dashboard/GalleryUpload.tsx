@@ -3,27 +3,29 @@
 import { useState } from "react";
 
 export default function GalleryUpload() {
-  const [isUploading, setIsUploading] = useState(false);
+  const [images, setImages] = useState<string[]>([]);
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    setIsUploading(true);
-    
-    // Simulate File Upload
-    const file = e.target.files[0];
-    console.log("Uploading file:", file.name);
-    
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsUploading(false);
-    alert("Photo uploaded successfully!");
+  const handleUpload = () => {
+    // Placeholder for gallery upload functionality
+    alert("Gallery upload feature - connect your storage backend");
   };
 
   return (
-    <div className="flex justify-center mt-4">
-      <input type="file" id="photo-upload" className="hidden" onChange={handleUpload} accept="image/*" />
-      <label htmlFor="photo-upload" className={`px-6 py-2 rounded-lg font-medium transition-colors cursor-pointer ${isUploading ? 'bg-zinc-500' : 'bg-purple-600 hover:bg-purple-700'}`}>
-        {isUploading ? "Uploading..." : "Upload Photos"}
-      </label>
+    <div className="mt-4 p-4 bg-slate-700 rounded-xl">
+      <h4 className="text-sm font-medium text-slate-300 mb-3">Upload Gallery Images</h4>
+      <button
+        onClick={handleUpload}
+        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"
+      >
+        + Upload Images
+      </button>
+      {images.length > 0 && (
+        <div className="grid grid-cols-2 gap-2 mt-3">
+          {images.map((img, i) => (
+            <div key={i} className="aspect-square bg-slate-600 rounded-lg" />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

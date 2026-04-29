@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface EarningEntry {
   id: number;
@@ -13,7 +13,7 @@ interface EarningEntry {
 export default function EarnContent() {
   const [activeTab, setActiveTab] = useState<"overview" | "history" | "payouts">("overview");
   const [showPayoutModal, setShowPayoutModal] = useState(false);
-  const [payoutAmount, setPayoutAmount] = useState(0);
+  const [payoutAmount, setPayoutAmount] = useState<number | null>(null);
 
   const earnings: EarningEntry[] = [
     { id: 1, date: "2026-04-10", job: "Deep Clean - West Leederville", amount: 85, status: "completed" },
@@ -34,10 +34,6 @@ export default function EarnContent() {
     totalJobs: 156,
     pendingPayout: 24.75,
   };
-
-  useEffect(() => {
-    setPayoutAmount(stats.pendingPayout);
-  }, []);
 
   const formatCurrency = (amount: number) => {
     return amount.toLocaleString("en-AU", { style: "currency", currency: "AUD" });
@@ -76,7 +72,7 @@ export default function EarnContent() {
                 📊 Export CSV
               </button>
               <button
-                onClick={() => setShowPayoutModal(true)}
+                onClick={() => { setPayoutAmount(stats.pendingPayout); setShowPayoutModal(true); }}
                 className="px-5 py-2.5 bg-white text-emerald-700 hover:bg-gray-100 rounded-xl font-medium transition-all"
               >
                 💸 Request Payout
@@ -271,7 +267,7 @@ export default function EarnContent() {
               </label>
               <input
                 type="number"
-                value={payoutAmount}
+                value={payoutAmount ?? 0}
                 onChange={(e) => setPayoutAmount(Number(e.target.value))}
                 className="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-xl bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white"
               />
@@ -301,7 +297,9 @@ export default function EarnContent() {
             </div>
             <button
               onClick={() => {
-                alert(`Payout of ${formatCurrency(payoutAmount)} requested!`);
+                if (payoutAmount !== null) {
+                  alert(`Payout of ${formatCurrency(payoutAmount)} requested!`);
+                }
                 setShowPayoutModal(false);
               }}
               className="w-full mt-4 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-medium"

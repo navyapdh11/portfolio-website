@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 const businessHours = [
   { day: "Monday", hours: "8:00 AM - 6:00 PM", available: true },

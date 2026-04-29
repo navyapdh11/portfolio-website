@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-let services = [
+const services = [
   { id: 1, title: "House Cleaning", icon: "🏠", description: "Regular maintenance cleaning.", price: "$120" },
   { id: 2, title: "Commercial Cleaning", icon: "🏢", description: "Professional office cleaning.", price: "$180" },
 ];

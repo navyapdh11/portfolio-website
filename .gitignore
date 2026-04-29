@@ -43,3 +43,5 @@ logs
 # IDE
 .vscode
 .idea
+
+/app/generated/prisma

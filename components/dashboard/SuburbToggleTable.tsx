@@ -37,7 +37,6 @@ const sampleSuburbs: Suburb[] = [
 
 export function SuburbToggleTable({
   state,
-  services,
   searchQuery,
   onToggle,
   pendingChanges,

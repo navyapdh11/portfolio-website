@@ -1,15 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
-interface MetricPoint {
-  timestamp: string;
-  value: number;
-}
+import { useState } from "react";
 
 export default function AnalyticsContent() {
   const [activeTab, setActiveTab] = useState<"overview" | "real-time" | "competitor" | "cro">("overview");
-  const [loading, setLoading] = useState(false);
 
   const metrics = {
     pageViews: { current: 12450, change: 12.5 },

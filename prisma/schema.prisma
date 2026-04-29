@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/@prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Booking {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String
+  service   String
+  address   String
+  date      String
+  time      String
+  status    String   // "pending", "confirmed", "completed", "cancelled"
+  createdAt DateTime @default(now())
+}
+
+model Quote {
+  id             String   @id @default(uuid())
+  service        String
+  bedrooms       Int
+  bathrooms      Int
+  frequency      String
+  estimatedPrice Float
+  customerName   String
+  customerEmail  String
+  customerPhone  String
+  suburb         String
+  status         String   // "new", "contacted", "quoted", "accepted", "rejected"
+  createdAt      DateTime @default(now())
+}
+
+model Customer {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  phone         String
+  address       String
+  suburb        String
+  totalBookings Int      @default(0)
+  totalSpent    Float    @default(0)
+  lastBooking   String?
+  status        String   // "active", "inactive", "prospect"
+  createdAt     DateTime @default(now())
+}
