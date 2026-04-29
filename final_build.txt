@@ -1,0 +1,72 @@
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\User\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\User\portfolio-website\package-lock.json
+
+▲ Next.js 16.2.2 (Turbopack)
+- Environments: .env.local, .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.2s
+  Running TypeScript ...
+  Finished TypeScript in 5.4s ...
+  Collecting page data using 21 workers ...
+  Generating static pages using 21 workers (0/1086) ...
+  Generating static pages using 21 workers (271/1086) 
+  Generating static pages using 21 workers (542/1086) 
+  Generating static pages using 21 workers (814/1086) 
+✓ Generating static pages using 21 workers (1086/1086) in 10.6s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ● /[state]/[suburb]
+│ ├ /nsw/sydney
+│ ├ /nsw/bondi
+│ ├ /nsw/bondi-junction
+│ └ [+891 more paths]
+├ ○ /ads
+├ ○ /analytics
+├ ƒ /api/admin/analytics
+├ ƒ /api/admin/bookings
+├ ƒ /api/ai/audit
+├ ƒ /api/airbnb
+├ ƒ /api/bookings
+├ ƒ /api/bookings/[id]
+├ ƒ /api/config
+├ ƒ /api/customers
+├ ƒ /api/projects
+├ ƒ /api/quotes
+├ ƒ /api/quotes/[id]
+├ ƒ /api/real-estate
+├ ƒ /api/services
+├ ○ /blog
+├ ○ /contact
+├ ○ /dashboard
+├ ○ /dashboard/admin
+├ ○ /dashboard/customer
+├ ○ /dashboard/seo
+├ ○ /earn
+├ ○ /events
+├ ○ /flashcards
+├ ○ /locations
+├ ○ /microtasks
+├ ○ /pricing
+├ ○ /privacy
+├ ○ /projects
+├ ƒ /services/[service]
+├ ● /services/[service]/[state]/[city]
+│ ├ /services/domestic-cleaning/nsw/sydney
+│ ├ /services/domestic-cleaning/vic/melbourne
+│ ├ /services/domestic-cleaning/qld/brisbane
+│ └ [+157 more paths]
+└ ○ /terms
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

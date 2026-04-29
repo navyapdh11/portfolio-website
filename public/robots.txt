@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /ads/
+Disallow: /microtasks/
+Disallow: /earn/
+Disallow: /flashcards/
+Sitemap: https://www.aastaclean.com.au/sitemap.xml

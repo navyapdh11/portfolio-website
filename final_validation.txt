@@ -1,0 +1,48 @@
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\User\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\User\portfolio-website\package-lock.json
+
+▲ Next.js 16.2.2 (Turbopack)
+- Environments: .env.local, .env
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 2 errors:
+./portfolio-website/app/page.tsx:16:25
+`ssr: false` is not allowed with `next/dynamic` in Server Components. Please move it into a Client Component.
+  [90m14 |[0m [36mimport[0m [33mFooter[0m [36mfrom[0m [32m"@/components/Footer"[0m;
+  [90m15 |[0m
+[31m[1m>[0m [90m16 |[0m [36mconst[0m [33mQuoteCalculator[0m = dynamic(() => [36mimport[0m([32m"@/components/QuoteCalculator"[0m).then((m) => (..[36m.[0m
+  [90m   |[0m                         [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   ssr: [36mfalse[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   loading: () => <div className=[32m"h-64 bg-slate-100 dark:bg-slate-800 rounded-2xl animate-p...[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m });
+  [90m   |[0m [31m[1m^^[0m
+  [90m20 |[0m [36mconst[0m [33mBooking[0m = dynamic(() => [36mimport[0m([32m"@/components/Booking"[0m), { ssr: [36mfalse[0m });
+  [90m21 |[0m
+  [90m22 |[0m [36mexport[0m [36mconst[0m metadata: [33mMetadata[0m = {
+
+Ecmascript file had an error
+
+
+./portfolio-website/app/page.tsx:20:17
+`ssr: false` is not allowed with `next/dynamic` in Server Components. Please move it into a Client Component.
+  [90m18 |[0m ...oading: () => <div className=[32m"h-64 bg-slate-100 dark:bg-slate-800 rounded-2xl animate-p...[0m
+  [90m19 |[0m ...
+[31m[1m>[0m [90m20 |[0m ...[36mst[0m [33mBooking[0m = dynamic(() => [36mimport[0m([32m"@/components/Booking"[0m), { ssr: [36mfalse[0m });
+  [90m   |[0m                 [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m21 |[0m ...
+  [90m22 |[0m ...[36mort[0m [36mconst[0m metadata: [33mMetadata[0m = {
+  [90m23 |[0m ...itle: [32m"AASTACLEAN | Australia's #1 Professional Cleaning Network"[0m,
+
+Ecmascript file had an error
+
+
+    at <unknown> (./portfolio-website/app/page.tsx:16:25)
+    at <unknown> (./portfolio-website/app/page.tsx:20:17)
