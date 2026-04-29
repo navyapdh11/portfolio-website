@@ -1,15 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/data/store';
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const { status } = await request.json();
-
-  // In a real app, you would query the DB here.
-  return NextResponse.json({
-    success: true,
-    message: `Booking ${id} status updated to ${status}`,
-  });
+  const body = await request.json();
+  const booking = db.bookings.update(id, body);
+  if (!booking) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  return NextResponse.json({ success: true, booking });
 }

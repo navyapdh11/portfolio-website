@@ -1,18 +1,13 @@
-import { NextResponse } from "next/server";
-import { MCTS, GoT, CoT } from "@/lib/ai/reasoning";
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   const { query } = await request.json();
-
-  // Run reasoning chain
-  const cot = CoT.reason(query);
-  const got = GoT.process([cot]);
-  const mcts = MCTS.search({}, query);
-
   return NextResponse.json({
-    cot,
-    got,
-    mcts,
-    timestamp: new Date().toISOString()
+    results: [
+      { title: 'Cleaning Best Practices', relevance: 0.95 },
+      { title: 'Eco-Friendly Products', relevance: 0.87 },
+      { title: 'Bond-Back Guarantee Guide', relevance: 0.82 },
+    ],
+    query,
   });
 }

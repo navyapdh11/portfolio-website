@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { SmartScrollMenu } from "./SmartScrollMenu";
 import { QuoteCalculator } from "./QuoteCalculator";
 
 // Animated stat counter
@@ -35,9 +34,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <>
-      <SmartScrollMenu />
-      <section
+    <section
         id="home"
         className="min-h-screen relative overflow-hidden"
         style={{
@@ -198,6 +195,5 @@ export default function Hero() {
         {/* Bottom gradient fade */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
       </section>
-    </>
   );
 }
