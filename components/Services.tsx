@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 interface Service {
   id: number;
@@ -107,7 +108,9 @@ export default function Services() {
                   />
                 </div>
               ) : (
-                <img src={service.image} alt={service.title} className="w-full h-40 object-cover rounded-xl mb-4" />
+                <div className="relative w-full h-40 rounded-xl mb-4 overflow-hidden">
+                  <Image src={service.image} alt={service.title} fill className="object-cover" />
+                </div>
               )}
               
               <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-2">

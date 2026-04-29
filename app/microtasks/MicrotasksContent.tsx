@@ -64,7 +64,7 @@ export default function MicrotasksContent() {
   ];
   const badgesDefault = ["🏠", "🧹", "⚡", "🔥", "💎", "🎯"];
 
-  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>(leaderboardDefault);
+  const [leaderboard] = useState<LeaderboardEntry[]>(leaderboardDefault);
   const [badges] = useState<string[]>(badgesDefault);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);

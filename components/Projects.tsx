@@ -26,7 +26,7 @@ const initialProjects: Project[] = [
 export default function Projects() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [projects, setProjects] = useState<Project[]>(initialProjects);
-  const [activeCategory, _setActiveCategory] = useState("all");
+  const [activeCategory] = useState("all");
 
   const updateProject = (id: number, field: keyof Project, value: string) => {
     setProjects(projects.map(p => p.id === id ? { ...p, [field]: value } : p));

@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function GalleryUpload() {
-  const [images, _setImages] = useState<string[]>([]);
+  const [images] = useState<string[]>([]);
 
   const handleUpload = () => {
     // Placeholder for gallery upload functionality
