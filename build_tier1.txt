@@ -1,0 +1,30 @@
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\User\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\User\portfolio-website\package-lock.json
+
+Warning: Custom Cache-Control headers detected for the following routes:
+  - /_next/static/(.*)
+
+Setting a custom Cache-Control header can break Next.js development behavior.
+▲ Next.js 16.2.2 (Turbopack)
+- Environments: .env.local, .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.3s
+  Running TypeScript ...
+Failed to type check.
+
+./components/Booking.tsx:66:28
+Type error: Property 'title' does not exist on type '{ description: string; included: string[]; addons: { label: string; value: string; price: number; }[]; }'.
+
+  [90m64 |[0m           customerEmail: formData.email,
+  [90m65 |[0m           customerPhone: formData.phone,
+[31m[1m>[0m [90m66 |[0m           service: details.title,
+  [90m   |[0m                            [31m[1m^[0m
+  [90m67 |[0m           address: formData.address,
+  [90m68 |[0m           suburb: formData.suburb,
+  [90m69 |[0m           state: formData.state,
+Next.js build worker exited with code: 1 and signal: null

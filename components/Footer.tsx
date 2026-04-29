@@ -28,23 +28,23 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">Services</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="#services" className="hover:text-sky-400 transition-colors">House Cleaning</a></li>
-              <li><a href="#services" className="hover:text-sky-400 transition-colors">End of Lease Cleaning</a></li>
-              <li><a href="#services" className="hover:text-sky-400 transition-colors">Commercial Cleaning</a></li>
-              <li><a href="#services" className="hover:text-sky-400 transition-colors">Carpet Cleaning</a></li>
-              <li><a href="#services" className="hover:text-sky-400 transition-colors">Window Cleaning</a></li>
-              <li><a href="#services" className="hover:text-sky-400 transition-colors">Deep Cleaning</a></li>
+              <li><Link href="/services/domestic-cleaning/wa/perth" className="hover:text-sky-400 transition-colors">House Cleaning</Link></li>
+              <li><Link href="/services/end-of-lease-cleaning/wa/perth" className="hover:text-sky-400 transition-colors">End of Lease</Link></li>
+              <li><Link href="/services/commercial-cleaning/wa/perth" className="hover:text-sky-400 transition-colors">Commercial</Link></li>
+              <li><Link href="/services/carpet-cleaning/wa/perth" className="hover:text-sky-400 transition-colors">Carpet</Link></li>
+              <li><Link href="/services/window-cleaning/wa/perth" className="hover:text-sky-400 transition-colors">Window</Link></li>
+              <li><Link href="/services/deep-cleaning/wa/perth" className="hover:text-sky-400 transition-colors">Deep</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-white font-semibold mb-4">Company</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="#about" className="hover:text-sky-400 transition-colors">About Us</a></li>
+              <li><Link href="/#about" className="hover:text-sky-400 transition-colors">About Us</Link></li>
               <li><Link href="/blog" className="hover:text-sky-400 transition-colors">Blog</Link></li>
               <li><Link href="/events" className="hover:text-sky-400 transition-colors">Events</Link></li>
-              <li><a href="#faq" className="hover:text-sky-400 transition-colors">FAQ</a></li>
-              <li><a href="#contact" className="hover:text-sky-400 transition-colors">Contact</a></li>
+              <li><Link href="/#faq" className="hover:text-sky-400 transition-colors">FAQ</Link></li>
+              <li><Link href="/contact" className="hover:text-sky-400 transition-colors">Contact</Link></li>
               <li><Link href="/dashboard" className="hover:text-sky-400 transition-colors">Dashboard</Link></li>
             </ul>
           </div>

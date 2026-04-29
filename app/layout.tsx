@@ -15,16 +15,51 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AASTACLEAN | Australia's Premier Cleaning Services — Nationwide Coverage",
+  metadataBase: new URL("https://www.aastaclean.com.au"),
+  title: {
+    default: "AASTACLEAN | Australia's Premier Cleaning Services — Nationwide Coverage",
+    template: "%s | AASTACLEAN",
+  },
   description: "Enterprise-grade cleaning services across all Australian states. 20+ specialist services, 8,000+ suburbs, police-checked & fully insured. Book online today.",
   keywords: "cleaning services Australia, end of lease cleaning, commercial cleaning, domestic cleaning, carpet cleaning, window cleaning, nationwide cleaning, AASTACLEAN",
   authors: [{ name: "AASTACLEAN" }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://www.aastaclean.com.au",
+  },
   openGraph: {
     title: "AASTACLEAN | Australia's Premier Cleaning Network",
     description: "Enterprise-grade cleaning services across all Australian states. 20+ specialist services, 8,000+ suburbs, police-checked & fully insured.",
     type: "website",
     locale: "en_AU",
     siteName: "AASTACLEAN",
+    url: "https://www.aastaclean.com.au",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AASTACLEAN — Professional Cleaning Services Australia Wide",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AASTACLEAN | Australia's Premier Cleaning Network",
+    description: "Enterprise-grade cleaning services across all Australian states. 20+ specialist services, 8,000+ suburbs.",
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
