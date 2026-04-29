@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import GalleryUpload from "@/components/dashboard/GalleryUpload";
-import { LaunchPulseDashboard } from "@/components/dashboard/LaunchPulseDashboard";
 
 interface Booking {
   id: string;

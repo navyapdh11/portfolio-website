@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { MCTS, GoT, CoT } from "@/lib/ai/reasoning";
 
 export async function POST(request: Request) {
-  const { query, location } = await request.json();
+  const { query } = await request.json();
 
   // Run reasoning chain
   const cot = CoT.reason(query);

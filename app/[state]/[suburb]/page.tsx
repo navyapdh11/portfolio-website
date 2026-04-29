@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { suburbsByState, getSuburbBySlug, type Suburb } from "@/lib/data/suburbs";
+import { suburbsByState, type Suburb } from "@/lib/data/suburbs";
 import { cleaningServices } from "@/lib/constants/services";
+import Link from "next/link";
 
 // ---------------------------------------------------------------------------
 // Static params
@@ -20,17 +21,6 @@ export function generateStaticParams() {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-function fmt(name: string) {
-  return name
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
-}
-
-function slugify(name: string) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-}
 
 function resolveSuburb(state: string, suburb: string): Suburb | undefined {
   const list = suburbsByState[state];
@@ -269,7 +259,7 @@ export default async function SuburbPage({
             Book online in 60 seconds.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a
+            <Link
               href="/book"
               className="group px-8 py-3.5 rounded-xl bg-sky-500 text-white font-semibold shadow-lg shadow-sky-500/25 hover:bg-sky-600 hover:shadow-sky-500/40 transition-all duration-300 hover:-translate-y-0.5"
             >
@@ -277,7 +267,7 @@ export default async function SuburbPage({
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
                 &rarr;
               </span>
-            </a>
+            </Link>
             <a
               href="tel:+61400000000"
               className="px-8 py-3.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold backdrop-blur-sm bg-white/50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all duration-300"
@@ -359,12 +349,12 @@ export default async function SuburbPage({
           </div>
           <p className="text-center mt-6 text-sm text-slate-500 dark:text-slate-400">
             Plus {cleaningServices.length - keyServices.length} more services.{" "}
-            <a
+            <Link
               href="/services"
               className="text-sky-600 dark:text-sky-400 underline underline-offset-2 hover:text-sky-700"
             >
               View all services
-            </a>
+            </Link>
           </p>
         </section>
 
@@ -490,13 +480,13 @@ export default async function SuburbPage({
                 Join hundreds of satisfied customers across {name} and {abbr}.
                 Get your free, no-obligation quote in under a minute.
               </p>
-              <a
+              <Link
                 href="/book"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-sky-600 font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300"
               >
                 Book Your Clean Now
                 <span>&rarr;</span>
-              </a>
+              </Link>
             </div>
           </div>
         </section>

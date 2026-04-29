@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { cleaningServices, australianCities } from "@/lib/constants/services";
-import { states, suburbsByState } from "@/lib/data/suburbs";
+import { states } from "@/lib/data/suburbs";
 import { allSuburbs } from "@/lib/data/suburbs";
 import { serviceDetails } from "@/lib/constants/serviceDetails";
 import Booking from "@/components/Booking";
+import Link from "next/link";
 
 // Service-specific SEO descriptions
 const serviceDescriptions: Record<string, string> = {
@@ -206,9 +207,9 @@ export default async function ServiceGeoPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="text-sm text-slate-500 mb-6 animate-fade-in">
-          <a href="/" className="hover:text-sky-500 transition-colors">Home</a>
+          <Link href="/" className="hover:text-sky-500 transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <a href="/pricing" className="hover:text-sky-500 transition-colors">Services</a>
+          <Link href="/pricing" className="hover:text-sky-500 transition-colors">Services</Link>
           <span className="mx-2">/</span>
           <a href={`/services/${serviceSlug}`} className="hover:text-sky-500 transition-colors">{service.name}</a>
           <span className="mx-2">/</span>

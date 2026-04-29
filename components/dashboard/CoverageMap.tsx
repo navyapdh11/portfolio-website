@@ -7,7 +7,7 @@ interface CoverageMapProps {
   onSuburbClick: (suburb: { name: string; state: string }) => void;
 }
 
-export function CoverageMap({ state, services, searchQuery, onSuburbClick }: CoverageMapProps) {
+export function CoverageMap({ state, services, searchQuery: _searchQuery, onSuburbClick }: CoverageMapProps) {
   return (
     <div className="bg-white dark:bg-zinc-900 rounded-xl p-8 shadow-xl border">
       <div className="text-center mb-6">

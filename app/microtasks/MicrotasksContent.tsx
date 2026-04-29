@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 
 interface Task {
@@ -99,17 +99,6 @@ export default function MicrotasksContent() {
     { id: 2, client: "Sarah Mitchell", job: "Regular House Clean", pay: 85, time: "Tomorrow 10AM" },
     { id: 3, client: "Nedlands Medical", job: "Daily 8AM", pay: 95, time: "Starting Monday" },
   ];
-
-  useEffect(() => {
-    setLeaderboard([
-      { rank: 1, name: "Sarah W.", earnings: 245.50, tasks: 156, badge: "🥇" },
-      { rank: 2, name: "James C.", earnings: 198.75, tasks: 134, badge: "🥈" },
-      { rank: 3, name: "Emily R.", earnings: 187.25, tasks: 121, badge: "🥉" },
-      { rank: 4, name: "Mike T.", earnings: 165.00, tasks: 98, badge: "⭐" },
-      { rank: 5, name: "Lisa K.", earnings: 142.50, tasks: 87, badge: "⭐" },
-    ]);
-     
-  }, []);
 
   const openTaskModal = (task: Task) => {
     setSelectedTask(task);

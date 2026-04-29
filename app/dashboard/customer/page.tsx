@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { serviceDetails } from "@/lib/constants/serviceDetails";
 
 export default function CustomerDashboard() {
   const [activeTab, setActiveTab] = useState("bookings");
