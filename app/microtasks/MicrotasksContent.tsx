@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
 interface Task {
@@ -64,7 +64,7 @@ export default function MicrotasksContent() {
   ];
   const badgesDefault = ["🏠", "🧹", "⚡", "🔥", "💎", "🎯"];
 
-  const [leaderboard] = useState<LeaderboardEntry[]>(leaderboardDefault);
+  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>(leaderboardDefault);
   const [badges] = useState<string[]>(badgesDefault);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -100,10 +100,7 @@ export default function MicrotasksContent() {
     { id: 3, client: "Nedlands Medical", job: "Daily 8AM", pay: 95, time: "Starting Monday" },
   ];
 
-<<<<<<< HEAD
-=======
   useEffect(() => {
-     
     setLeaderboard([
       { rank: 1, name: "Sarah W.", earnings: 245.50, tasks: 156, badge: "🥇" },
       { rank: 2, name: "James C.", earnings: 198.75, tasks: 134, badge: "🥈" },
@@ -111,12 +108,9 @@ export default function MicrotasksContent() {
       { rank: 4, name: "Mike T.", earnings: 165.00, tasks: 98, badge: "⭐" },
       { rank: 5, name: "Lisa K.", earnings: 142.50, tasks: 87, badge: "⭐" },
     ]);
-    setBadges(["🏠", "🧹", "⚡", "🔥", "💎", "🎯"]);
-    setJobOffers(offers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
->>>>>>> origin/main
   const openTaskModal = (task: Task) => {
     setSelectedTask(task);
     setShowModal(true);

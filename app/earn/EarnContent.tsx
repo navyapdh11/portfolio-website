@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface EarningEntry {
   id: number;
@@ -35,15 +35,11 @@ export default function EarnContent() {
     pendingPayout: 24.75,
   };
 
-<<<<<<< HEAD
-=======
   useEffect(() => {
-     
     setPayoutAmount(stats.pendingPayout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
->>>>>>> origin/main
   const formatCurrency = (amount: number) => {
     return amount.toLocaleString("en-AU", { style: "currency", currency: "AUD" });
   };

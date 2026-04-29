@@ -3,15 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import GalleryUpload from "@/components/dashboard/GalleryUpload";
-<<<<<<< HEAD
-=======
 import { LaunchPulseDashboard } from "@/components/dashboard/LaunchPulseDashboard";
-
-// ... inside DashboardPage ...
-        <div className="mb-8">
-            <LaunchPulseDashboard />
-        </div>
->>>>>>> origin/main
 
 interface Booking {
   id: string;
@@ -195,11 +187,7 @@ export default function DashboardPage() {
             <div className="flex gap-3">
               <Link href="/projects" className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors">
                 View Projects
-<<<<<<< HEAD
-              </a>
-=======
               </Link>
->>>>>>> origin/main
               <Link href="/" className="px-4 py-2 bg-sky-500 hover:bg-sky-600 rounded-lg font-medium transition-colors">
                 ← Back to Website
               </Link>
