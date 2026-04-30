@@ -93,14 +93,6 @@ export default function CustomerDashboard() {
     fetchData();
   }, []);
 
-  const addToCart = (service: { id: string; title: string; basePrice: number }) => {
-    setCart(prev => {
-      const existing = prev.find(c => c.id === service.id);
-      if (existing) return prev.map(c => c.id === service.id ? { ...c, quantity: c.quantity + 1 } : c);
-      return [...prev, { id: service.id, title: service.title, price: service.basePrice, quantity: 1 }];
-    });
-  };
-
   const removeFromCart = (id: string) => setCart(prev => prev.filter(c => c.id !== id));
 
   const cartTotal = cart.reduce((sum, c) => sum + c.price * c.quantity, 0);

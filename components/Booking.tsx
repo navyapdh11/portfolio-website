@@ -131,8 +131,8 @@ export default function Booking({ serviceSlug = "domestic-cleaning", state = "WA
         <div className="space-y-4">
           <h3 className="font-bold text-lg">Schedule Your Service</h3>
           <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Preferred Date *</label>
-          <input type="date" value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} className={inputClass("date")} />
-          {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
+          <input type="date" value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} className={inputClass("date")} aria-required="true" aria-invalid={!!errors.date} aria-describedby="date-error" />
+          {errors.date && <p id="date-error" role="alert" className="text-red-500 text-sm">{errors.date}</p>}
           <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Preferred Time</label>
           <select value={formData.time} onChange={e => setFormData({...formData, time: e.target.value})} className="w-full p-3 border border-zinc-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
             <option value="08:00">8:00 AM</option>
@@ -162,19 +162,19 @@ export default function Booking({ serviceSlug = "domestic-cleaning", state = "WA
         <div className="space-y-4">
           <h3 className="font-bold text-lg">Contact Information</h3>
           <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Full Name *</label>
-          <input type="text" placeholder="John Doe" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className={inputClass("name")} />
-          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+          <input type="text" placeholder="John Doe" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className={inputClass("name")} aria-required="true" aria-invalid={!!errors.name} aria-describedby="name-error" />
+          {errors.name && <p id="name-error" role="alert" className="text-red-500 text-sm">{errors.name}</p>}
           <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Email *</label>
-          <input type="email" placeholder="john@email.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className={inputClass("email")} />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          <input type="email" placeholder="john@email.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className={inputClass("email")} aria-required="true" aria-invalid={!!errors.email} aria-describedby="email-error" />
+          {errors.email && <p id="email-error" role="alert" className="text-red-500 text-sm">{errors.email}</p>}
           <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Phone *</label>
-          <input type="tel" placeholder="04XX XXX XXX" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className={inputClass("phone")} />
-          {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+          <input type="tel" placeholder="04XX XXX XXX" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className={inputClass("phone")} aria-required="true" aria-invalid={!!errors.phone} aria-describedby="phone-error" />
+          {errors.phone && <p id="phone-error" role="alert" className="text-red-500 text-sm">{errors.phone}</p>}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Suburb *</label>
-              <input type="text" placeholder="Suburb" value={formData.suburb} onChange={e => setFormData({...formData, suburb: e.target.value})} className={inputClass("suburb")} />
-              {errors.suburb && <p className="text-red-500 text-sm">{errors.suburb}</p>}
+              <input type="text" placeholder="Suburb" value={formData.suburb} onChange={e => setFormData({...formData, suburb: e.target.value})} className={inputClass("suburb")} aria-required="true" aria-invalid={!!errors.suburb} aria-describedby="suburb-error" />
+              {errors.suburb && <p id="suburb-error" role="alert" className="text-red-500 text-sm">{errors.suburb}</p>}
             </div>
             <div>
               <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">State</label>
@@ -182,8 +182,8 @@ export default function Booking({ serviceSlug = "domestic-cleaning", state = "WA
             </div>
           </div>
           <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Street Address *</label>
-          <input type="text" placeholder="123 Main St" value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className={inputClass("address")} />
-          {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
+          <input type="text" placeholder="123 Main St" value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className={inputClass("address")} aria-required="true" aria-invalid={!!errors.address} aria-describedby="address-error" />
+          {errors.address && <p id="address-error" role="alert" className="text-red-500 text-sm">{errors.address}</p>}
           <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Special Instructions</label>
           <textarea placeholder="Any special requirements..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} className="w-full p-3 border border-zinc-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none" rows={3} />
           <button onClick={nextStep} className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors">

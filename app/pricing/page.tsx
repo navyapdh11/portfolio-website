@@ -14,6 +14,11 @@ export const metadata: Metadata = {
     locale: "en_AU",
     siteName: "AASTACLEAN",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Transparent Cleaning Prices — Nationwide | AASTACLEAN",
+    description: "Upfront pricing for 20+ specialist cleaning services. No hidden fees. Book online in 2 minutes.",
+  },
 };
 
 // Build pricing from service definitions

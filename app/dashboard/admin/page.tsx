@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { getStatusColor } from "@/lib/ui/statusColors";
 
@@ -532,8 +533,8 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {gallery.map(item => (
                 <div key={item.id} className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-slate-600/50 transition-all">
-                  <div className="aspect-video bg-slate-700/50 overflow-hidden">
-                    <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="aspect-video bg-slate-700/50 overflow-hidden relative">
+                    <Image src={item.imageUrl} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   <div className="p-4">
                     <div className="flex justify-between items-start mb-2">
