@@ -50,6 +50,17 @@ export default function Footer() {
           </div>
 
           <div>
+            <h4 className="text-white font-semibold mb-4">Insights</h4>
+            <ul className="space-y-3 text-sm">
+              <li><Link href="/analytics" className="hover:text-sky-400 transition-colors">Analytics</Link></li>
+              <li><Link href="/ads" className="hover:text-sky-400 transition-colors">Ads Manager</Link></li>
+              <li><Link href="/earn" className="hover:text-sky-400 transition-colors">Earnings</Link></li>
+              <li><Link href="/flashcards" className="hover:text-sky-400 transition-colors">Strategy Cards</Link></li>
+              <li><Link href="/microtasks" className="hover:text-sky-400 transition-colors">Microtasks</Link></li>
+            </ul>
+          </div>
+
+          <div>
             <h4 className="text-white font-semibold mb-4">Contact Us</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">

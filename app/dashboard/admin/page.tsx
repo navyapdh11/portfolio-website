@@ -9,6 +9,10 @@ import ServicesTab from "./components/ServicesTab";
 import GalleryTab from "./components/GalleryTab";
 import AnalyticsTab from "./components/AnalyticsTab";
 import SettingsTab from "./components/SettingsTab";
+import AdsTab from "./components/AdsTab";
+import EarnTab from "./components/EarnTab";
+import FlashcardsTab from "./components/FlashcardsTab";
+import MicrotasksTab from "./components/MicrotasksTab";
 
 interface Analytics {
   totalRevenue: number;
@@ -48,7 +52,7 @@ interface GalleryItem {
   featured: boolean;
 }
 
-type TabType = "dashboard" | "bookings" | "customers" | "services" | "gallery" | "settings" | "analytics";
+type TabType = "dashboard" | "bookings" | "customers" | "services" | "gallery" | "analytics" | "settings" | "ads" | "earn" | "flashcards" | "microtasks";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<TabType>("dashboard");
@@ -221,7 +225,7 @@ export default function AdminDashboard() {
       <nav className="bg-slate-900/60 backdrop-blur-xl border-b border-slate-700/30 sticky top-[73px] z-40">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-1 overflow-x-auto py-2">
-            {(["dashboard", "bookings", "customers", "services", "gallery", "analytics", "settings"] as TabType[]).map(tab => (
+            {(["dashboard", "bookings", "customers", "services", "gallery", "analytics", "ads", "earn", "flashcards", "microtasks", "settings"] as TabType[]).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -283,6 +287,10 @@ export default function AdminDashboard() {
         {activeTab === "analytics" && (
           <AnalyticsTab analytics={analytics} services={services} />
         )}
+        {activeTab === "ads" && <AdsTab />}
+        {activeTab === "earn" && <EarnTab />}
+        {activeTab === "flashcards" && <FlashcardsTab />}
+        {activeTab === "microtasks" && <MicrotasksTab />}
         {activeTab === "settings" && <SettingsTab />}
       </main>
     </div>

@@ -37,6 +37,11 @@ const navLinks = [
 
 const dropdownLinks = [
   { href: "/contact", label: "Contact" },
+  { href: "/analytics", label: "Analytics" },
+  { href: "/ads", label: "Ads Manager" },
+  { href: "/earn", label: "Earnings" },
+  { href: "/flashcards", label: "Strategy Cards" },
+  { href: "/microtasks", label: "Microtasks" },
 ];
 
 export default function Navbar() {

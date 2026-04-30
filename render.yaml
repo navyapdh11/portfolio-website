@@ -19,9 +19,7 @@ services:
       - key: ADMIN_SECRET
         sync: false
       - key: SESSION_SIGNING_KEY
-        generate:
-          algorithm: SHA256
-          length: 64
+        sync: false
       - key: NEXT_PUBLIC_BASE_URL
         value: https://aastaclean-portfolio.onrender.com
 
