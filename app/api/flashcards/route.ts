@@ -4,7 +4,7 @@ import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
 
 // In-memory flashcard store
-let flashcards: Array<Record<string, unknown>> = [
+const flashcards: Array<Record<string, unknown>> = [
   { id: 'fc1', category: 'SEO', title: 'Local SEO for Cleaners', front: 'What are the 3 most important local SEO factors?', back: '1. Google Business Profile optimization\n2. Local keyword targeting (city + service)\n3. Customer reviews and ratings', priority: 'high' },
   { id: 'fc2', category: 'CRO', title: 'Conversion Rate Optimization', front: 'What is the #1 CRO lever for cleaning sites?', back: 'Above-the-fold booking form with instant quote calculator', priority: 'high' },
   { id: 'fc3', category: 'GEO', title: 'Generative Engine Optimization', front: 'How does GEO differ from traditional SEO?', back: 'GEO optimizes for AI-generated answers (ChatGPT, Gemini) rather than search engine results pages', priority: 'medium' },

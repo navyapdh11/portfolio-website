@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { getStatusColor } from "@/lib/ui/statusColors";
 
 interface Booking {
   id: string;

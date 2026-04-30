@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
 import { safeJson } from '@/lib/middleware/validation';
-import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
 
 // In-memory microtask store
-let tasks: Array<Record<string, unknown>> = [
+const tasks: Array<Record<string, unknown>> = [
   { id: 't1', type: 'image', prompt: 'Label all cleaning products in this image', reward: 0.50, rarity: 'common', category: 'image_labeling', status: 'available' },
   { id: 't2', type: 'audio', prompt: 'Transcribe this customer voicemail about cleaning needs', reward: 1.00, rarity: 'uncommon', category: 'transcription', status: 'available' },
   { id: 't3', type: 'annotation', prompt: 'Draw bounding boxes around dirt stains', reward: 0.75, rarity: 'common', category: 'annotation', status: 'available' },
@@ -19,7 +18,7 @@ let tasks: Array<Record<string, unknown>> = [
   { id: 't12', type: 'annotation', prompt: 'Mark all high-touch surfaces in this kitchen photo', reward: 0.75, rarity: 'common', category: 'annotation', status: 'available' },
 ];
 
-let completedTasks: Array<Record<string, unknown>> = [];
+const completedTasks: Array<Record<string, unknown>> = [];
 
 export async function GET(request: Request) {
   const csrf = csrfResponse(request);

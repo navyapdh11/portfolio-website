@@ -2,7 +2,7 @@
 // Protects /dashboard/admin and /dashboard/customer with HMAC-signed session tokens
 
 import { NextRequest, NextResponse } from 'next/server';
-import { validateAuth, TOKEN_COOKIE_NAME } from '@/lib/middleware/auth';
+import { validateAuth } from '@/lib/middleware/auth';
 
 const PROTECTED_ROUTES = [
   { prefix: '/dashboard/admin', expectedRole: 'admin' },

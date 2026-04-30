@@ -1,7 +1,5 @@
 "use client";
 
-import { getStatusColor } from "@/lib/ui/statusColors";
-
 interface Booking {
   id: string;
   customerName: string;

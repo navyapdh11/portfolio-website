@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { destroySession, TOKEN_COOKIE_NAME, cookieAttrs } from '@/lib/middleware/auth';
 
 export async function POST(request: Request) {
-  const cookies = (request as any).headers?.get?.('cookie') || '';
+  const cookies = request.headers?.get?.('cookie') || '';
   const match = cookies.match(new RegExp(`(?:^|;)\\s*${TOKEN_COOKIE_NAME}=([^;]+)`));
   if (match) destroySession(match[1]);
 

@@ -16,7 +16,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     const parsed = await safeJson(request);
     if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
 
-    const quote = await prisma.quote.update({ where: { id }, data: parsed.data! as any });
+    const quote = await prisma.quote.update({ where: { id }, data: parsed.data as Record<string, unknown> });
     return NextResponse.json({ success: true, quote });
   } catch {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });

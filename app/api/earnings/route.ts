@@ -4,7 +4,7 @@ import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
 
 // In-memory earnings/payout store (no Prisma model yet)
-let earnings: Array<Record<string, unknown>> = [
+const earnings: Array<Record<string, unknown>> = [
   { id: 'e1', date: '2026-04-10', job: 'Deep Clean - West Leederville', amount: 85, status: 'completed' },
   { id: 'e2', date: '2026-04-09', job: 'Office Tower - Weekly', amount: 450, status: 'completed' },
   { id: 'e3', date: '2026-04-08', job: 'End of Lease - Subiaco', amount: 120, status: 'completed' },
@@ -12,7 +12,7 @@ let earnings: Array<Record<string, unknown>> = [
   { id: 'e5', date: '2026-04-06', job: 'Regular House Clean', amount: 75, status: 'completed' },
 ];
 
-let payouts: Array<Record<string, unknown>> = [
+const payouts: Array<Record<string, unknown>> = [
   { id: 'p1', date: '2026-04-05', amount: 125.00, status: 'Completed' },
   { id: 'p2', date: '2026-03-28', amount: 98.50, status: 'Completed' },
   { id: 'p3', date: '2026-03-21', amount: 145.00, status: 'Completed' },

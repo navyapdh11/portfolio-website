@@ -36,7 +36,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       }
     }
 
-    const booking = await prisma.booking.update({ where: { id }, data: safeBody as any });
+    const booking = await prisma.booking.update({ where: { id }, data: safeBody });
     return NextResponse.json({ success: true, booking });
   } catch {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });

@@ -4,7 +4,7 @@ import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
 
 // In-memory ad campaign store (no Prisma model yet — ads are UI-only for now)
-let campaigns: Array<Record<string, unknown>> = [
+const campaigns: Array<Record<string, unknown>> = [
   { id: 'ad1', platform: 'facebook', name: 'Spring Clean Special', status: 'active', budget: 500, spent: 312, impressions: 45000, clicks: 890, conversions: 23, ctr: 1.98, roas: 4.2 },
   { id: 'ad2', platform: 'instagram', name: 'Before/After Gallery', status: 'active', budget: 300, spent: 187, impressions: 28000, clicks: 560, conversions: 18, ctr: 2.0, roas: 3.8 },
   { id: 'ad3', platform: 'google', name: 'Perth Cleaning Search', status: 'active', budget: 800, spent: 524, impressions: 12000, clicks: 340, conversions: 45, ctr: 2.83, roas: 5.2 },
