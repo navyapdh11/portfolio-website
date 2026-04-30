@@ -1,15 +1,13 @@
 // Edge proxy for route-level authentication
-// Protects /dashboard/admin and /dashboard/customer with cookie-based auth
+// Protects /dashboard/admin and /dashboard/customer with HMAC-signed session tokens
 
 import { NextRequest, NextResponse } from 'next/server';
+import { validateAuth, TOKEN_COOKIE_NAME } from '@/lib/middleware/auth';
 
 const PROTECTED_ROUTES = [
-  { prefix: '/dashboard/admin', role: 'admin' },
-  { prefix: '/dashboard/customer', role: 'customer' },
+  { prefix: '/dashboard/admin', expectedRole: 'admin' },
+  { prefix: '/dashboard/customer', expectedRole: 'customer' },
 ] as const;
-
-const COOKIE_NAME = 'ac_token';
-const ADMIN_SECRET = process.env.ADMIN_SECRET || 'aasta-clean-admin-2026';
 
 export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -28,23 +26,17 @@ export default function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const token = request.cookies.get(COOKIE_NAME)?.value;
+  // Validate session token (HMAC signature + expiry + server-side record)
+  const user = validateAuth(request);
 
-  if (!token) {
+  if (!user) {
     const loginUrl = new URL('/dashboard/login', request.url);
     loginUrl.searchParams.set('redirect', pathname);
+    loginUrl.searchParams.set('error', 'expired');
     return NextResponse.redirect(loginUrl);
   }
 
-  // Validate token
-  if (matchedRoute.role === 'admin' && token !== ADMIN_SECRET) {
-    const loginUrl = new URL('/dashboard/login', request.url);
-    loginUrl.searchParams.set('redirect', pathname);
-    loginUrl.searchParams.set('error', 'forbidden');
-    return NextResponse.redirect(loginUrl);
-  }
-
-  if (matchedRoute.role === 'customer' && !token.startsWith('cust_')) {
+  if (user.role !== matchedRoute.expectedRole) {
     const loginUrl = new URL('/dashboard/login', request.url);
     loginUrl.searchParams.set('redirect', pathname);
     loginUrl.searchParams.set('error', 'forbidden');

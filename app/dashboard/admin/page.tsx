@@ -59,7 +59,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     async function checkAuth() {
       try {
-        const res = await fetch("/api/auth/me");
+        const res = await fetch("/api/auth/me", { credentials: "include" });
         if (!res.ok) {
           window.location.href = "/dashboard/login?redirect=/dashboard/admin";
           return;
@@ -79,10 +79,10 @@ export default function AdminDashboard() {
     async function fetchData() {
       try {
         const [analyticsRes, bookingsRes, servicesRes, galleryRes] = await Promise.all([
-          fetch("/api/analytics"),
-          fetch("/api/bookings"),
-          fetch("/api/services"),
-          fetch("/api/gallery"),
+          fetch("/api/analytics", { credentials: "include" }),
+          fetch("/api/bookings", { credentials: "include" }),
+          fetch("/api/services", { credentials: "include" }),
+          fetch("/api/gallery", { credentials: "include" }),
         ]);
         const [analyticsData, bookingsData, servicesData, galleryData] = await Promise.all([
           analyticsRes.json(),
@@ -123,6 +123,7 @@ export default function AdminDashboard() {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, ...data }),
+      credentials: "include",
     });
     setServices(prev => prev.map(s => s.id === id ? { ...s, ...data } : s));
     setEditingService(null);
@@ -133,6 +134,7 @@ export default function AdminDashboard() {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
+      credentials: "include",
     });
     setServices(prev => prev.filter(s => s.id !== id));
   };
@@ -142,6 +144,7 @@ export default function AdminDashboard() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newGalleryItem),
+      credentials: "include",
     });
     const data = await res.json();
     if (data.success) {
@@ -156,6 +159,7 @@ export default function AdminDashboard() {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
+      credentials: "include",
     });
     setGallery(prev => prev.filter(g => g.id !== id));
   };
@@ -201,7 +205,7 @@ export default function AdminDashboard() {
               </Link>
               <button
                 onClick={async () => {
-                  await fetch("/api/auth/logout", { method: "POST" });
+                  await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
                   window.location.href = "/";
                 }}
                 className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-xl transition-colors text-sm"

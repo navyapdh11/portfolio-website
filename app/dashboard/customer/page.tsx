@@ -57,7 +57,7 @@ export default function CustomerDashboard() {
   useEffect(() => {
     async function checkAuth() {
       try {
-        const res = await fetch("/api/auth/me");
+        const res = await fetch("/api/auth/me", { credentials: "include" });
         if (!res.ok) {
           window.location.href = "/dashboard/login?redirect=/dashboard/customer";
           return;
@@ -77,14 +77,16 @@ export default function CustomerDashboard() {
     async function fetchData() {
       try {
         const [custRes, bookingsRes] = await Promise.all([
-          fetch("/api/customers"),
-          fetch("/api/bookings"),
+          fetch("/api/customers", { credentials: "include" }),
+          fetch("/api/bookings", { credentials: "include" }),
         ]);
         const custData = await custRes.json();
         const bookingsData = await bookingsRes.json();
         if (custData.data?.length) setCustomer(custData.data[0]);
         setBookings(bookingsData.data || []);
-      } catch { /* empty */ } finally {
+      } catch (err) {
+        console.error("[customer] Failed to fetch data:", err);
+      } finally {
         setLoading(false);
       }
     }
@@ -164,7 +166,7 @@ export default function CustomerDashboard() {
               </Link>
               <button
                 onClick={async () => {
-                  await fetch("/api/auth/logout", { method: "POST" });
+                  await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
                   window.location.href = "/";
                 }}
                 className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-xl transition-colors text-sm"

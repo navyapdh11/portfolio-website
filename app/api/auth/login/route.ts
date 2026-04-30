@@ -1,48 +1,83 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/data/store';
-import { generateCustomerToken } from '@/lib/middleware/auth';
+import { createSession, cookieAttrs, TOKEN_COOKIE_NAME } from '@/lib/middleware/auth';
 import { safeJson } from '@/lib/middleware/validation';
+import { checkRateLimit, getRateLimitHeaders } from '@/lib/middleware/rateLimit';
+import { csrfResponse } from '@/lib/middleware/csrf';
 
-const ADMIN_SECRET = process.env.ADMIN_SECRET || 'aasta-clean-admin-2026';
-const TOKEN_COOKIE_NAME = 'ac_token';
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
-const COOKIE_FLAGS = 'Path=/; HttpOnly; Secure; SameSite=Strict';
+const ADMIN_SECRET = process.env.ADMIN_SECRET!;
 
 export async function POST(request: Request) {
-  const parsed = await safeJson(request);
-  if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
-  const { email, password, role } = parsed.data!;
-  const responseInit: { status?: number; headers: { 'Set-Cookie': string } } = {
-    headers: { 'Set-Cookie': '' },
-  };
+  // CSRF check
+  const csrf = csrfResponse(request);
+  if (csrf) return csrf;
 
-  // Admin login
-  if (role === 'admin' && password === ADMIN_SECRET) {
-    responseInit.headers['Set-Cookie'] = `${TOKEN_COOKIE_NAME}=${ADMIN_SECRET}; ${COOKIE_FLAGS}; Max-Age=${COOKIE_MAX_AGE}`;
+  // Rate limit — 5 attempts per minute per IP
+  const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  const rateLimit = checkRateLimit(`login:${clientIp}`);
+  const rateLimitHeaders = getRateLimitHeaders(rateLimit);
+
+  if (!rateLimit.allowed) {
     return NextResponse.json(
-      {
-        success: true,
-        user: { id: 'admin-1', role: 'admin', name: 'Administrator', email },
-      },
-      responseInit,
+      { error: 'Too many login attempts. Please try again later.' },
+      { status: 429, headers: rateLimitHeaders },
     );
   }
 
-  // Customer login (email-based for demo)
-  if (role === 'customer') {
+  const parsed = await safeJson(request);
+  if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
+  const { email, password, role } = parsed.data as Record<string, string>;
+
+  // Admin login
+  if (role === 'admin') {
+    if (password === ADMIN_SECRET) {
+      const { token } = createSession(
+        { id: 'admin-1', role: 'admin', name: 'Administrator', email: 'admin@aastaclean.com.au' },
+        clientIp,
+      );
+      return NextResponse.json(
+        { success: true, user: { id: 'admin-1', role: 'admin', name: 'Administrator', email } },
+        {
+          status: 200,
+          headers: {
+            ...rateLimitHeaders,
+            'Set-Cookie': `${TOKEN_COOKIE_NAME}=${token}; ${cookieAttrs(8 * 60 * 60 * 1000)}`,
+          },
+        },
+      );
+    }
+    return NextResponse.json(
+      { error: 'Invalid credentials' },
+      { status: 401, headers: rateLimitHeaders },
+    );
+  }
+
+  // Customer login
+  if (role === 'customer' && email) {
     const customer = db.customers.getAll().find(c => c.email === email);
     if (customer) {
-      const token = generateCustomerToken(customer.id);
-      responseInit.headers['Set-Cookie'] = `${TOKEN_COOKIE_NAME}=${token}; ${COOKIE_FLAGS}; Max-Age=${COOKIE_MAX_AGE}`;
+      const { token } = createSession(
+        { id: customer.id, role: 'customer', name: customer.name, email: customer.email },
+        clientIp,
+      );
       return NextResponse.json(
         {
           success: true,
           user: { id: customer.id, role: 'customer', name: customer.name, email: customer.email },
         },
-        responseInit,
+        {
+          status: 200,
+          headers: {
+            ...rateLimitHeaders,
+            'Set-Cookie': `${TOKEN_COOKIE_NAME}=${token}; ${cookieAttrs(30 * 24 * 60 * 60 * 1000)}`,
+          },
+        },
       );
     }
   }
 
-  return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+  return NextResponse.json(
+    { error: 'Invalid credentials' },
+    { status: 401, headers: rateLimitHeaders },
+  );
 }

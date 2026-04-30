@@ -2,8 +2,12 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/data/store';
 import { sanitize, sanitizeEmail, validatePhone, safeJson } from '@/lib/middleware/validation';
 import { validateAuth } from '@/lib/middleware/auth';
+import { csrfResponse } from '@/lib/middleware/csrf';
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const csrf = csrfResponse(request);
+  if (csrf) return csrf;
+
   const user = validateAuth(request);
   if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await params;
