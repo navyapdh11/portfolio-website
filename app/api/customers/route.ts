@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { validateRequired, sanitize, sanitizeEmail, safeJson } from '@/lib/middleware/validation';
 import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
+import { CustomerSchema } from '@/lib/validation/schemas';
 
 export async function GET(request: Request) {
   const csrf = csrfResponse(request);
@@ -27,18 +27,19 @@ export async function POST(request: Request) {
   if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   try {
-    const parsed = await safeJson(request);
-    if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
-    const body = parsed.data!;
-    const validation = validateRequired(body, ['name', 'email', 'phone']);
-    if (!validation.success) return NextResponse.json({ error: validation.errors }, { status: 400 });
+    const body = await request.json();
+    const result = CustomerSchema.safeParse(body);
+    if (!result.success) {
+      return NextResponse.json({ error: result.error.errors }, { status: 400 });
+    }
 
+    const { name, email, phone, addresses } = result.data;
     const customer = await prisma.customer.create({
       data: {
-        name: sanitize(String(body.name)),
-        email: sanitizeEmail(String(body.email)).toLowerCase().trim(),
-        phone: sanitize(String(body.phone)),
-        addresses: Array.isArray(body.addresses) ? body.addresses : [],
+        name,
+        email: email.toLowerCase().trim(),
+        phone,
+        addresses: addresses || [],
         loyaltyPoints: 0,
         totalBookings: 0,
         totalSpent: 0,
@@ -48,7 +49,8 @@ export async function POST(request: Request) {
       },
     });
     return NextResponse.json({ success: true, customer }, { status: 201 });
-  } catch {
+  } catch (err) {
+    console.error('Customer creation error:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

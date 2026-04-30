@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { validateRequired, sanitize, sanitizeEmail, safeJson } from '@/lib/middleware/validation';
 import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
+import { QuoteSchema } from '@/lib/validation/schemas';
 
 export async function GET(request: Request) {
   const csrf = csrfResponse(request);
@@ -24,34 +24,35 @@ export async function POST(request: Request) {
   if (csrf) return csrf;
 
   try {
-    const parsed = await safeJson(request);
-    if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
-    const body = parsed.data!;
+    const body = await request.json();
+    const result = QuoteSchema.safeParse(body);
+    if (!result.success) {
+      return NextResponse.json({ error: result.error.errors }, { status: 400 });
+    }
 
     const user = validateAuth(request);
     if (user && user.role !== 'admin') return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
-    const validation = validateRequired(body, ['customerName', 'customerEmail', 'service']);
-    if (!validation.success) return NextResponse.json({ error: validation.errors }, { status: 400 });
-
+    const data = result.data;
     const quote = await prisma.quote.create({
       data: {
         customerId: String(body.customerId || null),
-        customerName: sanitize(String(body.customerName)),
-        customerEmail: sanitizeEmail(String(body.customerEmail)).toLowerCase().trim(),
-        customerPhone: sanitize(String(body.customerPhone || '')),
-        service: sanitize(String(body.service)),
-        bedrooms: Number(body.bedrooms) || 0,
-        bathrooms: Number(body.bathrooms) || 0,
-        frequency: sanitize(String(body.frequency || 'one-time')),
-        addons: Array.isArray(body.addons) ? body.addons.map((a: unknown) => sanitize(String(a))) : [],
-        estimatedPrice: Number(body.estimatedPrice) || 0,
-        suburb: sanitize(String(body.suburb || '')),
-        state: sanitize(String(body.state || '')),
+        customerName: data.customerName,
+        customerEmail: data.customerEmail,
+        customerPhone: data.customerPhone || '',
+        service: data.service,
+        bedrooms: data.bedrooms || 0,
+        bathrooms: data.bathrooms || 0,
+        frequency: data.frequency || 'one-time',
+        addons: data.addons || [],
+        estimatedPrice: data.estimatedPrice || 0,
+        suburb: data.suburb || '',
+        state: data.state || '',
       },
     });
     return NextResponse.json({ success: true, quote }, { status: 201 });
-  } catch {
+  } catch (err) {
+    console.error('Quote creation error:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

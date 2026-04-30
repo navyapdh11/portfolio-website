@@ -1,4 +1,4 @@
-# Gemini CLI — AASTACLEAN Portfolio: 2026 Enterprise Standards
+# Gemini CLI — AASTACLEAN Portfolio: 2026 AI-Native Enterprise Standards
 
 > **Project:** AASTACLEAN Portfolio Website | **Deploy:** https://portfolio-website-perth-tea.vercel.app | **Repo:** https://github.com/navyapdh11/portfolio-website
 
@@ -6,7 +6,7 @@
 
 This project operates at **2026 AI-Native Enterprise Grade** standards.
 
-## 1. AI-Native Architecture
+## 1. AI-Native Architecture (Centaur Model)
 
 ### Agentic Integration
 - **Nanochat SMLM (1.9B):** Integrated via `components/NanochatAssistant.tsx`. Local inference via LM Studio (GGUF quantized).
@@ -22,10 +22,24 @@ This project operates at **2026 AI-Native Enterprise Grade** standards.
 
 ---
 
-## 2. Shift-Left Security
+## 2. Global Web Architecture (2026)
+
+### China Patterns
+- **Modular UI:** Bento Grid design system for information density.
+- **AI-Integrated Apps:** Native AI agents in mini-program ecosystems.
+- **Sovereign Infrastructure:** Local-first architecture (PIPL compliance, domestic vector DBs).
+
+### India Patterns
+- **Agentic Frameworks:** LangGraph/CrewAI for enterprise automation.
+- **Vernacular AI:** Sarvam-inspired sovereign models for multi-language support.
+- **Public Digital Infrastructure:** ONDC/Account Aggregator agents for real-time logistics and finance.
+
+---
+
+## 3. Shift-Left Security (2026 OWASP Standards)
 
 ### Automated Gates
-- **Pre-Commit:** `scripts/security_check.py` — secret detection, dependency supply-chain auditing.
+- **Pre-Commit:** Secret scanning (gitleaks). No hardcoded credentials.
 - **SBOM:** Automated Software Bill of Materials for all projects.
 - **OWASP LLM Top 10:** Apply prompt injection prevention, output validation, least-privilege plugin design for all AI features.
 
@@ -37,7 +51,7 @@ This project operates at **2026 AI-Native Enterprise Grade** standards.
 
 ---
 
-## 3. Performance & Optimization (GreenOps)
+## 4. Performance & Optimization (2026 Standards)
 
 ### Next.js 16 Engine
 - **Turbopack:** Default bundler. 2–5× faster production builds, up to 10× faster Fast Refresh.
@@ -45,35 +59,14 @@ This project operates at **2026 AI-Native Enterprise Grade** standards.
 - **React Compiler:** `reactCompiler: true` — automatic memoization, zero manual `useMemo`/`useCallback`.
 - **Server Components:** Default to RSC. `"use client"` only for interactive components.
 
-### Compute Efficiency
-- **SSR over SSG:** Prefer SSR + caching over massive SSG (1,086 pages). Reduces build time, stale content.
-- **Bundle Optimization:** Code splitting, dynamic imports, tree shaking. Monitor with `@next/bundle-analyzer`.
-- **Image Security:** `images.remotePatterns` replaces `images.domains`. `images.localPatterns` required for local sources.
-- **Token Throughput:** Optimize for low-entropy token usage in agentic workflows. Minimize redundant renders.
-
-### Styling
-- **Tailwind CSS 4:** Oxide engine. CSS-first configuration. Native utilities for text shadows, masks.
-- **3D:** Three.js + @react-three/fiber + drei for interactive experiences.
-- **Animations:** Framer Motion for transitions. View Transitions via React 19.2.
-
----
-
-## 4. UX/UI Refinement
-
-- **Glassmorphism:** Enhanced backdrop-blur and glass effects in `Navbar.tsx`.
-- **AI-First Navigation:** Unified AI Librarian search bar integrated into core navigation.
-- **Interactive Feedback:** Real-time quality scoring in Microtasks Hub.
-- **3D Bento Grid:** Tilt effects + glassmorphism in admin dashboard.
-
 ---
 
 ## 5. Tooling Standards (2026)
 
-- **JS/TS Formatting & Linting:** Biome (replacing Prettier + ESLint). 10-100× faster. Flat config format.
-- **Python:** Ruff (replacing flake8, isort, pyupgrade). Unified formatter + linter.
+- **JS/TS Formatting & Linting:** Biome. 10–100× faster. Flat config format.
+- **Python:** Ruff. Unified formatter + linter.
 - **TypeScript:** `tsc --noEmit` strict mode. No `any` without justification.
-- **Testing:** Vitest for unit tests. Playwright for E2E. 80%+ coverage for business logic.
-- **Build:** `next build` — zero errors, zero warnings.
+- **Testing:** Vitest (unit), Playwright (E2E). 80%+ coverage for business logic.
 
 ---
 
@@ -82,11 +75,9 @@ This project operates at **2026 AI-Native Enterprise Grade** standards.
 | Date | Superseded | Replaced By | Reason |
 |------|-----------|-------------|--------|
 | 2026-04 | Next.js 14 implicit caching | Next.js 16 explicit `"use cache"` | Opt-in caching, predictable invalidation |
-| 2026-04 | `middleware.ts` | `proxy.ts` (planned) | Clear Node.js runtime boundary |
-| 2026-04 | Prettier + ESLint | Biome | 10-100× faster, unified tool |
+| 2026-04 | `middleware.ts` | `proxy.ts` | Clear Node.js runtime boundary |
+| 2026-04 | Prettier + ESLint | Biome | 10–100× faster, unified tool |
 | 2026-04 | Manual `useMemo`/`useCallback` | React Compiler auto-memoization | Zero manual code changes |
-| 2026-04 | Flat vector RAG | PathRAG relational | Deep semantic context over flat chunks |
-| 2026-04 | `images.domains` | `images.remotePatterns` | Stricter domain validation |
 
 ---
 
