@@ -71,6 +71,18 @@ export function sanitizeObject(obj: Record<string, unknown>, fields: string[]): 
   return result;
 }
 
+export async function safeJson(request: Request): Promise<{ data?: Record<string, unknown>; error?: string }> {
+  try {
+    const body = await request.json();
+    if (typeof body !== 'object' || body === null || Array.isArray(body)) {
+      return { error: 'Expected JSON object' };
+    }
+    return { data: body as Record<string, unknown> };
+  } catch {
+    return { error: 'Invalid JSON body' };
+  }
+}
+
 export function formatValidationErrors(errors: ApiError[]): string {
   return errors.map(e => e.field ? `${e.field}: ${e.message}` : e.message).join(', ');
 }

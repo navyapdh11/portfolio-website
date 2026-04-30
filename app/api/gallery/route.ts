@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/data/store';
-import { validateRequired, sanitize } from '@/lib/middleware/validation';
+import { validateRequired, sanitize, safeJson } from '@/lib/middleware/validation';
 import { validateAuth } from '@/lib/middleware/auth';
 
 export async function GET(request: Request) {
@@ -13,17 +13,19 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const user = validateAuth(request);
   if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  const body = await request.json();
+  const parsed = await safeJson(request);
+  if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
+  const body = parsed.data!;
   const validation = validateRequired(body, ['title', 'imageUrl']);
   if (!validation.success) return NextResponse.json({ error: validation.errors }, { status: 400 });
 
   const item = db.gallery.create({
-    title: sanitize(body.title),
-    description: sanitize(body.description || ''),
-    imageUrl: sanitize(body.imageUrl),
-    category: sanitize(body.category || 'general'),
-    tags: Array.isArray(body.tags) ? body.tags.map((t: string) => sanitize(t)) : [],
-    featured: body.featured ?? false,
+    title: sanitize(String(body.title)),
+    description: sanitize(String(body.description || '')),
+    imageUrl: sanitize(String(body.imageUrl)),
+    category: sanitize(String(body.category || 'general')),
+    tags: Array.isArray(body.tags) ? body.tags.map((t: unknown) => sanitize(String(t))) : [],
+    featured: Boolean(body.featured),
   });
   return NextResponse.json({ success: true, item }, { status: 201 });
 }
@@ -31,9 +33,11 @@ export async function POST(request: Request) {
 export async function PATCH(request: Request) {
   const user = validateAuth(request);
   if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  const body = await request.json();
+  const parsed = await safeJson(request);
+  if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
+  const body = parsed.data!;
   if (!body.id) return NextResponse.json({ error: 'ID required' }, { status: 400 });
-  const item = db.gallery.update(body.id, body);
+  const item = db.gallery.update(body.id as string, body);
   if (!item) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   return NextResponse.json({ success: true, item });
 }
@@ -41,7 +45,9 @@ export async function PATCH(request: Request) {
 export async function DELETE(request: Request) {
   const user = validateAuth(request);
   if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  const { id } = await request.json();
-  if (!db.gallery.delete(id)) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  const parsed = await safeJson(request);
+  if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
+  const { id } = parsed.data!;
+  if (!db.gallery.delete(id as string)) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   return NextResponse.json({ success: true });
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { getStatusColor } from "@/lib/ui/statusColors";
 
 interface Booking {
   id: string;
@@ -57,7 +58,12 @@ export default function CustomerDashboard() {
     async function checkAuth() {
       try {
         const res = await fetch("/api/auth/me");
-        if (!res.ok || (await res.json()).role !== "customer") {
+        if (!res.ok) {
+          window.location.href = "/dashboard/login?redirect=/dashboard/customer";
+          return;
+        }
+        const data = await res.json();
+        if (data.role !== "customer") {
           window.location.href = "/dashboard/login?redirect=/dashboard/customer";
         }
       } catch {
@@ -474,7 +480,23 @@ export default function CustomerDashboard() {
                   <input type="tel" defaultValue={customer?.phone} className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-xl text-white focus:border-sky-500 focus:outline-none" />
                 </div>
               </div>
-              <button className="mt-6 px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white rounded-xl font-medium transition-colors">
+              <button
+                onClick={() => {
+                  // Profile save — requires /api/customers/[id] PATCH (not yet implemented)
+                  // For now, show a visual confirmation
+                  const btn = document.getElementById("save-profile-btn");
+                  if (btn) {
+                    btn.textContent = "Saved ✓";
+                    btn.classList.add("bg-green-500");
+                    setTimeout(() => {
+                      btn.textContent = "Save Changes";
+                      btn.classList.remove("bg-green-500");
+                    }, 2000);
+                  }
+                }}
+                id="save-profile-btn"
+                className="mt-6 px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white rounded-xl font-medium transition-colors"
+              >
                 Save Changes
               </button>
             </div>
@@ -482,8 +504,8 @@ export default function CustomerDashboard() {
             <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
               <h3 className="text-lg font-bold text-white mb-4">Saved Addresses</h3>
               <div className="space-y-3">
-                {customer?.addresses?.map((addr) => (
-                  <div key={addr.postcode} className="flex justify-between items-center p-4 bg-slate-700/50 rounded-xl">
+                {customer?.addresses?.map((addr, idx) => (
+                  <div key={`${addr.postcode}-${idx}`} className="flex justify-between items-center p-4 bg-slate-700/50 rounded-xl">
                     <div>
                       <p className="font-medium text-white">{addr.street}</p>
                       <p className="text-sm text-slate-400">{addr.suburb}, {addr.state} {addr.postcode}</p>

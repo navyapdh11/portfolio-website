@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { getStatusColor } from "@/lib/ui/statusColors";
 
 interface Analytics {
   totalRevenue: number;
@@ -59,7 +60,12 @@ export default function AdminDashboard() {
     async function checkAuth() {
       try {
         const res = await fetch("/api/auth/me");
-        if (!res.ok || (await res.json()).role !== "admin") {
+        if (!res.ok) {
+          window.location.href = "/dashboard/login?redirect=/dashboard/admin";
+          return;
+        }
+        const data = await res.json();
+        if (data.role !== "admin") {
           window.location.href = "/dashboard/login?redirect=/dashboard/admin";
         }
       } catch {
@@ -152,17 +158,6 @@ export default function AdminDashboard() {
       body: JSON.stringify({ id }),
     });
     setGallery(prev => prev.filter(g => g.id !== id));
-  };
-
-  const getStatusColor = (status: string) => {
-    const colors: Record<string, string> = {
-      pending: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-      confirmed: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-      "in-progress": "bg-purple-500/20 text-purple-400 border-purple-500/30",
-      completed: "bg-green-500/20 text-green-400 border-green-500/30",
-      cancelled: "bg-red-500/20 text-red-400 border-red-500/30",
-    };
-    return colors[status] || "bg-gray-500/20 text-gray-400";
   };
 
   const flashcards = analytics ? [

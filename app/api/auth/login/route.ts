@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/data/store';
 import { generateCustomerToken } from '@/lib/middleware/auth';
+import { safeJson } from '@/lib/middleware/validation';
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET || 'aasta-clean-admin-2026';
 const TOKEN_COOKIE_NAME = 'ac_token';
@@ -8,7 +9,9 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 const COOKIE_FLAGS = 'Path=/; HttpOnly; Secure; SameSite=Strict';
 
 export async function POST(request: Request) {
-  const { email, password, role } = await request.json();
+  const parsed = await safeJson(request);
+  if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
+  const { email, password, role } = parsed.data!;
   const responseInit: { status?: number; headers: { 'Set-Cookie': string } } = {
     headers: { 'Set-Cookie': '' },
   };

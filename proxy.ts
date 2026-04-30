@@ -11,7 +11,7 @@ const PROTECTED_ROUTES = [
 const COOKIE_NAME = 'ac_token';
 const ADMIN_SECRET = process.env.ADMIN_SECRET || 'aasta-clean-admin-2026';
 
-export function proxy(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow login page and public dashboard index to pass through

@@ -1,13 +1,15 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/data/store';
-import { sanitize, sanitizeEmail, validatePhone } from '@/lib/middleware/validation';
+import { sanitize, sanitizeEmail, validatePhone, safeJson } from '@/lib/middleware/validation';
 import { validateAuth } from '@/lib/middleware/auth';
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const user = validateAuth(request);
   if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await params;
-  const body = await request.json();
+  const parsed = await safeJson(request);
+  if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
+  const body = parsed.data!;
 
   // Sanitize string fields in the update body
   const safeBody: Record<string, unknown> = {};
