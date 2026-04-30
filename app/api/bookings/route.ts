@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/data/store';
+import { prisma } from '@/lib/prisma';
 import { validateRequired, sanitize, sanitizeEmail, validatePhone, safeJson } from '@/lib/middleware/validation';
 import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   try {
-    const bookings = db.bookings.getAll();
+    const bookings = await prisma.booking.findMany({ orderBy: { createdAt: 'desc' } });
     return NextResponse.json({ data: bookings });
   } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -35,22 +35,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: [{ field: 'customerPhone', message: 'Invalid phone number', code: 'INVALID_PHONE' }] }, { status: 400 });
     }
 
-    const booking = db.bookings.create({
-      customerId: String(body.customerId || 'anonymous'),
-      customerName: sanitize(String(body.customerName)),
-      customerEmail: sanitizeEmail(String(body.customerEmail)),
-      customerPhone: sanitize(phone),
-      service: sanitize(String(body.service)),
-      address: sanitize(String(body.address || '')),
-      suburb: sanitize(String(body.suburb || '')),
-      state: sanitize(String(body.state || '')),
-      date: String(body.date),
-      time: sanitize(String(body.time || '09:00')),
-      frequency: sanitize(String(body.frequency || 'one-time')),
-      addons: Array.isArray(body.addons) ? body.addons.map((a: unknown) => sanitize(String(a))) : [],
-      status: 'pending',
-      totalPrice: Number(body.totalPrice) || 0,
-      notes: sanitize(String(body.notes || '')),
+    const booking = await prisma.booking.create({
+      data: {
+        customerId: String(body.customerId || null),
+        customerName: sanitize(String(body.customerName)),
+        customerEmail: sanitizeEmail(String(body.customerEmail)),
+        customerPhone: sanitize(phone),
+        service: sanitize(String(body.service)),
+        address: sanitize(String(body.address || '')),
+        suburb: sanitize(String(body.suburb || '')),
+        state: sanitize(String(body.state || '')),
+        date: new Date(String(body.date)),
+        time: sanitize(String(body.time || '09:00')),
+        frequency: sanitize(String(body.frequency || 'one-time')),
+        addons: Array.isArray(body.addons) ? body.addons.map((a: unknown) => sanitize(String(a))) : [],
+        totalPrice: Number(body.totalPrice) || 0,
+        notes: sanitize(String(body.notes || '')),
+      },
     });
     return NextResponse.json({ success: true, booking }, { status: 201 });
   } catch {

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/data/store';
+import { prisma } from '@/lib/prisma';
 import { sanitize, sanitizeEmail, validatePhone, safeJson } from '@/lib/middleware/validation';
 import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
@@ -20,15 +20,15 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     const safeBody: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(body)) {
       if (key === 'status') {
-        const validStatuses = ['pending', 'confirmed', 'in-progress', 'completed', 'cancelled'];
+        const validStatuses = ['pending', 'confirmed', 'inProgress', 'completed', 'cancelled'];
         safeBody[key] = validStatuses.includes(value as string) ? value : 'pending';
       } else if (key === 'customerEmail' && typeof value === 'string') {
         safeBody[key] = sanitizeEmail(value);
       } else if (key === 'customerPhone' && typeof value === 'string') {
-        if (!validatePhone(value)) {
-          return NextResponse.json({ error: 'Invalid phone number' }, { status: 400 });
-        }
+        if (!validatePhone(value)) return NextResponse.json({ error: 'Invalid phone number' }, { status: 400 });
         safeBody[key] = sanitize(value);
+      } else if (key === 'date' && typeof value === 'string') {
+        safeBody[key] = new Date(value);
       } else if (typeof value === 'string') {
         safeBody[key] = sanitize(value);
       } else {
@@ -36,10 +36,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       }
     }
 
-    const booking = db.bookings.update(id, safeBody);
-    if (!booking) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    const booking = await prisma.booking.update({ where: { id }, data: safeBody as any });
     return NextResponse.json({ success: true, booking });
   } catch {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 }

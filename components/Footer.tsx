@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  // Static year — update annually or use dynamic import
 
   return (
     <footer className="bg-slate-900 text-slate-400 py-16">
@@ -74,7 +74,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm">
-            © {currentYear} AASTACLEAN. All rights reserved.
+            © 2026 AASTACLEAN. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
             <Link href="/privacy" className="hover:text-sky-400 transition-colors">Privacy Policy</Link>

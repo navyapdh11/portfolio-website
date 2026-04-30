@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getAnalytics, db } from '@/lib/data/store';
+import { prisma } from '@/lib/prisma';
 import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
 
@@ -12,27 +13,34 @@ export async function GET(request: Request) {
 
   try {
     const analytics = getAnalytics();
-    const bookingsByStatus = db.bookings.getAll().reduce((acc, b) => {
+    const bookings = await prisma.booking.findMany();
+    const bookingsByStatus = bookings.reduce((acc, b) => {
       acc[b.status] = (acc[b.status] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-    const servicesByCategory = db.services.getAll().reduce((acc, s) => {
+    const services = db.services.getAll();
+    const servicesByCategory = services.reduce((acc, s) => {
       acc[s.category] = (acc[s.category] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-    const recentActivity = [...db.bookings.getAll()]
+    const recentActivity = [...bookings]
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, 10);
+
+    const customers = await prisma.customer.findMany();
+    const topCustomers = [...customers]
+      .sort((a, b) => (b.totalSpent || 0) - (a.totalSpent || 0))
+      .slice(0, 5);
 
     return NextResponse.json({
       analytics,
       bookingsByStatus,
       servicesByCategory,
       recentActivity,
-      stockAlerts: db.services.getAll().filter(s => s.stock < 10),
-      topCustomers: [...db.customers.getAll()].sort((a, b) => b.totalSpent - a.totalSpent).slice(0, 5),
+      stockAlerts: services.filter(s => s.stock < 10),
+      topCustomers,
     });
   } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

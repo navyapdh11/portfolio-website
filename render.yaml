@@ -1,12 +1,31 @@
 services:
   - type: web
-    name: portfolio-website
+    name: aastaclean-portfolio
     env: node
+    region: oregon
     plan: free
-    buildCommand: npm ci && npm run build
-    startCommand: npm start
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npx prisma migrate deploy && npm start
+    healthCheckPath: /
     envVars:
       - key: NODE_VERSION
         value: 20
       - key: NODE_ENV
         value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: aastaclean-db
+          property: connectionString
+      - key: ADMIN_SECRET
+        sync: false
+      - key: SESSION_SIGNING_KEY
+        generate:
+          algorithm: SHA256
+          length: 64
+      - key: NEXT_PUBLIC_BASE_URL
+        value: https://aastaclean-portfolio.onrender.com
+
+databases:
+  - name: aastaclean-db
+    databaseName: aastaclean
+    plan: free

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/data/store';
+import { prisma } from '@/lib/prisma';
 import { createSession, cookieAttrs, TOKEN_COOKIE_NAME } from '@/lib/middleware/auth';
 import { safeJson } from '@/lib/middleware/validation';
 import { checkRateLimit, getRateLimitHeaders } from '@/lib/middleware/rateLimit';
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
 
   // Customer login
   if (role === 'customer' && email) {
-    const customer = db.customers.getAll().find(c => c.email === email);
+    const customer = await prisma.customer.findUnique({ where: { email } });
     if (customer) {
       const { token } = createSession(
         { id: customer.id, role: 'customer', name: customer.name, email: customer.email },

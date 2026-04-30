@@ -1,54 +1,111 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Prisma schema — AASTACLEAN Portfolio
+// Production PostgreSQL with proper enums, relations, and indexes
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/@prisma/client"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
 }
 
+// ─── Enums ───────────────────────────────────────────────────────────────
+
+enum BookingStatus {
+  pending
+  confirmed
+  inProgress
+  completed
+  cancelled
+}
+
+enum QuoteStatus {
+  new
+  contacted
+  quoted
+  accepted
+  rejected
+}
+
+enum CustomerStatus {
+  active
+  inactive
+  prospect
+}
+
+// ─── Models ──────────────────────────────────────────────────────────────
+
 model Booking {
-  id        String   @id @default(uuid())
-  name      String
-  email     String
-  phone     String
-  service   String
-  address   String
-  date      String
-  time      String
-  status    String   // "pending", "confirmed", "completed", "cancelled"
-  createdAt DateTime @default(now())
+  id            String        @id @default(uuid())
+  customerId    String?
+  customer      Customer?     @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerName  String
+  customerEmail String
+  customerPhone String
+  service       String
+  address       String
+  suburb        String
+  state         String
+  date          DateTime      @db.Date
+  time          String
+  frequency     String        @default("one-time")
+  addons        String[]      @default([])
+  status        BookingStatus @default(pending)
+  totalPrice    Float         @default(0)
+  notes         String        @default("")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([status])
+  @@index([customerId])
+  @@index([date])
+  @@index([customerEmail])
 }
 
 model Quote {
-  id             String   @id @default(uuid())
-  service        String
-  bedrooms       Int
-  bathrooms      Int
-  frequency      String
-  estimatedPrice Float
-  customerName   String
-  customerEmail  String
-  customerPhone  String
-  suburb         String
-  status         String   // "new", "contacted", "quoted", "accepted", "rejected"
-  createdAt      DateTime @default(now())
+  id            String      @id @default(uuid())
+  customerId    String?
+  customer      Customer?   @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerName  String
+  customerEmail String
+  customerPhone String
+  service       String
+  bedrooms      Int         @default(0)
+  bathrooms     Int         @default(0)
+  frequency     String      @default("one-time")
+  addons        String[]    @default([])
+  estimatedPrice Float      @default(0)
+  suburb        String
+  state         String
+  status        QuoteStatus @default(new)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([status])
+  @@index([customerId])
+  @@index([customerEmail])
 }
 
 model Customer {
-  id            String   @id @default(uuid())
+  id            String         @id @default(uuid())
   name          String
-  email         String   @unique
+  email         String         @unique
   phone         String
-  address       String
-  suburb        String
-  totalBookings Int      @default(0)
-  totalSpent    Float    @default(0)
-  lastBooking   String?
-  status        String   // "active", "inactive", "prospect"
-  createdAt     DateTime @default(now())
+  addresses     Json?
+  loyaltyPoints Int            @default(0)
+  totalBookings Int            @default(0)
+  totalSpent    Float          @default(0)
+  lastBooking   DateTime?
+  status        CustomerStatus @default(prospect)
+  reviews       Json           @default("[]")
+  notifications Json           @default("[]")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  bookings      Booking[]
+  quotes        Quote[]
+
+  @@index([email])
+  @@index([status])
 }
