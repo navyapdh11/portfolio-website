@@ -5,6 +5,7 @@ import { generateCustomerToken } from '@/lib/middleware/auth';
 const ADMIN_SECRET = process.env.ADMIN_SECRET || 'aasta-clean-admin-2026';
 const TOKEN_COOKIE_NAME = 'ac_token';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
+const COOKIE_FLAGS = 'Path=/; HttpOnly; Secure; SameSite=Strict';
 
 export async function POST(request: Request) {
   const { email, password, role } = await request.json();
@@ -14,7 +15,7 @@ export async function POST(request: Request) {
 
   // Admin login
   if (role === 'admin' && password === ADMIN_SECRET) {
-    responseInit.headers['Set-Cookie'] = `${TOKEN_COOKIE_NAME}=${ADMIN_SECRET}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${COOKIE_MAX_AGE}`;
+    responseInit.headers['Set-Cookie'] = `${TOKEN_COOKIE_NAME}=${ADMIN_SECRET}; ${COOKIE_FLAGS}; Max-Age=${COOKIE_MAX_AGE}`;
     return NextResponse.json(
       {
         success: true,
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
     const customer = db.customers.getAll().find(c => c.email === email);
     if (customer) {
       const token = generateCustomerToken(customer.id);
-      responseInit.headers['Set-Cookie'] = `${TOKEN_COOKIE_NAME}=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${COOKIE_MAX_AGE}`;
+      responseInit.headers['Set-Cookie'] = `${TOKEN_COOKIE_NAME}=${token}; ${COOKIE_FLAGS}; Max-Age=${COOKIE_MAX_AGE}`;
       return NextResponse.json(
         {
           success: true,

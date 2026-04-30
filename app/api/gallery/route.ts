@@ -20,9 +20,9 @@ export async function POST(request: Request) {
   const item = db.gallery.create({
     title: sanitize(body.title),
     description: sanitize(body.description || ''),
-    imageUrl: body.imageUrl,
-    category: body.category || 'general',
-    tags: body.tags || [],
+    imageUrl: sanitize(body.imageUrl),
+    category: sanitize(body.category || 'general'),
+    tags: Array.isArray(body.tags) ? body.tags.map((t: string) => sanitize(t)) : [],
     featured: body.featured ?? false,
   });
   return NextResponse.json({ success: true, item }, { status: 201 });

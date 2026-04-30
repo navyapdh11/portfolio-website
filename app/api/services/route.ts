@@ -20,13 +20,13 @@ export async function POST(request: Request) {
   const service = db.services.create({
     title: sanitize(body.title),
     icon: body.icon || '🧹',
-    image: body.image || '',
+    image: sanitize(body.image || ''),
     description: sanitize(body.description || ''),
-    features: body.features || [],
-    basePrice: body.basePrice,
-    category: body.category || 'residential',
+    features: Array.isArray(body.features) ? body.features.map((f: string) => sanitize(f)) : [],
+    basePrice: Number(body.basePrice) || 0,
+    category: sanitize(body.category || 'residential'),
     available: body.available ?? true,
-    stock: body.stock || 0,
+    stock: Number(body.stock) || 0,
   });
   return NextResponse.json({ success: true, service }, { status: 201 });
 }

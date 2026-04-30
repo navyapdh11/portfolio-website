@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/data/store';
-import { validateRequired, sanitize, sanitizeEmail } from '@/lib/middleware/validation';
+import { validateRequired, sanitize, sanitizeEmail, validatePhone } from '@/lib/middleware/validation';
 import { validateAuth } from '@/lib/middleware/auth';
 
 export async function GET(request: Request) {
@@ -15,21 +15,25 @@ export async function POST(request: Request) {
   const validation = validateRequired(body, ['customerName', 'customerEmail', 'customerPhone', 'service', 'date']);
   if (!validation.success) return NextResponse.json({ error: validation.errors }, { status: 400 });
 
+  if (!validatePhone(body.customerPhone)) {
+    return NextResponse.json({ error: [{ field: 'customerPhone', message: 'Invalid phone number', code: 'INVALID_PHONE' }] }, { status: 400 });
+  }
+
   const booking = db.bookings.create({
     customerId: body.customerId || 'anonymous',
     customerName: sanitize(body.customerName),
     customerEmail: sanitizeEmail(body.customerEmail),
-    customerPhone: body.customerPhone,
+    customerPhone: sanitize(body.customerPhone),
     service: sanitize(body.service),
     address: sanitize(body.address || ''),
     suburb: sanitize(body.suburb || ''),
     state: sanitize(body.state || ''),
     date: body.date,
-    time: body.time || '09:00',
-    frequency: body.frequency || 'one-time',
-    addons: body.addons || [],
+    time: sanitize(body.time || '09:00'),
+    frequency: sanitize(body.frequency || 'one-time'),
+    addons: Array.isArray(body.addons) ? body.addons.map((a: string) => sanitize(a)) : [],
     status: 'pending',
-    totalPrice: body.totalPrice || 0,
+    totalPrice: Number(body.totalPrice) || 0,
     notes: sanitize(body.notes || ''),
   });
   return NextResponse.json({ success: true, booking }, { status: 201 });
