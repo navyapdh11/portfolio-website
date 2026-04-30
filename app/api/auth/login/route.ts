@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { createSession, cookieAttrs, TOKEN_COOKIE_NAME } from '@/lib/middleware/auth';
+import { createSession, cookieAttrs, TOKEN_COOKIE_NAME, hashedAdminSecret, verifyPassword } from '@/lib/middleware/auth';
 import { safeJson } from '@/lib/middleware/validation';
 import { checkRateLimit, getRateLimitHeaders } from '@/lib/middleware/rateLimit';
 import { csrfResponse } from '@/lib/middleware/csrf';
 
-const ADMIN_SECRET = process.env.ADMIN_SECRET!;
-
 export async function POST(request: Request) {
   // CSRF check
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
 
   // Rate limit — 5 attempts per minute per IP
@@ -28,9 +26,10 @@ export async function POST(request: Request) {
   if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
   const { email, password, role } = parsed.data as Record<string, string>;
 
-  // Admin login
+  // Admin login — bcrypt comparison against hashed secret
   if (role === 'admin') {
-    if (password === ADMIN_SECRET) {
+    const validPassword = await verifyPassword(password, hashedAdminSecret);
+    if (validPassword) {
       const { token } = createSession(
         { id: 'admin-1', role: 'admin', name: 'Administrator', email: 'admin@aastaclean.com.au' },
         clientIp,

@@ -11,56 +11,66 @@ interface PaymentStepProps {
     time: string;
   };
   addons: string[];
+  onConfirm: () => void;
 }
 
-export default function PaymentStep({ formData, addons }: PaymentStepProps) {
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  const handlePayment = async () => {
-    setIsProcessing(true);
-    const res = await fetch("/api/bookings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...formData, addons }),
-    });
-    
-    if (res.ok) {
-        alert("Booking confirmed successfully!");
-    } else {
-        alert("Payment failed, please try again.");
-    }
-    setIsProcessing(false);
-  };
+export default function PaymentStep({ formData, addons, onConfirm }: PaymentStepProps) {
+  const [paymentMethod, setPaymentMethod] = useState<"pay-on-service" | "invoice">("pay-on-service");
 
   return (
-    <section id="payment" className="bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl p-8 border border-zinc-200 dark:border-zinc-800">
+    <section id="payment" className="bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl p-8 border border-zinc-200 dark:border-zinc-800" aria-label="Payment options">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold">Secure Payment</h2>
-        <p className="text-zinc-600 text-sm">Complete your booking with our encrypted checkout.</p>
+        <h2 className="text-2xl font-bold">Payment Options</h2>
+        <p className="text-zinc-600 text-sm">Choose how you&apos;d like to pay. No upfront payment required.</p>
       </div>
 
-      <div className="space-y-6">
-        <div className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-xl border border-zinc-200">
-          <label className="block text-sm font-semibold mb-2">Cardholder Name</label>
-          <input type="text" className="w-full p-3 border rounded-lg" placeholder="Jane Doe" />
+      <div className="space-y-4">
+        {/* Payment Method Selection */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button
+            onClick={() => setPaymentMethod("pay-on-service")}
+            className={`p-4 rounded-xl border-2 text-left transition-all ${
+              paymentMethod === "pay-on-service"
+                ? "border-sky-500 bg-sky-50 dark:bg-sky-900/20"
+                : "border-zinc-200 dark:border-zinc-700 hover:border-zinc-300"
+            }`}
+            aria-pressed={paymentMethod === "pay-on-service"}
+          >
+            <div className="text-2xl mb-2">💳</div>
+            <h3 className="font-semibold">Pay on Service</h3>
+            <p className="text-sm text-zinc-500">Pay after the job is done. Cash, card, or transfer.</p>
+          </button>
+          <button
+            onClick={() => setPaymentMethod("invoice")}
+            className={`p-4 rounded-xl border-2 text-left transition-all ${
+              paymentMethod === "invoice"
+                ? "border-sky-500 bg-sky-50 dark:bg-sky-900/20"
+                : "border-zinc-200 dark:border-zinc-700 hover:border-zinc-300"
+            }`}
+            aria-pressed={paymentMethod === "invoice"}
+          >
+            <div className="text-2xl mb-2">📄</div>
+            <h3 className="font-semibold">Invoice</h3>
+            <p className="text-sm text-zinc-500">Receive an invoice via email. Pay within 7 days.</p>
+          </button>
         </div>
 
-        <div className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-xl border border-zinc-200">
-          <label className="block text-sm font-semibold mb-2">Card Number</label>
-          <input type="text" className="w-full p-3 border rounded-lg" placeholder="0000 0000 0000 0000" />
+        {/* Security Notice */}
+        <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 text-sm" role="alert">
+          <strong>🔒 Secure Booking:</strong> Your information is encrypted. No upfront payment required. Pay only after the service is completed to your satisfaction.
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <input type="text" placeholder="MM/YY" className="p-3 border rounded-lg" />
-          <input type="text" placeholder="CVC" className="p-3 border rounded-lg" />
-        </div>
-
-        <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 text-sm">
+        {/* ACL Compliant Notice */}
+        <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 text-sm" role="status">
           <strong>ACL Compliant Service:</strong> Your booking is protected under Australian Consumer Law. 100% Bond Back Guarantee included.
         </div>
 
-        <button onClick={handlePayment} disabled={isProcessing} className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all">
-          {isProcessing ? "Processing..." : "Pay Now"}
+        <button
+          onClick={onConfirm}
+          className="w-full py-4 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-all focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          aria-label="Confirm booking without upfront payment"
+        >
+          Confirm Booking — Pay {paymentMethod === "pay-on-service" ? "After Service" : "Via Invoice"}
         </button>
       </div>
     </section>

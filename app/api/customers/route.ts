@@ -2,10 +2,11 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
+import { checkRateLimit, getRateLimitHeaders } from '@/lib/middleware/rateLimit';
 import { CustomerSchema } from '@/lib/validation/schemas';
 
 export async function GET(request: Request) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
 
   const user = validateAuth(request);
@@ -20,8 +21,16 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
+
+  // Rate limit
+  const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  const rateLimit = checkRateLimit(`api:${clientIp}:POST:customers`);
+  const rateLimitHeaders = getRateLimitHeaders(rateLimit);
+  if (!rateLimit.allowed) {
+    return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429, headers: rateLimitHeaders });
+  }
 
   const user = validateAuth(request);
   if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -30,7 +39,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const result = CustomerSchema.safeParse(body);
     if (!result.success) {
-      return NextResponse.json({ error: result.error.errors }, { status: 400 });
+      return NextResponse.json({ error: result.error.issues }, { status: 400 });
     }
 
     const { name, email, phone, addresses } = result.data;
@@ -48,9 +57,9 @@ export async function POST(request: Request) {
         notifications: [],
       },
     });
-    return NextResponse.json({ success: true, customer }, { status: 201 });
+    return NextResponse.json({ success: true, customer }, { status: 201, headers: rateLimitHeaders });
   } catch (err) {
     console.error('Customer creation error:', err);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500, headers: rateLimitHeaders });
   }
 }

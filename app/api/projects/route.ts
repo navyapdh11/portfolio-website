@@ -18,7 +18,7 @@ let projects: Project[] = [
 ];
 
 export async function GET(request: Request) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
 
   const user = validateAuth(request);
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
 
   const user = validateAuth(request);
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
 
   const user = validateAuth(request);
@@ -69,7 +69,7 @@ export async function PATCH(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
 
   const user = validateAuth(request);

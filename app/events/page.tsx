@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function EventsPage() {
   const events = [
@@ -36,8 +37,7 @@ export default function EventsPage() {
           {events.map((event) => (
             <div key={event.id} className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow flex flex-col md:flex-row">
               <div className="relative md:w-2/5 h-48 md:h-auto">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={event.image} alt={event.title} className="object-cover w-full h-full" />
+                <Image src={event.image} alt={event.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 40vw" />
               </div>
               <div className="p-6 md:w-3/5 flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-2 text-sm text-sky-600 dark:text-sky-400 font-semibold">

@@ -4,7 +4,7 @@ import { csrfResponse } from '@/lib/middleware/csrf';
 import { safeJson } from '@/lib/middleware/validation';
 
 export async function POST(request: Request) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
 
   const user = validateAuth(request);

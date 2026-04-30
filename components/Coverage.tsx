@@ -12,6 +12,17 @@ export default function Coverage() {
     { name: "NT", suburbs: 481, active: 234, coverage: 49, color: "red" },
   ];
 
+  const stateColorMap: Record<string, string> = {
+    blue: "bg-gradient-to-r from-blue-500 to-blue-600",
+    green: "bg-gradient-to-r from-green-500 to-green-600",
+    orange: "bg-gradient-to-r from-orange-500 to-orange-600",
+    purple: "bg-gradient-to-r from-purple-500 to-purple-600",
+    pink: "bg-gradient-to-r from-pink-500 to-pink-600",
+    yellow: "bg-gradient-to-r from-yellow-500 to-yellow-600",
+    indigo: "bg-gradient-to-r from-indigo-500 to-indigo-600",
+    red: "bg-gradient-to-r from-red-500 to-red-600",
+  };
+
   return (
     <section id="coverage" className="py-20 bg-white dark:bg-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,7 +56,7 @@ export default function Coverage() {
               </div>
               <div className="mt-2 w-full bg-zinc-200 dark:bg-zinc-700 rounded-full h-1.5">
                 <div
-                  className={`h-1.5 rounded-full bg-gradient-to-r from-${state.color}-500 to-${state.color}-600 transition-all duration-500`}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${stateColorMap[state.color] || "bg-gradient-to-r from-blue-500 to-blue-600"}`}
                   style={{ width: `${state.coverage}%` }}
                 />
               </div>

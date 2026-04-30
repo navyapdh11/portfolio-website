@@ -65,7 +65,7 @@ export default function Projects() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
-            <div key={project.id} className="bg-zinc-50 dark:bg-zinc-800 rounded-xl overflow-hidden shadow-lg transition-all hover:shadow-2xl">
+            <div key={project.id} className="bg-zinc-50 dark:bg-zinc-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover-lift">
               <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-7xl">
                 {project.image}
               </div>

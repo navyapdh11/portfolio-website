@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { safeJson } from '@/lib/middleware/validation';
+import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
 
 // In-memory microtask store
@@ -21,8 +22,11 @@ const tasks: Array<Record<string, unknown>> = [
 const completedTasks: Array<Record<string, unknown>> = [];
 
 export async function GET(request: Request) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
+
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   try {
     return NextResponse.json({
@@ -40,8 +44,11 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
+
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   try {
     const parsed = await safeJson(request);

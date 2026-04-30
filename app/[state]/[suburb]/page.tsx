@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { suburbsByState, type Suburb } from "@/lib/data/suburbs";
 import { cleaningServices } from "@/lib/constants/services";
 import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // ---------------------------------------------------------------------------
 // Static params
@@ -241,6 +242,9 @@ export default async function SuburbPage({
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         {/* Schema */}
         {renderJsonLd(data)}
+
+        {/* Breadcrumbs */}
+        <Breadcrumbs />
 
         {/* ===== HERO ===== */}
         <section className="text-center mb-20">

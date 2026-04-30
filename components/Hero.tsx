@@ -111,9 +111,23 @@ export default function Hero() {
                 <span className="text-white/90">Across Australia</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-slate-300/90 mb-10 max-w-xl mx-auto lg:mx-0 animate-fade-in stagger-2" style={{ animationDelay: "0.2s", opacity: 0 }}>
+              <p className="text-lg md:text-xl text-slate-300/90 mb-4 max-w-xl mx-auto lg:mx-0 animate-fade-in stagger-2" style={{ animationDelay: "0.2s", opacity: 0 }}>
                 20+ specialist services · 8,000+ suburbs · Police-checked &amp; fully insured professionals. Bond-back guaranteed with same-day availability in every state.
               </p>
+
+              {/* Social Proof */}
+              <div className="flex items-center gap-3 mb-8 animate-fade-in stagger-2" style={{ animationDelay: "0.25s", opacity: 0 }}>
+                <div className="flex -space-x-2">
+                  {["👩", "👨", "👩‍🦰", "👨‍🦱", "👱‍♀️"].map((a, i) => (
+                    <div key={i} className="w-8 h-8 rounded-full bg-white/20 border-2 border-white/30 flex items-center justify-center text-sm">
+                      {a}
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm text-slate-300/90 font-medium">
+                  Trusted by <span className="text-white font-bold">2,500+</span> Australian households
+                </p>
+              </div>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12 animate-fade-in stagger-3" style={{ animationDelay: "0.35s", opacity: 0 }}>

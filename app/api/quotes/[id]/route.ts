@@ -5,7 +5,7 @@ import { validateAuth } from '@/lib/middleware/auth';
 import { csrfResponse } from '@/lib/middleware/csrf';
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const csrf = csrfResponse(request);
+  const { response: csrf } = csrfResponse(request);
   if (csrf) return csrf;
 
   const user = validateAuth(request);

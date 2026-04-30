@@ -1,29 +1,109 @@
 @import "tailwindcss";
 
+/* ============================================
+   DESIGN TOKENS — Semantic (2026 Standards)
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --primary: #0ea5e9;
-  --primary-dark: #0284c7;
-  --primary-light: #e0f2fe;
-  --secondary: #10b981;
-  --secondary-dark: #059669;
-  --accent: #f59e0b;
-  --accent-light: #fef3c7;
-  --muted: #64748b;
-  --card-bg: #f8fafc;
+  /* ── Colors: Semantic ── */
+  --color-bg-base: #ffffff;
+  --color-bg-surface: #f8fafc;
+  --color-bg-elevated: #ffffff;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-inverse: #f8fafc;
+
+  /* ── Colors: Brand ── */
+  --color-brand-primary: #0ea5e9;
+  --color-brand-primary-dark: #0284c7;
+  --color-brand-primary-light: #e0f2fe;
+  --color-brand-secondary: #10b981;
+  --color-brand-secondary-dark: #059669;
+  --color-brand-accent: #f59e0b;
+  --color-brand-accent-light: #fef3c7;
+
+  /* ── Colors: Feedback ── */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* ── Spacing Scale ── */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* ── Border Radius ── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.12);
+  --shadow-2xl: 0 24px 48px rgba(0, 0, 0, 0.15);
+
+  /* ── Z-Index Scale ── */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+  --z-tooltip: 60;
+
+  /* ── Legacy aliases ── */
+  --background: var(--color-bg-base);
+  --foreground: var(--color-text-primary);
+  --primary: var(--color-brand-primary);
+  --primary-dark: var(--color-brand-primary-dark);
+  --primary-light: var(--color-brand-primary-light);
+  --secondary: var(--color-brand-secondary);
+  --secondary-dark: var(--color-brand-secondary-dark);
+  --accent: var(--color-brand-accent);
+  --accent-light: var(--color-brand-accent-light);
+  --muted: var(--color-text-secondary);
+  --card-bg: var(--color-bg-surface);
   --border: #e2e8f0;
-  --gradient-start: #0ea5e9;
+  --gradient-start: var(--color-brand-primary);
   --gradient-end: #06b6d4;
-  --trust-green: #22c55e;
-  /* Glass variables */
+  --trust-green: var(--color-success);
   --glass-bg: rgba(255, 255, 255, 0.72);
   --glass-border: rgba(255, 255, 255, 0.35);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  /* Lightning */
   --lightning-glow: rgba(14, 165, 233, 0.6);
   --lightning-streak: rgba(6, 182, 212, 0.85);
 }
+
+/* ============================================
+   TYPOGRAPHY TOKENS
+   ============================================ */
+
+/* Font sizes: t-* classes mapped to Tailwind */
+/* 
+  --text-xs:    0.75rem   (12px)
+  --text-sm:    0.875rem  (14px)
+  --text-base:  1rem      (16px)
+  --text-lg:    1.125rem  (18px)
+  --text-xl:    1.25rem   (20px)
+  --text-2xl:   1.5rem    (24px)
+  --text-3xl:   1.875rem  (30px)
+  --text-4xl:   2.25rem   (36px)
+  
+  Line heights:
+  --leading-tight:   1.25
+  --leading-normal:  1.5
+  --leading-relaxed: 1.75
+*/
 
 @theme inline {
   --color-background: var(--background);
@@ -45,9 +125,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f172a;
-    --foreground: #f8fafc;
-    --card-bg: #1e293b;
+    --color-bg-base: #0f172a;
+    --color-bg-surface: #1e293b;
+    --color-bg-elevated: #334155;
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #94a3b8;
+    --color-text-inverse: #0f172a;
+    --background: var(--color-bg-base);
+    --foreground: var(--color-text-primary);
+    --card-bg: var(--color-bg-surface);
     --border: #334155;
     --primary-light: #0c4a6e;
     --accent-light: #78350f;

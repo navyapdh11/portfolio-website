@@ -42,7 +42,7 @@ export default function GalleryTab({
         {gallery.map(item => (
           <div key={item.id} className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-slate-600/50 transition-all">
             <div className="aspect-video bg-slate-700/50 overflow-hidden relative">
-              <Image src={item.imageUrl} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+              <Image src={item.imageUrl} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
             </div>
             <div className="p-4">
               <div className="flex justify-between items-start mb-2">

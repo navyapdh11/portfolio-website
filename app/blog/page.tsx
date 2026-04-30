@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function BlogPage() {
   const posts = [
@@ -44,8 +45,7 @@ export default function BlogPage() {
           {posts.map((post) => (
             <div key={post.id} className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <div className="relative h-60 w-full">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={post.image} alt={post.title} className="object-cover w-full h-full" />
+                <Image src={post.image} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 33vw" />
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-center mb-3">

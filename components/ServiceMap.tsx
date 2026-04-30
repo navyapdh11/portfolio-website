@@ -24,7 +24,7 @@ export default function ServiceMap() {
   ];
 
   return (
-    <section id="coverage" className="py-20 bg-white dark:bg-slate-900">
+    <section id="service-map" className="py-20 bg-white dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">

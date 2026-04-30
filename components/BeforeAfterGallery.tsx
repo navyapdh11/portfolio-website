@@ -22,7 +22,7 @@ const beforeAfterImages = [
     rating: 5,
   },
   {
-    id: 2,
+    id: "fre-001",
     location: "Fremantle, WA",
     service: "Deep House Clean",
     description: "4-bedroom family home - Spring clean after renovation",
@@ -118,11 +118,18 @@ export function BeforeAfterGallery() {
         </div>
 
         {/* Thumbnails */}
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-4" role="tablist" aria-label="Gallery thumbnails">
           {beforeAfterImages.map((item, index) => (
             <button
-              key={item.id}
+              key={String(item.id)}
               onClick={() => setActiveIndex(index)}
+              onKeyDown={(e) => {
+                if (e.key === 'ArrowRight' && index < beforeAfterImages.length - 1) setActiveIndex(index + 1);
+                if (e.key === 'ArrowLeft' && index > 0) setActiveIndex(index - 1);
+              }}
+              role="tab"
+              aria-selected={activeIndex === index}
+              aria-label={`View gallery item: ${item.location} - ${item.service}`}
               className={`p-4 rounded-lg transition-all ${
                 activeIndex === index
                   ? "bg-sky-500 text-white shadow-lg scale-105"

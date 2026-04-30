@@ -3,6 +3,7 @@
 
 import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
+import bcrypt from 'bcrypt';
 
 // ──────────────────────────────────────────────
 // Configuration — fail fast if secrets are missing
@@ -17,6 +18,28 @@ if (!ADMIN_SECRET) {
     'Generate one: node -e "require(\'crypto\').randomBytes(32).toString(\'hex\')" ' +
     'and set it in .env.local before starting the server.'
   );
+}
+
+// ──────────────────────────────────────────────
+// Password hashing — bcrypt at server startup
+// ──────────────────────────────────────────────
+
+/**
+ * Hash the ADMIN_SECRET at server startup to avoid plaintext comparison.
+ * Uses bcrypt with cost factor 12 (OWASP 2026 recommended minimum).
+ */
+export let hashedAdminSecret: string;
+
+(async () => {
+  hashedAdminSecret = await bcrypt.hash(ADMIN_SECRET, 12);
+})();
+
+/**
+ * Timing-safe password verification using bcrypt.compare.
+ * Resistant to timing oracle attacks.
+ */
+export async function verifyPassword(input: string, hash: string): Promise<boolean> {
+  return bcrypt.compare(input, hash);
 }
 
 if (!SESSION_SIGNING_KEY) {

@@ -84,7 +84,7 @@ export default function Services() {
               className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all group"
             >
               <div className="relative w-full h-40 rounded-xl mb-4 overflow-hidden">
-                <Image src={service.image} alt={service.title} fill className="object-cover" />
+                <Image src={service.image} alt={service.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
               </div>
 
               <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-2">
