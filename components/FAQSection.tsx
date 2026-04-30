@@ -1,7 +1,3 @@
-"use client";
-
-import { useState } from "react";
-
 const faqs = [
   {
     question: "What areas do you service?",
@@ -38,8 +34,6 @@ const faqs = [
 ];
 
 export function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   return (
     <section id="faq" className="py-20 bg-slate-50 dark:bg-slate-800">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,34 +48,28 @@ export function FAQSection() {
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div
+            <details
               key={index}
-              className="bg-white dark:bg-slate-900 rounded-xl shadow-md overflow-hidden"
+              className="group bg-white dark:bg-slate-900 rounded-xl shadow-md overflow-hidden"
+              open={index === 0}
             >
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-              >
+              <summary className="cursor-pointer px-6 py-5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors list-none">
                 <span className="font-semibold text-slate-900 dark:text-white pr-4">
                   {faq.question}
                 </span>
                 <svg
-                  className={`w-6 h-6 text-sky-500 flex-shrink-0 transition-transform ${
-                    openIndex === index ? "rotate-180" : ""
-                  }`}
+                  className="w-6 h-6 text-sky-500 flex-shrink-0 transition-transform duration-300 group-open:rotate-180"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
-              </button>
-              {openIndex === index && (
-                <div className="px-6 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {faq.answer}
-                </div>
-              )}
-            </div>
+              </summary>
+              <div className="px-6 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
+                {faq.answer}
+              </div>
+            </details>
           ))}
         </div>
 

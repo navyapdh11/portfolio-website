@@ -1,7 +1,3 @@
-"use client";
-
-import { useState } from "react";
-
 const reviews = [
   {
     id: 1,
@@ -60,9 +56,6 @@ const reviews = [
 ];
 
 export default function Reviews() {
-  const [showAll, setShowAll] = useState(false);
-  const displayedReviews = showAll ? reviews : reviews.slice(0, 3);
-
   return (
     <section id="reviews" className="py-20 bg-white dark:bg-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -96,7 +89,7 @@ export default function Reviews() {
 
         {/* Reviews Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {displayedReviews.map((review) => (
+          {reviews.map((review) => (
             <div
               key={review.id}
               className="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all"
@@ -138,18 +131,6 @@ export default function Reviews() {
             </div>
           ))}
         </div>
-
-        {/* Show More Button */}
-        {reviews.length > 3 && (
-          <div className="text-center mt-8">
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="px-8 py-3 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors font-medium"
-            >
-              {showAll ? "Show Less" : `Show All Reviews (${reviews.length})`}
-            </button>
-          </div>
-        )}
 
         {/* Trust Badges */}
         <div className="mt-12 flex flex-wrap justify-center items-center gap-8 opacity-60">

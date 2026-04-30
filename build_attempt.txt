@@ -1,0 +1,77 @@
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\User\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\User\portfolio-website\package-lock.json
+
+Warning: Custom Cache-Control headers detected for the following routes:
+  - /_next/static/(.*)
+
+Setting a custom Cache-Control header can break Next.js development behavior.
+▲ Next.js 16.2.2 (Turbopack)
+- Environments: .env.local, .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 10.1s
+  Running TypeScript ...
+  Finished TypeScript in 8.8s ...
+  Collecting page data using 21 workers ...
+  Generating static pages using 21 workers (0/1087) ...
+  Generating static pages using 21 workers (271/1087) 
+  Generating static pages using 21 workers (543/1087) 
+  Generating static pages using 21 workers (815/1087) 
+✓ Generating static pages using 21 workers (1087/1087) in 16.2s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ● /[state]/[suburb]
+│ ├ /nsw/sydney
+│ ├ /nsw/bondi
+│ ├ /nsw/bondi-junction
+│ └ [+891 more paths]
+├ ○ /ads
+├ ○ /analytics
+├ ƒ /api/ai/audit
+├ ƒ /api/analytics
+├ ƒ /api/auth/login
+├ ƒ /api/bookings
+├ ƒ /api/bookings/[id]
+├ ƒ /api/config
+├ ƒ /api/customers
+├ ƒ /api/gallery
+├ ƒ /api/projects
+├ ƒ /api/quotes
+├ ƒ /api/quotes/[id]
+├ ƒ /api/services
+├ ƒ /api/settings
+├ ○ /blog
+├ ○ /contact
+├ ○ /dashboard
+├ ○ /dashboard/admin
+├ ○ /dashboard/customer
+├ ○ /dashboard/seo
+├ ○ /earn
+├ ○ /events
+├ ○ /flashcards
+├ ○ /locations
+├ ○ /microtasks
+├ ○ /pricing
+├ ○ /privacy
+├ ○ /projects
+├ ƒ /services/[service]
+├ ● /services/[service]/[state]/[city]
+│ ├ /services/domestic-cleaning/nsw/sydney
+│ ├ /services/domestic-cleaning/vic/melbourne
+│ ├ /services/domestic-cleaning/qld/brisbane
+│ └ [+157 more paths]
+├ ○ /sitemap.xml
+└ ○ /terms
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

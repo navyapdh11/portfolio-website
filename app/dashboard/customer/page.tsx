@@ -54,6 +54,20 @@ export default function CustomerDashboard() {
   const [cart, setCart] = useState<{ id: string; title: string; price: number; quantity: number }[]>([]);
 
   useEffect(() => {
+    async function checkAuth() {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (!res.ok || (await res.json()).role !== "customer") {
+          window.location.href = "/dashboard/login?redirect=/dashboard/customer";
+        }
+      } catch {
+        window.location.href = "/dashboard/login?redirect=/dashboard/customer";
+      }
+    }
+    checkAuth();
+  }, []);
+
+  useEffect(() => {
     async function fetchData() {
       try {
         const [custRes, bookingsRes] = await Promise.all([
@@ -142,6 +156,15 @@ export default function CustomerDashboard() {
               <Link href="/" className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors text-sm">
                 ← Website
               </Link>
+              <button
+                onClick={async () => {
+                  await fetch("/api/auth/logout", { method: "POST" });
+                  window.location.href = "/";
+                }}
+                className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-xl transition-colors text-sm"
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>

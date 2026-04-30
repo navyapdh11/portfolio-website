@@ -56,6 +56,20 @@ export default function AdminDashboard() {
   const [editingService, setEditingService] = useState<string | null>(null);
 
   useEffect(() => {
+    async function checkAuth() {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (!res.ok || (await res.json()).role !== "admin") {
+          window.location.href = "/dashboard/login?redirect=/dashboard/admin";
+        }
+      } catch {
+        window.location.href = "/dashboard/login?redirect=/dashboard/admin";
+      }
+    }
+    checkAuth();
+  }, []);
+
+  useEffect(() => {
     async function fetchData() {
       try {
         const [analyticsRes, bookingsRes, servicesRes, galleryRes] = await Promise.all([
@@ -190,6 +204,15 @@ export default function AdminDashboard() {
               <Link href="/dashboard/customer" className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors text-sm">
                 Customer View
               </Link>
+              <button
+                onClick={async () => {
+                  await fetch("/api/auth/logout", { method: "POST" });
+                  window.location.href = "/";
+                }}
+                className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-xl transition-colors text-sm"
+              >
+                Logout
+              </button>
               <Link href="/" className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-xl transition-colors text-sm">
                 ← Website
               </Link>
