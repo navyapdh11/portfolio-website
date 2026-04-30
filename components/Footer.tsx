@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-1">
             <h3 className="text-2xl font-bold text-white mb-4">
-              AA<span className="text-sky-500">STACLEAN</span>
+              AA<span className="text-sky-600">STACLEAN</span>
             </h3>
             <p className="text-sm text-slate-400 mb-4">
               Professional cleaning services in Perth, Western Australia. 

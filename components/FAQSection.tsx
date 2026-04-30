@@ -39,7 +39,7 @@ export function FAQSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
-            Frequently Asked <span className="text-sky-500">Questions</span>
+            Frequently Asked <span className="text-sky-600">Questions</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 mt-4">
             Everything you need to know about our cleaning services
@@ -58,7 +58,7 @@ export function FAQSection() {
                   {faq.question}
                 </span>
                 <svg
-                  className="w-6 h-6 text-sky-500 flex-shrink-0 transition-transform duration-300 group-open:rotate-180"
+                  className="w-6 h-6 text-sky-600 flex-shrink-0 transition-transform duration-300 group-open:rotate-180"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

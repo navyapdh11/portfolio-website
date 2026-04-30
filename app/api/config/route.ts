@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+import { validateAuth } from '@/lib/middleware/auth';
+import { csrfResponse } from '@/lib/middleware/csrf';
+import { safeJson } from '@/lib/middleware/validation';
 
 let config = {
   cta: {
@@ -12,12 +15,34 @@ let config = {
   ]
 };
 
-export async function GET() {
-  return NextResponse.json(config);
+export async function GET(request: Request) {
+  const csrf = csrfResponse(request);
+  if (csrf) return csrf;
+
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  try {
+    return NextResponse.json(config);
+  } catch {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
 }
 
 export async function PATCH(request: Request) {
-  const updates = await request.json();
-  config = { ...config, ...updates };
-  return NextResponse.json({ success: true, config });
+  const csrf = csrfResponse(request);
+  if (csrf) return csrf;
+
+  const user = validateAuth(request);
+  if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  try {
+    const parsed = await safeJson(request);
+    if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
+    const updates = parsed.data!;
+    config = { ...config, ...Object.fromEntries(Object.entries(updates).filter(([k]) => k in config)) };
+    return NextResponse.json({ success: true, config });
+  } catch {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
 }

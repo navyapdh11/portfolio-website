@@ -1,13 +1,10 @@
 import { MetadataRoute } from "next";
-import { db } from "@/lib/data/store";
 import { allSuburbs } from "@/lib/data/suburbs";
-import { cleaningServices } from "@/lib/constants/services";
+import { cleaningServices, australianCities } from "@/lib/constants/services";
 
 const BASE_URL = "https://www.aastaclean.com.au";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const services = db.services.getAll();
-
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
@@ -20,15 +17,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  // Service pages
-  const servicePages: MetadataRoute.Sitemap = services.flatMap(s => [
-    {
-      url: `${BASE_URL}/services/${s.id}`,
+  // Service pages — use slugs from constants, not database IDs
+  const servicePages: MetadataRoute.Sitemap = cleaningServices.map(s => ({
+    url: `${BASE_URL}/services/${s.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  // Service + city combo pages
+  const serviceCityPages: MetadataRoute.Sitemap = cleaningServices.flatMap(service =>
+    australianCities.map(city => ({
+      url: `${BASE_URL}/services/${service.slug}/${city.state}/${city.slug}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
-      priority: 0.8,
-    },
-  ]);
+      priority: 0.7,
+    }))
+  );
 
   // All 895 suburb pages — /[state]/[suburb]
   const suburbPages: MetadataRoute.Sitemap = allSuburbs.map(sub => ({
@@ -38,5 +43,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...servicePages, ...suburbPages];
+  return [...staticPages, ...servicePages, ...serviceCityPages, ...suburbPages];
 }

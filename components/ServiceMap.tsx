@@ -28,7 +28,7 @@ export default function ServiceMap() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
-            Our <span className="text-sky-500">Location</span>
+            Our <span className="text-sky-600">Location</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 mt-4 max-w-2xl mx-auto">
             Visit us at our office or explore the areas we service across Perth
@@ -90,7 +90,7 @@ export default function ServiceMap() {
                   <div className="text-slate-900 dark:text-white font-medium">
                     {area.suburb}
                   </div>
-                  <div className="text-sm text-sky-500">{area.distance}</div>
+                  <div className="text-sm text-sky-600">{area.distance}</div>
                 </div>
               ))}
             </div>

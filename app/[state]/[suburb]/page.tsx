@@ -135,11 +135,12 @@ function renderJsonLd(suburb: Suburb) {
   const abbr = suburb.state.toUpperCase();
   const canonical = canonicalUrl(suburb.state, suburb.slug);
   const faqs = generateFAQs(suburb);
+  const localBusinessId = `#localbusiness-${suburb.slug}`;
   const serviceList = cleaningServices.slice(0, 8).map((s) => ({
     "@type": "Service",
     name: s.name,
     serviceType: s.name,
-    provider: { "@id": "#localbusiness" },
+    provider: { "@id": localBusinessId },
     areaServed: {
       "@type": "City",
       name: `${name}, ${abbr} ${suburb.postcode}`,
@@ -150,7 +151,7 @@ function renderJsonLd(suburb: Suburb) {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@id": "#localbusiness",
+        "@id": localBusinessId,
         "@type": "LocalBusiness",
         name: "AASTACLEAN",
         description: `Professional cleaning services in ${name}, ${abbr}.`,

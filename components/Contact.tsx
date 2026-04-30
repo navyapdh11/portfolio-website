@@ -37,7 +37,7 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-white">
-            Get In <span className="text-sky-500">Touch</span>
+            Get In <span className="text-sky-600">Touch</span>
           </h2>
           <p className="text-zinc-600 dark:text-zinc-400 mt-4 max-w-2xl mx-auto">
             Ready to book a cleaning service? Get in touch with us today for a free quote!
@@ -64,7 +64,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-zinc-500 dark:text-zinc-400">Email</div>
-                  <a href="mailto:aastaclean@gmail.com" className="text-zinc-900 dark:text-white font-medium hover:text-sky-500 transition-colors">
+                  <a href="mailto:aastaclean@gmail.com" className="text-zinc-900 dark:text-white font-medium hover:text-sky-600 transition-colors">
                     aastaclean@gmail.com
                   </a>
                 </div>
@@ -88,7 +88,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-zinc-500 dark:text-zinc-400">Phone (Business)</div>
-                  <a href="tel:0890000000" className="text-zinc-900 dark:text-white font-medium hover:text-sky-500 transition-colors">
+                  <a href="tel:0890000000" className="text-zinc-900 dark:text-white font-medium hover:text-sky-600 transition-colors">
                     08 9000 0000
                   </a>
                 </div>
@@ -100,7 +100,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-zinc-500 dark:text-zinc-400">Mobile</div>
-                  <a href="tel:0405866459" className="text-zinc-900 dark:text-white font-medium hover:text-sky-500 transition-colors">
+                  <a href="tel:0405866459" className="text-zinc-900 dark:text-white font-medium hover:text-sky-600 transition-colors">
                     0405 866 459
                   </a>
                 </div>

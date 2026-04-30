@@ -93,7 +93,7 @@ export default function Hero() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
               </span>
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                Australia&apos;s Premier Cleaning Network — <span className="text-sky-500">Nationwide Coverage</span>
+                Australia&apos;s Premier Cleaning Network — <span className="text-sky-600">Nationwide Coverage</span>
               </span>
             </div>
           </div>

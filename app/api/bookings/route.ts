@@ -10,41 +10,50 @@ export async function GET(request: Request) {
 
   const user = validateAuth(request);
   if (!user || user.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  const bookings = db.bookings.getAll();
-  return NextResponse.json({ data: bookings });
+
+  try {
+    const bookings = db.bookings.getAll();
+    return NextResponse.json({ data: bookings });
+  } catch {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
   const csrf = csrfResponse(request);
   if (csrf) return csrf;
 
-  const parsed = await safeJson(request);
-  if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
-  const body = parsed.data!;
-  const validation = validateRequired(body, ['customerName', 'customerEmail', 'customerPhone', 'service', 'date']);
-  if (!validation.success) return NextResponse.json({ error: validation.errors }, { status: 400 });
+  try {
+    const parsed = await safeJson(request);
+    if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
+    const body = parsed.data!;
+    const validation = validateRequired(body, ['customerName', 'customerEmail', 'customerPhone', 'service', 'date']);
+    if (!validation.success) return NextResponse.json({ error: validation.errors }, { status: 400 });
 
-  const phone = String(body.customerPhone);
-  if (!validatePhone(phone)) {
-    return NextResponse.json({ error: [{ field: 'customerPhone', message: 'Invalid phone number', code: 'INVALID_PHONE' }] }, { status: 400 });
+    const phone = String(body.customerPhone);
+    if (!validatePhone(phone)) {
+      return NextResponse.json({ error: [{ field: 'customerPhone', message: 'Invalid phone number', code: 'INVALID_PHONE' }] }, { status: 400 });
+    }
+
+    const booking = db.bookings.create({
+      customerId: String(body.customerId || 'anonymous'),
+      customerName: sanitize(String(body.customerName)),
+      customerEmail: sanitizeEmail(String(body.customerEmail)),
+      customerPhone: sanitize(phone),
+      service: sanitize(String(body.service)),
+      address: sanitize(String(body.address || '')),
+      suburb: sanitize(String(body.suburb || '')),
+      state: sanitize(String(body.state || '')),
+      date: String(body.date),
+      time: sanitize(String(body.time || '09:00')),
+      frequency: sanitize(String(body.frequency || 'one-time')),
+      addons: Array.isArray(body.addons) ? body.addons.map((a: unknown) => sanitize(String(a))) : [],
+      status: 'pending',
+      totalPrice: Number(body.totalPrice) || 0,
+      notes: sanitize(String(body.notes || '')),
+    });
+    return NextResponse.json({ success: true, booking }, { status: 201 });
+  } catch {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
-
-  const booking = db.bookings.create({
-    customerId: String(body.customerId || 'anonymous'),
-    customerName: sanitize(String(body.customerName)),
-    customerEmail: sanitizeEmail(String(body.customerEmail)),
-    customerPhone: sanitize(phone),
-    service: sanitize(String(body.service)),
-    address: sanitize(String(body.address || '')),
-    suburb: sanitize(String(body.suburb || '')),
-    state: sanitize(String(body.state || '')),
-    date: String(body.date),
-    time: sanitize(String(body.time || '09:00')),
-    frequency: sanitize(String(body.frequency || 'one-time')),
-    addons: Array.isArray(body.addons) ? body.addons.map((a: unknown) => sanitize(String(a))) : [],
-    status: 'pending',
-    totalPrice: Number(body.totalPrice) || 0,
-    notes: sanitize(String(body.notes || '')),
-  });
-  return NextResponse.json({ success: true, booking }, { status: 201 });
 }

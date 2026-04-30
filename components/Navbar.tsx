@@ -64,7 +64,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="#home" className="text-xl font-bold text-slate-900 dark:text-white">
-            AA<span className="text-sky-500">STACLEAN</span>
+            AA<span className="text-sky-600">STACLEAN</span>
           </Link>
 
           <div className="hidden lg:flex items-center flex-1 max-w-sm mx-8">
@@ -78,7 +78,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors text-sm"
+                className="text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors text-sm"
               >
                 {link.label}
               </Link>
@@ -88,7 +88,7 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => { setServicesOpen(!servicesOpen); setMoreOpen(false); }}
-                className="flex items-center text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors text-sm font-medium"
+                className="flex items-center text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors text-sm font-medium"
                 aria-expanded={servicesOpen}
                 aria-haspopup="true"
               >
@@ -117,7 +117,7 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => { setMoreOpen(!moreOpen); setServicesOpen(false); }}
-                className="flex items-center text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors"
+                className="flex items-center text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors"
                 aria-expanded={moreOpen}
                 aria-haspopup="true"
               >
@@ -144,7 +144,7 @@ export default function Navbar() {
 
             <Link
               href="/dashboard"
-              className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium text-sm"
+              className="text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium text-sm"
             >
               Dashboard
             </Link>
@@ -179,7 +179,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors px-2"
+                  className="text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors px-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
@@ -191,7 +191,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors block px-2 py-1"
+                    className="text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors block px-2 py-1"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {link.label}
@@ -200,7 +200,7 @@ export default function Navbar() {
               </div>
               <Link
                 href="/dashboard"
-                className="text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium text-sm"
+                className="text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors font-medium text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Dashboard

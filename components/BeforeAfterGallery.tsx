@@ -77,7 +77,7 @@ export function BeforeAfterGallery() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
-            Real Results, <span className="text-sky-500">Real Clients</span>
+            Real Results, <span className="text-sky-600">Real Clients</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 mt-4 max-w-2xl mx-auto">
             See the CleanAgent difference. Every job completed with attention to detail.
