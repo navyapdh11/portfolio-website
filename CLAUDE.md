@@ -77,6 +77,15 @@
 - **Streaming:** Use streaming for conversational UI. Graceful fallback on API failure.
 - **Content Generation:** AI-assisted with human editorial oversight. Search engines penalize unreviewed AI content.
 
+### DeepSeek V4 Optimizer
+- **Architecture:** 671B total parameters, 37B activated per token via DeepSeekMoE (256 experts). Multi-head Latent Attention (MLA) for efficient context modeling.
+- **FP8 Mixed Precision:** Native FP8 weights with BF16 fallback. W8A8 quantization for inference acceleration.
+- **Multi-Token Prediction (MTP):** Enables speculative decoding for 2-3× faster inference. Improves training signal density.
+- **Auxiliary-Loss-Free Load Balancing:** MoE expert routing without auxiliary loss penalties.
+- **Integration:** Use `deepseek-v4-flash` for rapid inference (content summarization, extraction). Use `deepseek-v4-pro` for complex reasoning (architecture decisions, security analysis). Enable `thinking` mode for multi-step tasks. Stream responses (`stream: true`).
+- **Context Management:** Sliding window + summary compression. Truncate history while preserving semantic continuity.
+- **Safety:** Validate all LLM outputs before downstream execution. Request confidence markers for critical decisions.
+
 ### Agentic Integration (2026)
 - **Multi-Agent Orchestration:** Coordinator → Specialists → Verifier. Parallel execution for independent work.
 - **Agentic Safety:** Least-privilege, sandboxed code, approval gates for destructive actions.
