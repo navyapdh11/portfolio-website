@@ -185,7 +185,7 @@ export default function AnalyticsContent() {
 											110, 102, 115, 108, 120, 112, 125, 118, 130, 122, 135,
 										].map((val, i) => (
 											<div
-												key={i}
+												key={`bar-${i}-${val}`}
 												className="flex-1 bg-slate-400 rounded-t"
 												style={{ height: `${val}%` }}
 											></div>
@@ -355,9 +355,9 @@ export default function AnalyticsContent() {
 												rec: "Fix mobile checkout flow",
 												impact: "+5%",
 											},
-										].map((r, i) => (
+										].map((r) => (
 											<div
-												key={i}
+												key={`rec-${r.rec.slice(0, 20)}`}
 												className="flex justify-between items-center p-3 bg-white dark:bg-zinc-800 rounded-lg"
 											>
 												<div className="flex items-center gap-3">

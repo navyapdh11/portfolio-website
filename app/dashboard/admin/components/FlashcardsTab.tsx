@@ -27,8 +27,11 @@ export default function FlashcardsTab() {
 						{ title: "Conversion Rate Optimization", tag: "CRO" },
 						{ title: "Generative Engine Optimization", tag: "GEO" },
 						{ title: "Answer Engine Optimization", tag: "AEO" },
-					].map((card, i) => (
-						<div key={i} className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+					].map((card) => (
+						<div
+							key={card.tag}
+							className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl"
+						>
 							<span className="text-xs px-2 py-1 bg-amber-500/20 text-amber-400 rounded-full">
 								{card.tag}
 							</span>

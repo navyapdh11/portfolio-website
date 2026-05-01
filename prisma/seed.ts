@@ -170,22 +170,48 @@ async function main() {
 		prisma.flashcard.upsert({
 			where: { id: "fc1" },
 			update: {},
-			create: { id: "fc1", question: "What are the 3 most important local SEO factors?", answer: "1. Google Business Profile optimization\n2. Local keyword targeting (city + service)\n3. Customer reviews and ratings", category: "SEO", order: 1 },
+			create: {
+				id: "fc1",
+				question: "What are the 3 most important local SEO factors?",
+				answer:
+					"1. Google Business Profile optimization\n2. Local keyword targeting (city + service)\n3. Customer reviews and ratings",
+				category: "SEO",
+				order: 1,
+			},
 		}),
 		prisma.flashcard.upsert({
 			where: { id: "fc2" },
 			update: {},
-			create: { id: "fc2", question: "What is the #1 CRO lever for cleaning sites?", answer: "Above-the-fold booking form with instant quote calculator", category: "CRO", order: 2 },
+			create: {
+				id: "fc2",
+				question: "What is the #1 CRO lever for cleaning sites?",
+				answer: "Above-the-fold booking form with instant quote calculator",
+				category: "CRO",
+				order: 2,
+			},
 		}),
 		prisma.flashcard.upsert({
 			where: { id: "fc3" },
 			update: {},
-			create: { id: "fc3", question: "How does GEO differ from traditional SEO?", answer: "GEO optimizes for AI-generated answers (ChatGPT, Gemini) rather than search engine results pages", category: "GEO", order: 3 },
+			create: {
+				id: "fc3",
+				question: "How does GEO differ from traditional SEO?",
+				answer:
+					"GEO optimizes for AI-generated answers (ChatGPT, Gemini) rather than search engine results pages",
+				category: "GEO",
+				order: 3,
+			},
 		}),
 		prisma.flashcard.upsert({
 			where: { id: "fc4" },
 			update: {},
-			create: { id: "fc4", question: "What format does AEO favor?", answer: "FAQ-style content with direct, concise answers to common questions", category: "AEO", order: 4 },
+			create: {
+				id: "fc4",
+				question: "What format does AEO favor?",
+				answer: "FAQ-style content with direct, concise answers to common questions",
+				category: "AEO",
+				order: 4,
+			},
 		}),
 	]);
 	console.log(`✅ ${flashcards.length} flashcards seeded`);
@@ -195,17 +221,53 @@ async function main() {
 		prisma.adCampaign.upsert({
 			where: { id: "ad1" },
 			update: {},
-			create: { id: "ad1", platform: "facebook", name: "Spring Clean Special", status: "active", budget: 500, spent: 312, impressions: 45000, clicks: 890, conversions: 23, ctr: 1.98, roas: 4.2 },
+			create: {
+				id: "ad1",
+				platform: "facebook",
+				name: "Spring Clean Special",
+				status: "active",
+				budget: 500,
+				spent: 312,
+				impressions: 45000,
+				clicks: 890,
+				conversions: 23,
+				ctr: 1.98,
+				roas: 4.2,
+			},
 		}),
 		prisma.adCampaign.upsert({
 			where: { id: "ad2" },
 			update: {},
-			create: { id: "ad2", platform: "instagram", name: "Before/After Gallery", status: "active", budget: 300, spent: 187, impressions: 28000, clicks: 560, conversions: 18, ctr: 2.0, roas: 3.8 },
+			create: {
+				id: "ad2",
+				platform: "instagram",
+				name: "Before/After Gallery",
+				status: "active",
+				budget: 300,
+				spent: 187,
+				impressions: 28000,
+				clicks: 560,
+				conversions: 18,
+				ctr: 2.0,
+				roas: 3.8,
+			},
 		}),
 		prisma.adCampaign.upsert({
 			where: { id: "ad3" },
 			update: {},
-			create: { id: "ad3", platform: "google", name: "Perth Cleaning Search", status: "active", budget: 800, spent: 524, impressions: 12000, clicks: 340, conversions: 45, ctr: 2.83, roas: 5.2 },
+			create: {
+				id: "ad3",
+				platform: "google",
+				name: "Perth Cleaning Search",
+				status: "active",
+				budget: 800,
+				spent: 524,
+				impressions: 12000,
+				clicks: 340,
+				conversions: 45,
+				ctr: 2.83,
+				roas: 5.2,
+			},
 		}),
 	]);
 	console.log(`✅ ${campaigns.length} ad campaigns seeded`);
@@ -215,17 +277,38 @@ async function main() {
 		prisma.microtask.upsert({
 			where: { id: "t1" },
 			update: {},
-			create: { id: "t1", title: "Label cleaning products", description: "Label all cleaning products in this image", status: "pending", priority: "medium", reward: 0.5 },
+			create: {
+				id: "t1",
+				title: "Label cleaning products",
+				description: "Label all cleaning products in this image",
+				status: "pending",
+				priority: "medium",
+				reward: 0.5,
+			},
 		}),
 		prisma.microtask.upsert({
 			where: { id: "t2" },
 			update: {},
-			create: { id: "t2", title: "Transcribe voicemail", description: "Transcribe customer voicemail about cleaning needs", status: "pending", priority: "high", reward: 1.0 },
+			create: {
+				id: "t2",
+				title: "Transcribe voicemail",
+				description: "Transcribe customer voicemail about cleaning needs",
+				status: "pending",
+				priority: "high",
+				reward: 1.0,
+			},
 		}),
 		prisma.microtask.upsert({
 			where: { id: "t3" },
 			update: {},
-			create: { id: "t3", title: "Classify review sentiment", description: "Classify this review as positive, neutral, or negative", status: "pending", priority: "low", reward: 0.25 },
+			create: {
+				id: "t3",
+				title: "Classify review sentiment",
+				description: "Classify this review as positive, neutral, or negative",
+				status: "pending",
+				priority: "low",
+				reward: 0.25,
+			},
 		}),
 	]);
 	console.log(`✅ ${tasks.length} microtasks seeded`);
@@ -235,12 +318,26 @@ async function main() {
 		prisma.project.upsert({
 			where: { id: "proj1" },
 			update: {},
-			create: { id: "proj1", title: "CBD Office Tower - Commercial Complex", category: "Commercial Cleaning", location: "Perth CBD", description: "Complete weekly maintenance cleaning for a 20-story commercial tower.", beforeImage: "🏢" },
+			create: {
+				id: "proj1",
+				title: "CBD Office Tower - Commercial Complex",
+				category: "Commercial Cleaning",
+				location: "Perth CBD",
+				description: "Complete weekly maintenance cleaning for a 20-story commercial tower.",
+				beforeImage: "🏢",
+			},
 		}),
 		prisma.project.upsert({
 			where: { id: "proj2" },
 			update: {},
-			create: { id: "proj2", title: "West Leederville Family Home", category: "Residential Cleaning", location: "West Leederville", description: "Regular fortnightly cleaning service.", beforeImage: "🏠" },
+			create: {
+				id: "proj2",
+				title: "West Leederville Family Home",
+				category: "Residential Cleaning",
+				location: "West Leederville",
+				description: "Regular fortnightly cleaning service.",
+				beforeImage: "🏠",
+			},
 		}),
 	]);
 	console.log(`✅ ${projects.length} projects seeded`);
@@ -264,9 +361,27 @@ async function main() {
 				{ icon: "🛡️", value: "100%", label: "Bond-Back Guarantee" },
 			],
 			socialLinks: [
-				{ platform: "Facebook", url: "https://facebook.com/aastaclean", icon: "📘", followers: 2500, engagement: 4.2 },
-				{ platform: "Instagram", url: "https://instagram.com/aastaclean", icon: "📸", followers: 1800, engagement: 5.8 },
-				{ platform: "Google", url: "https://google.com/aastaclean", icon: "🔍", followers: 150, engagement: 8.5 },
+				{
+					platform: "Facebook",
+					url: "https://facebook.com/aastaclean",
+					icon: "📘",
+					followers: 2500,
+					engagement: 4.2,
+				},
+				{
+					platform: "Instagram",
+					url: "https://instagram.com/aastaclean",
+					icon: "📸",
+					followers: 1800,
+					engagement: 5.8,
+				},
+				{
+					platform: "Google",
+					url: "https://google.com/aastaclean",
+					icon: "🔍",
+					followers: 150,
+					engagement: 8.5,
+				},
 			],
 		},
 	});

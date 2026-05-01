@@ -415,9 +415,9 @@ export default async function SuburbPage({
 						Everything you need to know about our cleaning services in {name}.
 					</p>
 					<div className="max-w-3xl mx-auto space-y-3">
-						{faqs.map((faq, i) => (
+						{faqs.map((faq) => (
 							<details
-								key={i}
+								key={`faq-${faq.q.slice(0, 20)}`}
 								className="group rounded-xl border border-slate-200/80 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/50 backdrop-blur-sm open:border-sky-300 dark:open:border-sky-600 transition-colors"
 							>
 								<summary className="cursor-pointer list-none p-5 pr-12 relative font-semibold text-slate-800 dark:text-slate-100 select-none">

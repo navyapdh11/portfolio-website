@@ -13,37 +13,37 @@ interface AuditScore {
 	findings: string[];
 }
 
-function scoreContentQuality(text: string): AuditScore[] {
-	const scores: AuditScore[] = [];
+// ─── Individual category scorers (extracted to reduce cognitive complexity) ──
 
-	// SEO: keyword density, heading structure, meta tags
-	const seoFindings: string[] = [];
+function scoreSEO(text: string): AuditScore {
+	const findings: string[] = [];
 	const wordCount = text.split(/\s+/).length;
 	const h1Count = (text.match(/<h1/gi) || []).length;
 	const h2Count = (text.match(/<h2/gi) || []).length;
 	const hasMetaDescription = text.includes("meta name=") && text.includes("description");
 	const hasJsonLd = text.includes("application/ld+json");
 
-	if (wordCount < 300) seoFindings.push("Low word count (<300) — thin content risk");
-	else if (wordCount < 600) seoFindings.push("Moderate word count — aim for 600+ words");
-	else seoFindings.push(`Good word count (${wordCount} words)`);
+	if (wordCount < 300) findings.push("Low word count (<300) — thin content risk");
+	else if (wordCount < 600) findings.push("Moderate word count — aim for 600+ words");
+	else findings.push(`Good word count (${wordCount} words)`);
 
-	if (h1Count !== 1) seoFindings.push(`Should have exactly 1 H1 tag (found ${h1Count})`);
-	else seoFindings.push("Proper H1 structure");
+	if (h1Count !== 1) findings.push(`Should have exactly 1 H1 tag (found ${h1Count})`);
+	else findings.push("Proper H1 structure");
 
-	if (h2Count < 2) seoFindings.push("Add more H2 sections for better content hierarchy");
-	if (!hasMetaDescription) seoFindings.push("Missing meta description");
-	if (!hasJsonLd) seoFindings.push("No structured data (JSON-LD) detected");
+	if (h2Count < 2) findings.push("Add more H2 sections for better content hierarchy");
+	if (!hasMetaDescription) findings.push("Missing meta description");
+	if (!hasJsonLd) findings.push("No structured data (JSON-LD) detected");
 
-	scores.push({
+	return {
 		category: "SEO",
-		score: seoFindings.filter((f) => !f.includes("Good") && !f.includes("Proper")).length,
+		score: findings.filter((f) => !f.includes("Good") && !f.includes("Proper")).length,
 		maxScore: 5,
-		findings: seoFindings,
-	});
+		findings,
+	};
+}
 
-	// AEO: answer engine optimization
-	const aeoFindings: string[] = [];
+function scoreAEO(text: string): AuditScore {
+	const findings: string[] = [];
 	const hasDirectAnswer = /\b(is|are|was|were)\s+(a|an|the|typically|usually|commonly)\b/i.test(
 		text,
 	);
@@ -54,64 +54,67 @@ function scoreContentQuality(text: string): AuditScore[] {
 	);
 	const hasBulletPoints = (text.match(/<li/gi) || []).length >= 3;
 
-	if (!hasDirectAnswer)
-		aeoFindings.push("No direct-answer format detected (40-60 word definitions)");
-	if (!hasFAQ) aeoFindings.push("Missing FAQ-style content for AEO");
-	if (!hasConversational) aeoFindings.push("No conversational query patterns for voice search");
-	if (!hasBulletPoints) aeoFindings.push("No structured list content for featured snippets");
-	else aeoFindings.push("Good: structured list content found");
+	if (!hasDirectAnswer) findings.push("No direct-answer format detected (40-60 word definitions)");
+	if (!hasFAQ) findings.push("Missing FAQ-style content for AEO");
+	if (!hasConversational) findings.push("No conversational query patterns for voice search");
+	if (!hasBulletPoints) findings.push("No structured list content for featured snippets");
+	else findings.push("Good: structured list content found");
 
-	scores.push({
+	return {
 		category: "AEO",
-		score: aeoFindings.filter((f) => f.startsWith("No") || f.startsWith("Missing")).length,
+		score: findings.filter((f) => f.startsWith("No") || f.startsWith("Missing")).length,
 		maxScore: 4,
-		findings: aeoFindings,
-	});
+		findings,
+	};
+}
 
-	// GEO: generative engine optimization
-	const geoFindings: string[] = [];
+function scoreGEO(text: string, hasJsonLd: boolean): AuditScore {
+	const findings: string[] = [];
 	const hasProvenance = /\b(source|reference|according|study|research)\b/i.test(text);
 	const hasEntities = (text.match(/\b[A-Z][a-z]+ (?:[A-Z][a-z]+)+\b/g) || []).length > 2;
-	const hasStructuredData = hasJsonLd;
 	const hasCitations = (text.match(/<cite|href.*citation|doi\.org/i) || []).length > 0;
 
-	if (!hasProvenance) geoFindings.push("No provenance chains for LLM citation");
-	if (!hasEntities) geoFindings.push("Low entity density for knowledge graph alignment");
-	if (!hasStructuredData) geoFindings.push("No structured data for AI crawler parsing");
-	if (!hasCitations) geoFindings.push("No citations for authority signals");
-	else geoFindings.push("Good: citation signals found");
+	if (!hasProvenance) findings.push("No provenance chains for LLM citation");
+	if (!hasEntities) findings.push("Low entity density for knowledge graph alignment");
+	if (!hasJsonLd) findings.push("No structured data for AI crawler parsing");
+	if (!hasCitations) findings.push("No citations for authority signals");
+	else findings.push("Good: citation signals found");
 
-	scores.push({
+	return {
 		category: "GEO",
-		score: geoFindings.filter((f) => f.startsWith("No") || f.startsWith("Low")).length,
+		score: findings.filter((f) => f.startsWith("No") || f.startsWith("Low")).length,
 		maxScore: 4,
-		findings: geoFindings,
-	});
+		findings,
+	};
+}
 
-	// Accessibility
-	const a11yFindings: string[] = [];
+function scoreAccessibility(text: string): AuditScore {
+	const findings: string[] = [];
 	const hasLang = text.includes('lang="') || text.includes("lang=");
 	const hasAriaLabels = (text.match(/aria-label/gi) || []).length;
 	const hasImgWithoutAlt = (text.match(/<img(?![^>]*alt=)/gi) || []).length;
 	const hasButton = (text.match(/<button/gi) || []).length;
 
-	if (!hasLang) a11yFindings.push("Missing lang attribute on root element");
-	if (hasAriaLabels < 2) a11yFindings.push("Low ARIA label usage — add descriptive labels");
-	if (hasImgWithoutAlt > 0) a11yFindings.push(`${hasImgWithoutAlt} image(s) without alt text`);
+	if (!hasLang) findings.push("Missing lang attribute on root element");
+	if (hasAriaLabels < 2) findings.push("Low ARIA label usage — add descriptive labels");
+	if (hasImgWithoutAlt > 0) findings.push(`${hasImgWithoutAlt} image(s) without alt text`);
 	if (hasButton > 0 && hasAriaLabels < hasButton)
-		a11yFindings.push("Some buttons lack accessible labels");
-	else a11yFindings.push("Good: interactive elements labeled");
+		findings.push("Some buttons lack accessible labels");
+	else findings.push("Good: interactive elements labeled");
 
-	scores.push({
+	return {
 		category: "Accessibility",
-		score: a11yFindings.filter(
+		score: findings.filter(
 			(f) => f.startsWith("Missing") || f.startsWith("Low") || f.includes("without"),
 		).length,
 		maxScore: 4,
-		findings: a11yFindings,
-	});
+		findings,
+	};
+}
 
-	return scores;
+function scoreContentQuality(text: string): AuditScore[] {
+	const hasJsonLd = text.includes("application/ld+json");
+	return [scoreSEO(text), scoreAEO(text), scoreGEO(text, hasJsonLd), scoreAccessibility(text)];
 }
 
 function computeOverall(scores: AuditScore[]): number {
