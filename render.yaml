@@ -1,29 +1,45 @@
 services:
   - type: web
     name: aastaclean-portfolio
-    env: node
-    region: oregon
+    runtime: node
     plan: free
-    buildCommand: npm install && npx prisma generate && npm run build
-    startCommand: npx prisma migrate deploy && npm start
-    healthCheckPath: /
+    buildCommand: npm ci && npx prisma generate && npm run build
+    startCommand: npm start
     envVars:
-      - key: NODE_VERSION
-        value: 20
-      - key: NODE_ENV
-        value: production
       - key: DATABASE_URL
         fromDatabase:
           name: aastaclean-db
           property: connectionString
+      - key: NODE_ENV
+        value: production
       - key: ADMIN_SECRET
         sync: false
       - key: SESSION_SIGNING_KEY
         sync: false
-      - key: NEXT_PUBLIC_BASE_URL
-        value: https://aastaclean-portfolio.onrender.com
+
+  - type: worker
+    name: ai-evaluator-worker
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python scripts/ai_evaluator.py
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: aastaclean-db
+          property: connectionString
+
+cronjobs:
+  - name: enterprise-seo-audit
+    schedule: "0 0 * * *"
+    command: python scripts/enterprise_seo_audit.py
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: aastaclean-db
+          property: connectionString
 
 databases:
   - name: aastaclean-db
-    databaseName: aastaclean
+    databaseName: aastaclean_db
     plan: free
