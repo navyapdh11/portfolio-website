@@ -6,16 +6,23 @@
 		"dev": "next dev",
 		"build": "prisma generate && next build",
 		"start": "next start",
-		"lint": "eslint",
+		"lint": "biome check --write .",
+		"lint:check": "biome check .",
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"db:push": "prisma db push",
 		"db:migrate": "prisma migrate dev",
-		"db:seed": "node prisma/seed.mjs"
+		"db:seed": "node prisma/seed.mjs",
+		"sbom": "python scripts/generate-sbom.py",
+		"security": "python scripts/security_check.py"
 	},
 	"prisma": {
 		"seed": "node prisma/seed.mjs"
 	},
 	"dependencies": {
 		"@prisma/client": "^6.19.3",
+		"babel-plugin-react-compiler": "^1.0.0",
 		"bcrypt": "^6.0.0",
 		"lucide-react": "^1.7.0",
 		"next": "^16.2.4",
@@ -26,6 +33,7 @@
 		"zod": "^4.4.1"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^2.4.13",
 		"@tailwindcss/postcss": "^4",
 		"@types/bcrypt": "^6.0.0",
 		"@types/node": "^20",

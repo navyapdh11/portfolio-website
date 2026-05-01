@@ -5,6 +5,10 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { cleaningServices } from "@/lib/constants/services";
 import { type Suburb, suburbsByState } from "@/lib/data/suburbs";
 
+// ─────────────────────────────────────────────
+// Caching handled by nextConfig.cacheComponents
+// ─────────────────────────────────────────────
+
 // ---------------------------------------------------------------------------
 // Static params
 // ---------------------------------------------------------------------------

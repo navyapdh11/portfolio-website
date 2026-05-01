@@ -1,3 +1,7 @@
+# AASTACLEAN — Robots.txt (2026 GEO/AEO Optimized)
+# https://www.aastaclean.com.au/robots.txt
+
+# ── Standard crawlers ──
 User-agent: *
 Allow: /
 Disallow: /dashboard/
@@ -6,4 +10,69 @@ Disallow: /ads/
 Disallow: /microtasks/
 Disallow: /earn/
 Disallow: /flashcards/
+Disallow: /dashboard/admin/
+Disallow: /dashboard/customer/
+Disallow: /dashboard/login/
+Disallow: /dashboard/seo/
 Sitemap: https://www.aastaclean.com.au/sitemap.xml
+
+# ── Google AI Overview / Gemini ──
+User-agent: Google-Extended
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+
+# ── OpenAI GPTBot (ChatGPT) ──
+User-agent: GPTBot
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /ads/
+Disallow: /microtasks/
+Disallow: /earn/
+Disallow: /flashcards/
+
+# ── Anthropic ClaudeBot ──
+User-agent: ClaudeBot
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /ads/
+Disallow: /microtasks/
+Disallow: /earn/
+Disallow: /flashcards/
+
+# ── Anthropic Claude-Web ──
+User-agent: Claude-Web
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+
+# ── PerplexityBot ──
+User-agent: PerplexityBot
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /ads/
+Disallow: /microtasks/
+Disallow: /earn/
+Disallow: /flashcards/
+
+# ── Applebot (Apple Intelligence/Siri) ──
+User-agent: Applebot
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+
+# ── CCBot (Common Crawl — training data) ──
+User-agent: CCBot
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+
+# ── Block known bad bots ──
+User-agent: Bytespider
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /

@@ -6,6 +6,10 @@ import { serviceDetails } from "@/lib/constants/serviceDetails";
 import { australianCities, cleaningServices } from "@/lib/constants/services";
 import { allSuburbs, states } from "@/lib/data/suburbs";
 
+// ─────────────────────────────────────────────
+// Caching handled by nextConfig.cacheComponents
+// ─────────────────────────────────────────────
+
 // Service-specific SEO descriptions
 const serviceDescriptions: Record<string, string> = {
 	"domestic-cleaning":
