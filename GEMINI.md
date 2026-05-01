@@ -61,7 +61,46 @@ This project operates at **2026 AI-Native Enterprise Grade** standards.
 
 ---
 
-## 5. Tooling Standards (2026)
+## 5. UX/UI, SEO, AI & Agentic Standards (2026)
+
+### UX/UI (WCAG 2.2 / Core Web Vitals)
+- **WCAG 2.2 (ISO 40500:2025):** Visible focus indicators, color contrast (4.5:1 min), descriptive aria labels, keyboard navigation, `prefers-reduced-motion`.
+- **Core Web Vitals:** LCP < 2.5s, INP < 200ms, CLS < 0.1.
+- **Human-Crafted Aesthetics:** Deliberately "handmade" visual design as trust signal for AI-fatigued users. Avoid glassmorphism reducing text contrast, novelty navigation.
+- **AI-Integrated UX:** Clear capability signaling, direct answers over dialogue, context-aware suggestions, human escalation paths.
+- **AI as Co-User:** Dual-interface design — semantic HTML, structured data, machine-readable interactions.
+
+### SEO (E-E-A-T + Technical)
+- **E-E-A-T:** Author bios, service expertise, customer testimonials, external citations.
+- **Structured Data:** `LocalBusiness`, `Service`, `FAQPage`, `Article`, `BreadcrumbList` — validated via Google Rich Results Test.
+- **Technical:** XML sitemap, robots.txt, canonical URLs, mobile-first, unique `<title>` + `<meta description>` per page.
+- **Content:** Location-specific pages with unique content. Topic clusters around services + locations.
+
+### AEO (Answer Engine Optimization)
+- **Featured Snippets:** Opening definitions (40-60 words) on service/suburb pages. Q&A formatting.
+- **Voice Search:** Conversational phrasing for "best X near me" and cost queries.
+- **FAQ Schema:** `FAQPage` JSON-LD with complete standalone answers.
+
+### GEO (Generative Engine Optimization)
+- **LLM Visibility:** Factual authority, data-backed claims, verified authorship, provenance chains.
+- **Content Structure:** H1→H2→H3 hierarchy, concise opening definitions, bulleted lists, comparison tables.
+- **AI Crawler Access:** `robots.txt` allows `GPTBot`, `ClaudeBot`, `PerplexityBot`. Content in initial HTML.
+- **Brand Authority:** Original data-backed content over volume. Human editorial oversight.
+
+### AI Integration
+- **Server-Side:** LLM calls via API routes/server actions. Never expose keys client-side.
+- **Streaming:** Streaming responses for conversational UI. Graceful fallback on failure.
+- **Content Generation:** AI-assisted with human editorial oversight. Search engines penalize unreviewed AI content.
+- **SMLM:** Flash Attention 3, RoPE, Sliding-Window KV Cache. Muon optimizer. GRPO for reasoning.
+
+### Agentic Integration
+- **Multi-Agent Orchestration:** Coordinator → Specialists → Verifier. Parallel execution for independent work.
+- **Agentic Safety:** Least-privilege, sandboxed code, approval gates for destructive actions.
+- **API-First:** All functionality via API. Structured JSON outputs with defined schemas.
+
+---
+
+## 6. Tooling Standards (2026)
 
 - **JS/TS Formatting & Linting:** Biome. 10–100× faster. Flat config format.
 - **Python:** Ruff. Unified formatter + linter.
@@ -78,6 +117,9 @@ This project operates at **2026 AI-Native Enterprise Grade** standards.
 | 2026-04 | `middleware.ts` | `proxy.ts` | Clear Node.js runtime boundary |
 | 2026-04 | Prettier + ESLint | Biome | 10–100× faster, unified tool |
 | 2026-04 | Manual `useMemo`/`useCallback` | React Compiler auto-memoization | Zero manual code changes |
+| 2026-04 | Implicit UX guidelines | WCAG 2.2, Core Web Vitals, human-crafted aesthetics | WCAG 2.2 (ISO 40500:2025), INP < 200ms, anti-AI-fatigue design |
+| 2026-04 | Basic SEO | E-E-A-T, AEO, GEO | AI-overview optimization, provenance chains, AI crawler access |
+| 2026-04 | No AI/agentic standards | Server-side AI, multi-agent orchestration | Safe LLM integration, hierarchical agents, API-first |
 
 ---
 
