@@ -161,19 +161,12 @@ export function SuburbToggleTable({
 				<div className="flex items-center justify-between">
 					<div>
 						<h3 className="text-xl font-bold text-zinc-900 dark:text-white">
-							{state === "ALL"
-								? "All Australian Suburbs"
-								: `Suburbs in ${state}`}
+							{state === "ALL" ? "All Australian Suburbs" : `Suburbs in ${state}`}
 						</h3>
 						<p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
 							Showing {filteredSuburbs.length} suburbs •{" "}
 							<span className="text-green-600 font-medium">
-								{
-									filteredSuburbs.filter(
-										(s) => getPendingValue(s.id) ?? s.active,
-									).length
-								}{" "}
-								active
+								{filteredSuburbs.filter((s) => getPendingValue(s.id) ?? s.active).length} active
 							</span>
 						</p>
 					</div>
@@ -245,17 +238,11 @@ export function SuburbToggleTable({
 								>
 									<td className="px-6 py-4">
 										<div>
-											<p className="font-semibold text-zinc-900 dark:text-white">
-												{suburb.name}
-											</p>
-											<p className="text-sm text-zinc-500 dark:text-zinc-400">
-												{suburb.state}
-											</p>
+											<p className="font-semibold text-zinc-900 dark:text-white">{suburb.name}</p>
+											<p className="text-sm text-zinc-500 dark:text-zinc-400">{suburb.state}</p>
 											{hasPending && (
 												<span className="inline-block mt-1 px-2 py-0.5 bg-zinc-200 dark:bg-zinc-700 rounded text-xs">
-													{getPendingValue(suburb.id)
-														? "Will Enable"
-														: "Will Disable"}
+													{getPendingValue(suburb.id) ? "Will Enable" : "Will Disable"}
 												</span>
 											)}
 										</div>
@@ -277,17 +264,13 @@ export function SuburbToggleTable({
 													</span>
 												))
 											) : (
-												<span className="text-sm text-zinc-400 italic">
-													No services
-												</span>
+												<span className="text-sm text-zinc-400 italic">No services</span>
 											)}
 										</div>
 									</td>
 									<td className="px-6 py-4 text-sm text-zinc-600 dark:text-zinc-400">
 										{suburb.lastBooking ? (
-											<span className="text-green-600 font-medium">
-												{suburb.lastBooking}
-											</span>
+											<span className="text-green-600 font-medium">{suburb.lastBooking}</span>
 										) : (
 											<span className="text-zinc-400">Never</span>
 										)}
@@ -300,9 +283,7 @@ export function SuburbToggleTable({
 													: "text-zinc-400"
 											}`}
 										>
-											{suburb.monthlyRevenue
-												? `$${suburb.monthlyRevenue.toLocaleString()}`
-												: "$0"}
+											{suburb.monthlyRevenue ? `$${suburb.monthlyRevenue.toLocaleString()}` : "$0"}
 										</span>
 									</td>
 									<td className="px-6 py-4">

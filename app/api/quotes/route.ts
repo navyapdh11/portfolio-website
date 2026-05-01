@@ -1,16 +1,13 @@
 import { NextResponse } from "next/server";
 import { validateAuth } from "@/lib/middleware/auth";
 import { csrfResponse } from "@/lib/middleware/csrf";
-import {
-	checkRateLimit,
-	getRateLimitHeaders,
-} from "@/lib/middleware/rateLimit";
+import { checkRateLimit, getRateLimitHeaders } from "@/lib/middleware/rateLimit";
 import { prisma } from "@/lib/prisma";
 import { QuoteSchema } from "@/lib/validation/schemas";
 
 export async function GET(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
@@ -22,20 +19,16 @@ export async function GET(request: Request) {
 		});
 		return NextResponse.json({ data: quotes });
 	} catch {
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }
 
 export async function POST(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	// Rate limit — 10 submissions per minute per IP
-	const clientIp =
-		request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 	const rateLimit = checkRateLimit(`api:${clientIp}:POST:quotes`);
 	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
 	if (!rateLimit.allowed) {
@@ -73,12 +66,8 @@ export async function POST(request: Request) {
 				state: data.state || "",
 			},
 		});
-		return NextResponse.json(
-			{ success: true, quote },
-			{ status: 201, headers: rateLimitHeaders },
-		);
-	} catch (err) {
-		console.error("Quote creation error:", err);
+		return NextResponse.json({ success: true, quote }, { status: 201, headers: rateLimitHeaders });
+	} catch (_err) {
 		return NextResponse.json(
 			{ error: "Internal server error" },
 			{ status: 500, headers: rateLimitHeaders },

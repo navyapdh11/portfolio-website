@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 export default function AnalyticsContent() {
-	const [activeTab, setActiveTab] = useState<
-		"overview" | "real-time" | "competitor" | "cro"
-	>("overview");
+	const [activeTab, setActiveTab] = useState<"overview" | "real-time" | "competitor" | "cro">(
+		"overview",
+	);
 
 	const metrics = {
 		pageViews: { current: 12450, change: 12.5 },
@@ -58,12 +58,8 @@ export default function AnalyticsContent() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 						<div>
-							<h1 className="text-3xl md:text-4xl font-bold mb-2">
-								📊 Analytics & Observability
-							</h1>
-							<p className="text-slate-300">
-								Complete metrics dashboard with real-time tracking
-							</p>
+							<h1 className="text-3xl md:text-4xl font-bold mb-2">📊 Analytics & Observability</h1>
+							<p className="text-slate-300">Complete metrics dashboard with real-time tracking</p>
 						</div>
 						<div className="flex gap-3">
 							<select className="px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-white text-sm">
@@ -101,25 +97,15 @@ export default function AnalyticsContent() {
 						{ label: "Conversion", value: "3.2%", change: 18.5, icon: "🎯" },
 						{ label: "Revenue", value: "$12.4K", change: 15.8, icon: "💰" },
 					].map((metric) => (
-						<div
-							key={metric.label}
-							className="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow-md"
-						>
+						<div key={metric.label} className="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow-md">
 							<div className="flex items-center gap-2 mb-2">
 								<span>{metric.icon}</span>
 								<p className="text-zinc-500 text-xs">{metric.label}</p>
 							</div>
-							<p className="text-xl font-bold text-zinc-900 dark:text-white">
-								{metric.value}
-							</p>
-							<p
-								className={`text-xs ${metric.change > 0 ? "text-green-600" : "text-red-600"}`}
-							>
+							<p className="text-xl font-bold text-zinc-900 dark:text-white">{metric.value}</p>
+							<p className={`text-xs ${metric.change > 0 ? "text-green-600" : "text-red-600"}`}>
 								{metric.change > 0 ? "↑" : "↓"}{" "}
-								{Math.abs(
-									typeof metric.change === "number" ? metric.change : 0,
-								).toFixed(1)}
-								%
+								{Math.abs(typeof metric.change === "number" ? metric.change : 0).toFixed(1)}%
 							</p>
 						</div>
 					))}
@@ -135,6 +121,7 @@ export default function AnalyticsContent() {
 						].map((tab) => (
 							<button
 								key={tab.id}
+								type="button"
 								onClick={() => setActiveTab(tab.id as typeof activeTab)}
 								className={`flex-1 px-5 py-4 font-medium transition-colors ${
 									activeTab === tab.id
@@ -180,9 +167,7 @@ export default function AnalyticsContent() {
 												>
 													<span className="text-sm">{page.page}</span>
 													<div className="text-right">
-														<span className="text-sm font-medium">
-															{page.views}
-														</span>
+														<span className="text-sm font-medium">{page.views}</span>
 														<span className="text-xs text-zinc-500 ml-2">
 															({page.bounce}% bounce)
 														</span>
@@ -193,14 +178,11 @@ export default function AnalyticsContent() {
 									</div>
 								</div>
 								<div className="p-4 bg-slate-100 dark:bg-slate-700 rounded-xl">
-									<h3 className="font-semibold mb-4">
-										📈 Traffic Trend (Last 30 days)
-									</h3>
+									<h3 className="font-semibold mb-4">📈 Traffic Trend (Last 30 days)</h3>
 									<div className="h-40 flex items-end gap-1">
 										{[
-											40, 55, 45, 60, 75, 65, 80, 70, 85, 90, 78, 95, 88, 100,
-											92, 85, 95, 105, 98, 110, 102, 115, 108, 120, 112, 125,
-											118, 130, 122, 135,
+											40, 55, 45, 60, 75, 65, 80, 70, 85, 90, 78, 95, 88, 100, 92, 85, 95, 105, 98,
+											110, 102, 115, 108, 120, 112, 125, 118, 130, 122, 135,
 										].map((val, i) => (
 											<div
 												key={i}
@@ -221,23 +203,16 @@ export default function AnalyticsContent() {
 										<h3 className="font-semibold">⚡ Real-Time Active Users</h3>
 									</div>
 									<p className="text-3xl font-bold text-green-600">28</p>
-									<p className="text-sm text-zinc-500">
-										users on site right now
-									</p>
+									<p className="text-sm text-zinc-500">users on site right now</p>
 								</div>
 								<div className="grid md:grid-cols-2 gap-4">
 									<div className="p-4 bg-zinc-50 dark:bg-zinc-700 rounded-xl">
 										<h3 className="font-semibold mb-3">Current Pages</h3>
 										<div className="space-y-2">
 											{realtimeUsers.map((user) => (
-												<div
-													key={user.page}
-													className="flex justify-between items-center"
-												>
+												<div key={user.page} className="flex justify-between items-center">
 													<span>{user.page}</span>
-													<span className="font-bold text-blue-600">
-														{user.count}
-													</span>
+													<span className="font-bold text-blue-600">{user.count}</span>
 												</div>
 											))}
 										</div>
@@ -251,10 +226,7 @@ export default function AnalyticsContent() {
 												{ event: "Form Submits", count: 5 },
 												{ event: "Phone Clicks", count: 12 },
 											].map((e) => (
-												<div
-													key={e.event}
-													className="flex justify-between items-center"
-												>
+												<div key={e.event} className="flex justify-between items-center">
 													<span>{e.event}</span>
 													<span className="font-medium">{e.count}</span>
 												</div>
@@ -277,16 +249,12 @@ export default function AnalyticsContent() {
 										<p className="text-3xl font-bold text-blue-600">-2.1K</p>
 									</div>
 									<div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl text-center">
-										<h3 className="text-sm text-zinc-500 mb-1">
-											Keywords Ahead
-										</h3>
+										<h3 className="text-sm text-zinc-500 mb-1">Keywords Ahead</h3>
 										<p className="text-3xl font-bold text-green-600">8</p>
 									</div>
 								</div>
 								<div className="p-4 bg-zinc-50 dark:bg-zinc-700 rounded-xl">
-									<h3 className="font-semibold mb-4">
-										🥊 Competitor Comparison
-									</h3>
+									<h3 className="font-semibold mb-4">🥊 Competitor Comparison</h3>
 									<div className="overflow-x-auto">
 										<table className="w-full">
 											<thead>
@@ -359,9 +327,7 @@ export default function AnalyticsContent() {
 											className="p-4 bg-zinc-50 dark:bg-zinc-700 rounded-xl text-center"
 										>
 											<p className="text-zinc-500 text-sm">{m.label}</p>
-											<p className={`text-2xl font-bold ${m.color}`}>
-												{m.value}
-											</p>
+											<p className={`text-2xl font-bold ${m.color}`}>{m.value}</p>
 										</div>
 									))}
 								</div>
@@ -406,9 +372,7 @@ export default function AnalyticsContent() {
 													></span>
 													<span>{r.rec}</span>
 												</div>
-												<span className="text-green-600 font-medium">
-													{r.impact}
-												</span>
+												<span className="text-green-600 font-medium">{r.impact}</span>
 											</div>
 										))}
 									</div>
@@ -420,8 +384,7 @@ export default function AnalyticsContent() {
 
 				<div className="p-4 bg-slate-100 dark:bg-slate-700 rounded-xl text-center">
 					<p className="text-sm text-zinc-500">
-						🔧 Distributed Tracing • OpenTelemetry • Grafana Ready • Prometheus
-						Metrics
+						🔧 Distributed Tracing • OpenTelemetry • Grafana Ready • Prometheus Metrics
 					</p>
 				</div>
 			</main>

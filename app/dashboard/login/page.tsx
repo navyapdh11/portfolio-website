@@ -118,9 +118,7 @@ function LoginForm() {
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-xl text-white focus:border-sky-500 focus:outline-none"
-							placeholder={
-								role === "admin" ? "Enter admin secret" : "Enter password"
-							}
+							placeholder={role === "admin" ? "Enter admin secret" : "Enter password"}
 						/>
 					</div>
 
@@ -134,10 +132,7 @@ function LoginForm() {
 				</form>
 
 				<div className="mt-6 text-center">
-					<Link
-						href="/"
-						className="text-sm text-slate-400 hover:text-white transition-colors"
-					>
+					<Link href="/" className="text-sm text-slate-400 hover:text-white transition-colors">
 						← Back to website
 					</Link>
 				</div>
@@ -149,13 +144,7 @@ function LoginForm() {
 export default function LoginPage() {
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4">
-			<Suspense
-				fallback={
-					<div className="text-center text-slate-400">
-						Loading login form...
-					</div>
-				}
-			>
+			<Suspense fallback={<div className="text-center text-slate-400">Loading login form...</div>}>
 				<LoginForm />
 			</Suspense>
 		</div>

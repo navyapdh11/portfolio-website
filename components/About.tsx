@@ -3,11 +3,7 @@ const teamMembers = [
 		name: "Sarah Mitchell",
 		role: "Operations Manager",
 		bio: "15+ years in facility management, ensuring every clean meets our exacting standards.",
-		specialties: [
-			"Commercial Contracts",
-			"Staff Training",
-			"Quality Assurance",
-		],
+		specialties: ["Commercial Contracts", "Staff Training", "Quality Assurance"],
 	},
 	{
 		name: "James Chen",
@@ -55,9 +51,8 @@ export default function About() {
 						About <span className="text-blue-600">AASTACLEAN</span>
 					</h1>
 					<p className="text-zinc-600 dark:text-zinc-400 mt-4 max-w-3xl mx-auto text-lg">
-						Perth&apos;s trusted name in professional cleaning services. Serving
-						residential and commercial clients across Western Australia with
-						excellence since 2015.
+						Perth&apos;s trusted name in professional cleaning services. Serving residential and
+						commercial clients across Western Australia with excellence since 2015.
 					</p>
 				</div>
 
@@ -65,9 +60,7 @@ export default function About() {
 					<div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-md border-l-4 border-blue-500">
 						<div className="flex items-center gap-3 mb-3">
 							<span className="text-2xl">📍</span>
-							<h3 className="font-semibold text-zinc-900 dark:text-white">
-								Our Location
-							</h3>
+							<h3 className="font-semibold text-zinc-900 dark:text-white">Our Location</h3>
 						</div>
 						<p className="text-zinc-600 dark:text-zinc-400">
 							51 Tate Street
@@ -81,9 +74,7 @@ export default function About() {
 					<div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-md border-l-4 border-green-500">
 						<div className="flex items-center gap-3 mb-3">
 							<span className="text-2xl">📞</span>
-							<h3 className="font-semibold text-zinc-900 dark:text-white">
-								Contact Us
-							</h3>
+							<h3 className="font-semibold text-zinc-900 dark:text-white">Contact Us</h3>
 						</div>
 						<p className="text-zinc-600 dark:text-zinc-400">
 							Phone: 08 9000 0000
@@ -97,9 +88,7 @@ export default function About() {
 					<div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-md border-l-4 border-purple-500">
 						<div className="flex items-center gap-3 mb-3">
 							<span className="text-2xl">🕐</span>
-							<h3 className="font-semibold text-zinc-900 dark:text-white">
-								Business Hours
-							</h3>
+							<h3 className="font-semibold text-zinc-900 dark:text-white">Business Hours</h3>
 						</div>
 						<p className="text-zinc-600 dark:text-zinc-400">
 							Mon - Fri: 8:00 AM - 6:00 PM
@@ -114,21 +103,17 @@ export default function About() {
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 					<div className="space-y-8">
 						<div>
-							<h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-4">
-								Our Story
-							</h2>
+							<h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-4">Our Story</h2>
 							<p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-								Founded in West Leederville, AASTACLEAN has grown to become one
-								of Perth&apos;s most trusted cleaning service providers. Our
-								commitment to quality, reliability, and customer satisfaction
-								has made us the preferred choice for both residential and
+								Founded in West Leederville, AASTACLEAN has grown to become one of Perth&apos;s most
+								trusted cleaning service providers. Our commitment to quality, reliability, and
+								customer satisfaction has made us the preferred choice for both residential and
 								commercial cleaning across the region.
 							</p>
 							<p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mt-4">
-								We understand that every space is unique. Whether you need a
-								thorough end-of-lease clean for your rental property, regular
-								commercial cleaning for your office, or a one-off deep clean for
-								your home, our team delivers exceptional results every time.
+								We understand that every space is unique. Whether you need a thorough end-of-lease
+								clean for your rental property, regular commercial cleaning for your office, or a
+								one-off deep clean for your home, our team delivers exceptional results every time.
 							</p>
 						</div>
 
@@ -147,9 +132,7 @@ export default function About() {
 											<p className="font-medium text-zinc-900 dark:text-white text-sm">
 												{cert.name}
 											</p>
-											<p className="text-xs text-zinc-500 dark:text-zinc-400">
-												{cert.issuer}
-											</p>
+											<p className="text-xs text-zinc-500 dark:text-zinc-400">{cert.issuer}</p>
 										</div>
 									</div>
 								))}
@@ -174,9 +157,7 @@ export default function About() {
 					</div>
 
 					<div>
-						<h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
-							Meet Our Team
-						</h2>
+						<h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-6">Meet Our Team</h2>
 						<div className="space-y-6">
 							{teamMembers.map((member) => (
 								<div
@@ -193,15 +174,9 @@ export default function About() {
 											</span>
 										</div>
 										<div className="flex-1">
-											<h3 className="font-semibold text-zinc-900 dark:text-white">
-												{member.name}
-											</h3>
-											<p className="text-blue-600 dark:text-blue-400 text-sm mb-2">
-												{member.role}
-											</p>
-											<p className="text-zinc-600 dark:text-zinc-400 text-sm mb-3">
-												{member.bio}
-											</p>
+											<h3 className="font-semibold text-zinc-900 dark:text-white">{member.name}</h3>
+											<p className="text-blue-600 dark:text-blue-400 text-sm mb-2">{member.role}</p>
+											<p className="text-zinc-600 dark:text-zinc-400 text-sm mb-3">{member.bio}</p>
 											<div className="flex flex-wrap gap-2">
 												{member.specialties.map((specialty) => (
 													<span
@@ -222,36 +197,20 @@ export default function About() {
 
 				<div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
 					<div className="text-center p-6 bg-blue-50 dark:bg-blue-900/30 rounded-xl">
-						<div className="text-4xl font-bold text-blue-600 dark:text-blue-400">
-							10+
-						</div>
-						<div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-							Years Experience
-						</div>
+						<div className="text-4xl font-bold text-blue-600 dark:text-blue-400">10+</div>
+						<div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Years Experience</div>
 					</div>
 					<div className="text-center p-6 bg-green-50 dark:bg-green-900/30 rounded-xl">
-						<div className="text-4xl font-bold text-green-600 dark:text-green-400">
-							2000+
-						</div>
-						<div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-							Properties Cleaned
-						</div>
+						<div className="text-4xl font-bold text-green-600 dark:text-green-400">2000+</div>
+						<div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Properties Cleaned</div>
 					</div>
 					<div className="text-center p-6 bg-purple-50 dark:bg-purple-900/30 rounded-xl">
-						<div className="text-4xl font-bold text-purple-600 dark:text-purple-400">
-							500+
-						</div>
-						<div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-							Happy Clients
-						</div>
+						<div className="text-4xl font-bold text-purple-600 dark:text-purple-400">500+</div>
+						<div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Happy Clients</div>
 					</div>
 					<div className="text-center p-6 bg-orange-50 dark:bg-orange-900/30 rounded-xl">
-						<div className="text-4xl font-bold text-orange-600 dark:text-orange-400">
-							98%
-						</div>
-						<div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-							Client Satisfaction
-						</div>
+						<div className="text-4xl font-bold text-orange-600 dark:text-orange-400">98%</div>
+						<div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Client Satisfaction</div>
 					</div>
 				</div>
 
@@ -262,8 +221,7 @@ export default function About() {
 							"@context": "https://schema.org",
 							"@type": "LocalBusiness",
 							name: "AASTACLEAN",
-							description:
-								"Professional cleaning services in Perth, Western Australia",
+							description: "Professional cleaning services in Perth, Western Australia",
 							address: {
 								"@type": "PostalAddress",
 								streetAddress: "51 Tate Street",
@@ -282,13 +240,7 @@ export default function About() {
 								latitude: "-31.95",
 								longitude: "115.83",
 							},
-							areaServed: [
-								"Perth CBD",
-								"West Leederville",
-								"Subiaco",
-								"Nedlands",
-								"Claremont",
-							],
+							areaServed: ["Perth CBD", "West Leederville", "Subiaco", "Nedlands", "Claremont"],
 							serviceType: [
 								"Residential Cleaning",
 								"Commercial Cleaning",

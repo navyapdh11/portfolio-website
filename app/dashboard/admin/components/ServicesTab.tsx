@@ -27,9 +27,7 @@ export default function ServicesTab({
 	return (
 		<div className="space-y-6">
 			<div className="flex justify-between items-center">
-				<h2 className="text-2xl font-bold text-white">
-					🧹 Service & Pricing Control
-				</h2>
+				<h2 className="text-2xl font-bold text-white">🧹 Service & Pricing Control</h2>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 				{services.map((service) => (
@@ -59,26 +57,18 @@ export default function ServicesTab({
 								/>
 								<div className="flex gap-2">
 									<button
+										type="button"
 										onClick={() =>
 											updateService(service.id, {
-												title: (
-													document.getElementById(
-														`title-${service.id}`,
-													) as HTMLInputElement
-												)?.value,
+												title: (document.getElementById(`title-${service.id}`) as HTMLInputElement)
+													?.value,
 												basePrice: Number(
-													(
-														document.getElementById(
-															`price-${service.id}`,
-														) as HTMLInputElement
-													)?.value,
+													(document.getElementById(`price-${service.id}`) as HTMLInputElement)
+														?.value,
 												),
 												stock: Number(
-													(
-														document.getElementById(
-															`stock-${service.id}`,
-														) as HTMLInputElement
-													)?.value,
+													(document.getElementById(`stock-${service.id}`) as HTMLInputElement)
+														?.value,
 												),
 											})
 										}
@@ -87,6 +77,7 @@ export default function ServicesTab({
 										Save
 									</button>
 									<button
+										type="button"
 										onClick={() => setEditingService(null)}
 										className="px-3 py-1 bg-slate-600 text-white rounded text-sm"
 									>
@@ -98,9 +89,7 @@ export default function ServicesTab({
 							<>
 								<div className="flex justify-between items-start mb-4">
 									<div>
-										<h3 className="text-lg font-bold text-white">
-											{service.title}
-										</h3>
+										<h3 className="text-lg font-bold text-white">{service.title}</h3>
 										<p className="text-sm text-slate-400">{service.category}</p>
 									</div>
 									<span
@@ -112,9 +101,7 @@ export default function ServicesTab({
 								<div className="grid grid-cols-2 gap-3 mb-4">
 									<div className="bg-slate-700/50 rounded-lg p-3">
 										<p className="text-xs text-slate-400">Price</p>
-										<p className="text-xl font-bold text-white">
-											${service.basePrice}
-										</p>
+										<p className="text-xl font-bold text-white">${service.basePrice}</p>
 									</div>
 									<div className="bg-slate-700/50 rounded-lg p-3">
 										<p className="text-xs text-slate-400">Stock</p>
@@ -127,12 +114,14 @@ export default function ServicesTab({
 								</div>
 								<div className="flex gap-2">
 									<button
+										type="button"
 										onClick={() => setEditingService(service.id)}
 										className="px-3 py-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 rounded-lg text-sm font-medium transition-colors"
 									>
 										✏️ Edit
 									</button>
 									<button
+										type="button"
 										onClick={() => deleteService(service.id)}
 										className="px-3 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg text-sm font-medium transition-colors"
 									>

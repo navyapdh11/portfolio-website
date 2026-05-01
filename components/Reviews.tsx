@@ -61,10 +61,7 @@ const reviews = [
 
 function StarRating({ rating }: { rating: number }) {
 	return (
-		<div
-			className="flex items-center gap-0.5"
-			aria-label={`${rating} out of 5 stars`}
-		>
+		<div className="flex items-center gap-0.5" aria-label={`${rating} out of 5 stars`}>
 			{[1, 2, 3, 4, 5].map((star) => (
 				<svg
 					key={star}
@@ -128,25 +125,20 @@ export default function Reviews() {
 						Customer <span className="text-blue-500">Reviews</span>
 					</h2>
 					<p className="text-zinc-600 dark:text-zinc-400 mt-4 max-w-2xl mx-auto">
-						Don&apos;t just take our word for it - hear from our satisfied
-						customers
+						Don&apos;t just take our word for it - hear from our satisfied customers
 					</p>
 
 					{/* Rating Summary */}
 					<div className="mt-8 inline-flex items-center gap-4 bg-zinc-50 dark:bg-zinc-800 px-8 py-4 rounded-full">
 						<div className="flex items-center gap-2">
-							<span className="text-4xl font-bold text-zinc-900 dark:text-white">
-								4.9
-							</span>
+							<span className="text-4xl font-bold text-zinc-900 dark:text-white">4.9</span>
 							<StarRating rating={5} />
 						</div>
 						<div className="text-left">
 							<p className="text-sm font-semibold text-zinc-900 dark:text-white">
 								Based on 2,847 reviews
 							</p>
-							<p className="text-xs text-zinc-500 dark:text-zinc-400">
-								Across all states
-							</p>
+							<p className="text-xs text-zinc-500 dark:text-zinc-400">Across all states</p>
 						</div>
 					</div>
 				</div>
@@ -163,12 +155,7 @@ export default function Reviews() {
 						className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 rounded-full bg-white dark:bg-zinc-800 shadow-lg border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:text-sky-600 hover:border-sky-300 transition-colors hidden md:flex"
 						aria-label="Previous reviews"
 					>
-						<svg
-							className="w-5 h-5"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
+						<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"
@@ -182,18 +169,8 @@ export default function Reviews() {
 						className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 rounded-full bg-white dark:bg-zinc-800 shadow-lg border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:text-sky-600 hover:border-sky-300 transition-colors hidden md:flex"
 						aria-label="Next reviews"
 					>
-						<svg
-							className="w-5 h-5"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M9 5l7 7-7 7"
-							/>
+						<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
 						</svg>
 					</button>
 
@@ -211,12 +188,8 @@ export default function Reviews() {
 											{review.avatar}
 										</div>
 										<div>
-											<h4 className="font-semibold text-zinc-900 dark:text-white">
-												{review.name}
-											</h4>
-											<p className="text-sm text-zinc-500 dark:text-zinc-400">
-												{review.location}
-											</p>
+											<h4 className="font-semibold text-zinc-900 dark:text-white">{review.name}</h4>
+											<p className="text-sm text-zinc-500 dark:text-zinc-400">{review.location}</p>
 										</div>
 									</div>
 									<StarRating rating={review.rating} />
@@ -255,30 +228,18 @@ export default function Reviews() {
 				{/* Trust Badges */}
 				<div className="mt-12 flex flex-wrap justify-center items-center gap-8 opacity-60">
 					<div className="text-center">
-						<p className="text-3xl font-bold text-zinc-900 dark:text-white">
-							2,847+
-						</p>
-						<p className="text-sm text-zinc-500 dark:text-zinc-400">
-							Happy Customers
-						</p>
+						<p className="text-3xl font-bold text-zinc-900 dark:text-white">2,847+</p>
+						<p className="text-sm text-zinc-500 dark:text-zinc-400">Happy Customers</p>
 					</div>
 					<div className="h-12 w-px bg-zinc-300 dark:bg-zinc-700" />
 					<div className="text-center">
-						<p className="text-3xl font-bold text-zinc-900 dark:text-white">
-							4.9/5
-						</p>
-						<p className="text-sm text-zinc-500 dark:text-zinc-400">
-							Average Rating
-						</p>
+						<p className="text-3xl font-bold text-zinc-900 dark:text-white">4.9/5</p>
+						<p className="text-sm text-zinc-500 dark:text-zinc-400">Average Rating</p>
 					</div>
 					<div className="h-12 w-px bg-zinc-300 dark:bg-zinc-700" />
 					<div className="text-center">
-						<p className="text-3xl font-bold text-zinc-900 dark:text-white">
-							98%
-						</p>
-						<p className="text-sm text-zinc-500 dark:text-zinc-400">
-							Would Recommend
-						</p>
+						<p className="text-3xl font-bold text-zinc-900 dark:text-white">98%</p>
+						<p className="text-sm text-zinc-500 dark:text-zinc-400">Would Recommend</p>
 					</div>
 				</div>
 			</div>

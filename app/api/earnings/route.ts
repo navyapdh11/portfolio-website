@@ -49,18 +49,15 @@ const payouts: Array<Record<string, unknown>> = [
 ];
 
 export async function GET(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
 	try {
-		const totalEarned = earnings.reduce(
-			(s, e) => s + (Number(e.amount) || 0),
-			0,
-		);
+		const totalEarned = earnings.reduce((s, e) => s + (Number(e.amount) || 0), 0);
 		const totalPaid = payouts.reduce((s, p) => s + (Number(p.amount) || 0), 0);
 		return NextResponse.json({
 			data: earnings,
@@ -73,16 +70,13 @@ export async function GET(request: Request) {
 			},
 		});
 	} catch {
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }
 
 export async function POST(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
@@ -90,8 +84,7 @@ export async function POST(request: Request) {
 
 	try {
 		const parsed = await safeJson(request);
-		if (parsed.error)
-			return NextResponse.json({ error: parsed.error }, { status: 400 });
+		if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
 		const { type, ...body } = parsed.data!;
 		if (type === "earning") {
 			const entry = { ...body, id: `e${Date.now()}`, status: "completed" };
@@ -105,9 +98,6 @@ export async function POST(request: Request) {
 		}
 		return NextResponse.json({ error: "Unknown type" }, { status: 400 });
 	} catch {
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }

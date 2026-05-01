@@ -83,10 +83,7 @@ export default function Navbar() {
 		>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex justify-between items-center h-16">
-					<Link
-						href="#home"
-						className="text-xl font-bold text-slate-900 dark:text-white"
-					>
+					<Link href="#home" className="text-xl font-bold text-slate-900 dark:text-white">
 						AA<span className="text-sky-600">STACLEAN</span>
 					</Link>
 
@@ -201,19 +198,12 @@ export default function Navbar() {
 						{/* Search Trigger */}
 						<button
 							onClick={() =>
-								window.dispatchEvent(
-									new KeyboardEvent("keydown", { key: "k", metaKey: true }),
-								)
+								window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))
 							}
 							className="flex items-center gap-2 px-3 py-1.5 text-xs text-slate-400 dark:text-zinc-500 border border-slate-200 dark:border-zinc-700 rounded-lg hover:border-sky-300 dark:hover:border-sky-600 hover:text-sky-600 transition-colors"
 							aria-label="Open search"
 						>
-							<svg
-								className="w-4 h-4"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
+							<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path
 									strokeLinecap="round"
 									strokeLinejoin="round"
@@ -234,12 +224,7 @@ export default function Navbar() {
 							aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
 						>
 							{theme === "dark" ? (
-								<svg
-									className="w-5 h-5"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
+								<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path
 										strokeLinecap="round"
 										strokeLinejoin="round"
@@ -248,12 +233,7 @@ export default function Navbar() {
 									/>
 								</svg>
 							) : (
-								<svg
-									className="w-5 h-5"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
+								<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path
 										strokeLinecap="round"
 										strokeLinejoin="round"

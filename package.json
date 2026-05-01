@@ -14,6 +14,7 @@
 		"db:push": "prisma db push",
 		"db:migrate": "prisma migrate dev",
 		"db:seed": "node prisma/seed.mjs",
+		"suburbs:generate": "python scripts/generate_suburbs.py",
 		"sbom": "python scripts/generate-sbom.py",
 		"security": "python scripts/security_check.py"
 	},

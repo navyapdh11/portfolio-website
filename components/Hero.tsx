@@ -4,15 +4,7 @@ import { useEffect, useState } from "react";
 import { QuoteCalculator } from "./QuoteCalculator";
 
 // Animated stat counter
-function AnimatedStat({
-	value,
-	label,
-	delay,
-}: {
-	value: string;
-	label: string;
-	delay: number;
-}) {
+function AnimatedStat({ value, label, delay }: { value: string; label: string; delay: number }) {
 	const [visible, setVisible] = useState(false);
 	useEffect(() => {
 		const t = setTimeout(() => setVisible(true), delay);
@@ -132,9 +124,8 @@ export default function Hero() {
 							className="text-lg md:text-xl text-slate-300/90 mb-4 max-w-xl mx-auto lg:mx-0 animate-fade-in stagger-2"
 							style={{ animationDelay: "0.2s", opacity: 0 }}
 						>
-							20+ specialist services · 8,000+ suburbs · Police-checked &amp;
-							fully insured professionals. Bond-back guaranteed with same-day
-							availability in every state.
+							20+ specialist services · 8,000+ suburbs · Police-checked &amp; fully insured
+							professionals. Bond-back guaranteed with same-day availability in every state.
 						</p>
 
 						{/* Social Proof */}
@@ -153,8 +144,8 @@ export default function Hero() {
 								))}
 							</div>
 							<p className="text-sm text-slate-300/90 font-medium">
-								Trusted by <span className="text-white font-bold">2,500+</span>{" "}
-								Australian households
+								Trusted by <span className="text-white font-bold">2,500+</span> Australian
+								households
 							</p>
 						</div>
 
@@ -272,16 +263,14 @@ export default function Hero() {
 						Servicing All States &amp; Territories
 					</p>
 					<div className="flex flex-wrap justify-center gap-3">
-						{["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"].map(
-							(state, i) => (
-								<span
-									key={i}
-									className="px-3 py-1.5 rounded-lg bg-white/10 text-white/80 text-sm font-medium border border-white/10 hover:bg-white/20 hover:text-white transition-all cursor-default"
-								>
-									{state}
-								</span>
-							),
-						)}
+						{["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"].map((state, i) => (
+							<span
+								key={i}
+								className="px-3 py-1.5 rounded-lg bg-white/10 text-white/80 text-sm font-medium border border-white/10 hover:bg-white/20 hover:text-white transition-all cursor-default"
+							>
+								{state}
+							</span>
+						))}
 					</div>
 				</div>
 			</div>

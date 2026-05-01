@@ -275,11 +275,7 @@ body {
 	content: "";
 	position: absolute;
 	inset: -4px;
-	background: radial-gradient(
-		ellipse at center,
-		var(--lightning-glow) 0%,
-		transparent 70%
-	);
+	background: radial-gradient(ellipse at center, var(--lightning-glow) 0%, transparent 70%);
 	filter: blur(16px);
 	opacity: 0;
 	transition: opacity 0.5s ease;
@@ -477,12 +473,7 @@ body {
 }
 
 .animate-shimmer {
-	background: linear-gradient(
-		90deg,
-		transparent,
-		rgba(255, 255, 255, 0.25),
-		transparent
-	);
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
 	background-size: 200% 100%;
 	animation: shimmer 2.5s infinite;
 }
@@ -509,12 +500,7 @@ body {
 }
 
 .animate-text-shimmer {
-	background: linear-gradient(
-		90deg,
-		currentColor 40%,
-		var(--primary) 50%,
-		currentColor 60%
-	);
+	background: linear-gradient(90deg, currentColor 40%, var(--primary) 50%, currentColor 60%);
 	background-size: 200% auto;
 	-webkit-background-clip: text;
 	background-clip: text;
@@ -615,23 +601,11 @@ body {
 
 	.bg-gradient-mesh {
 		background:
-			radial-gradient(
-				at 40% 20%,
-				hsla(199, 89%, 48%, 0.18) 0px,
-				transparent 50%
-			),
+			radial-gradient(at 40% 20%, hsla(199, 89%, 48%, 0.18) 0px, transparent 50%),
 			radial-gradient(at 80% 0%, hsla(188, 86%, 43%, 0.12) 0px, transparent 50%),
 			radial-gradient(at 0% 50%, hsla(199, 89%, 48%, 0.12) 0px, transparent 50%),
-			radial-gradient(
-				at 80% 80%,
-				hsla(271, 70%, 50%, 0.08) 0px,
-				transparent 50%
-			),
-			radial-gradient(
-				at 20% 80%,
-				hsla(340, 70%, 50%, 0.06) 0px,
-				transparent 50%
-			);
+			radial-gradient(at 80% 80%, hsla(271, 70%, 50%, 0.08) 0px, transparent 50%),
+			radial-gradient(at 20% 80%, hsla(340, 70%, 50%, 0.06) 0px, transparent 50%);
 	}
 
 	.bg-gradient-animated {
@@ -679,12 +653,7 @@ body {
 		position: absolute;
 		inset: -1px;
 		border-radius: inherit;
-		background: linear-gradient(
-			135deg,
-			var(--primary),
-			var(--secondary),
-			var(--accent)
-		);
+		background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
 		z-index: -1;
 	}
 }
@@ -713,11 +682,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: linear-gradient(
-		180deg,
-		var(--primary-dark),
-		var(--secondary-dark)
-	);
+	background: linear-gradient(180deg, var(--primary-dark), var(--secondary-dark));
 }
 
 /* ============================================

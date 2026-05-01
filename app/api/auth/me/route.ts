@@ -3,8 +3,8 @@ import { validateAuth } from "@/lib/middleware/auth";
 import { csrfResponse } from "@/lib/middleware/csrf";
 
 export async function GET(request: NextRequest) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user) {

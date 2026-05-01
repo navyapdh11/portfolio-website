@@ -32,9 +32,7 @@ export default function Booking({
 	});
 	const [errors, setErrors] = useState<Record<string, string>>({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
-		null,
-	);
+	const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
 
 	const validateStep = (): boolean => {
 		const newErrors: Record<string, string> = {};
@@ -121,12 +119,8 @@ export default function Booking({
 		>
 			<div className="mb-8">
 				<div className="flex justify-between items-center mb-2">
-					<h2 className="text-2xl font-bold capitalize">
-						{serviceSlug.replace(/-/g, " ")}
-					</h2>
-					<span className="text-sm text-blue-600 font-bold">
-						Step {step} / 4
-					</span>
+					<h2 className="text-2xl font-bold capitalize">{serviceSlug.replace(/-/g, " ")}</h2>
+					<span className="text-sm text-blue-600 font-bold">Step {step} / 4</span>
 				</div>
 				<p className="text-zinc-600 text-sm">{details.description}</p>
 			</div>
@@ -204,9 +198,7 @@ export default function Booking({
 					</label>
 					<select
 						value={formData.frequency}
-						onChange={(e) =>
-							setFormData({ ...formData, frequency: e.target.value })
-						}
+						onChange={(e) => setFormData({ ...formData, frequency: e.target.value })}
 						className="w-full p-3 border border-zinc-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
 					>
 						<option value="one-time">One-Time</option>
@@ -251,9 +243,7 @@ export default function Booking({
 						type="email"
 						placeholder="john@email.com"
 						value={formData.email}
-						onChange={(e) =>
-							setFormData({ ...formData, email: e.target.value })
-						}
+						onChange={(e) => setFormData({ ...formData, email: e.target.value })}
 						className={inputClass("email")}
 						aria-required="true"
 						aria-invalid={!!errors.email}
@@ -271,9 +261,7 @@ export default function Booking({
 						type="tel"
 						placeholder="04XX XXX XXX"
 						value={formData.phone}
-						onChange={(e) =>
-							setFormData({ ...formData, phone: e.target.value })
-						}
+						onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
 						className={inputClass("phone")}
 						aria-required="true"
 						aria-invalid={!!errors.phone}
@@ -293,20 +281,14 @@ export default function Booking({
 								type="text"
 								placeholder="Suburb"
 								value={formData.suburb}
-								onChange={(e) =>
-									setFormData({ ...formData, suburb: e.target.value })
-								}
+								onChange={(e) => setFormData({ ...formData, suburb: e.target.value })}
 								className={inputClass("suburb")}
 								aria-required="true"
 								aria-invalid={!!errors.suburb}
 								aria-describedby="suburb-error"
 							/>
 							{errors.suburb && (
-								<p
-									id="suburb-error"
-									role="alert"
-									className="text-red-500 text-sm"
-								>
+								<p id="suburb-error" role="alert" className="text-red-500 text-sm">
 									{errors.suburb}
 								</p>
 							)}
@@ -330,9 +312,7 @@ export default function Booking({
 						type="text"
 						placeholder="123 Main St"
 						value={formData.address}
-						onChange={(e) =>
-							setFormData({ ...formData, address: e.target.value })
-						}
+						onChange={(e) => setFormData({ ...formData, address: e.target.value })}
 						className={inputClass("address")}
 						aria-required="true"
 						aria-invalid={!!errors.address}
@@ -349,9 +329,7 @@ export default function Booking({
 					<textarea
 						placeholder="Any special requirements..."
 						value={formData.message}
-						onChange={(e) =>
-							setFormData({ ...formData, message: e.target.value })
-						}
+						onChange={(e) => setFormData({ ...formData, message: e.target.value })}
 						className="w-full p-3 border border-zinc-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none"
 						rows={3}
 					/>
@@ -370,9 +348,7 @@ export default function Booking({
 					<div className="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-4 space-y-2 text-sm">
 						<div className="flex justify-between">
 							<span className="text-zinc-500">Service</span>
-							<span className="font-medium">
-								{serviceSlug.replace(/-/g, " ")}
-							</span>
+							<span className="font-medium">{serviceSlug.replace(/-/g, " ")}</span>
 						</div>
 						<div className="flex justify-between">
 							<span className="text-zinc-500">Date</span>
@@ -384,9 +360,7 @@ export default function Booking({
 						</div>
 						<div className="flex justify-between">
 							<span className="text-zinc-500">Frequency</span>
-							<span className="font-medium capitalize">
-								{formData.frequency}
-							</span>
+							<span className="font-medium capitalize">{formData.frequency}</span>
 						</div>
 						<div className="flex justify-between">
 							<span className="text-zinc-500">Address</span>
@@ -403,8 +377,8 @@ export default function Booking({
 						{isSubmitting ? "Submitting..." : "Confirm Booking"}
 					</button>
 					<p className="text-center text-xs text-zinc-500">
-						We&apos;ll send you a quote after confirming your requirements. No
-						upfront payment required.
+						We&apos;ll send you a quote after confirming your requirements. No upfront payment
+						required.
 					</p>
 				</div>
 			)}

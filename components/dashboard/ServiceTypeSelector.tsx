@@ -14,10 +14,7 @@ const services = [
 	{ value: "deep-cleaning", label: "Deep Cleaning", icon: "✨" },
 ];
 
-export function ServiceTypeSelector({
-	value,
-	onChange,
-}: ServiceTypeSelectorProps) {
+export function ServiceTypeSelector({ value, onChange }: ServiceTypeSelectorProps) {
 	const toggleService = (serviceValue: string) => {
 		if (value.includes(serviceValue)) {
 			onChange(value.filter((s) => s !== serviceValue));

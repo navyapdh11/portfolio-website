@@ -970,8 +970,8 @@ const ntRaw = [
 ];
 export const nt = ntRaw.map(([n, p]) => S(n, p, "nt"));
 
-// Combined exports
-export const suburbsByState: Record<string, Suburb[]> = {
+// Combined exports — curated set
+export const suburbsByStateCurated: Record<string, Suburb[]> = {
 	nsw,
 	vic,
 	qld,
@@ -982,7 +982,7 @@ export const suburbsByState: Record<string, Suburb[]> = {
 	nt,
 };
 
-export const allSuburbs: Suburb[] = [
+export const allSuburbsCurated: Suburb[] = [
 	...nsw,
 	...vic,
 	...qld,
@@ -995,11 +995,11 @@ export const allSuburbs: Suburb[] = [
 
 // Lookup helpers
 export function getSuburbBySlug(slug: string): Suburb | undefined {
-	return allSuburbs.find((s) => s.slug === slug);
+	return allSuburbsCurated.find((s) => s.slug === slug);
 }
 
 export function getSuburbsByState(stateSlug: string): Suburb[] {
-	return suburbsByState[stateSlug] || [];
+	return suburbsByStateCurated[stateSlug] || [];
 }
 
-export const totalSuburbCount = allSuburbs.length;
+export const totalSuburbCountCurated = allSuburbsCurated.length;

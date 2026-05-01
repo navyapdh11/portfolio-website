@@ -29,8 +29,7 @@ const initialProjects: Project[] = [
 	{
 		id: 2,
 		title: "Real-Time Chat App",
-		description:
-			"Real-time messaging application with WebSocket support and authentication.",
+		description: "Real-time messaging application with WebSocket support and authentication.",
 		tags: ["React", "Node.js", "Socket.io"],
 		image: "💬",
 		github: "https://github.com/navyapdh11",
@@ -40,8 +39,7 @@ const initialProjects: Project[] = [
 	{
 		id: 3,
 		title: "Analytics Dashboard",
-		description:
-			"Interactive data visualization dashboard with dynamic charts and filters.",
+		description: "Interactive data visualization dashboard with dynamic charts and filters.",
 		tags: ["React", "D3.js", "Tailwind"],
 		image: "📊",
 		github: "https://github.com/navyapdh11",
@@ -51,8 +49,7 @@ const initialProjects: Project[] = [
 	{
 		id: 4,
 		title: "Task Management API",
-		description:
-			"RESTful API for task management with role-based access control.",
+		description: "RESTful API for task management with role-based access control.",
 		tags: ["Node.js", "Express", "PostgreSQL"],
 		image: "📝",
 		github: "https://github.com/navyapdh11",
@@ -89,15 +86,11 @@ export default function Projects() {
 	const [activeCategory] = useState("all");
 
 	const updateProject = (id: number, field: keyof Project, value: string) => {
-		setProjects(
-			projects.map((p) => (p.id === id ? { ...p, [field]: value } : p)),
-		);
+		setProjects(projects.map((p) => (p.id === id ? { ...p, [field]: value } : p)));
 	};
 
 	const filteredProjects =
-		activeCategory === "all"
-			? projects
-			: projects.filter((p) => p.category === activeCategory);
+		activeCategory === "all" ? projects : projects.filter((p) => p.category === activeCategory);
 
 	return (
 		<section id="projects" className="py-20 bg-white dark:bg-zinc-900">
@@ -130,9 +123,7 @@ export default function Projects() {
 									</label>
 									<input
 										value={p.title}
-										onChange={(e) =>
-											updateProject(p.id, "title", e.target.value)
-										}
+										onChange={(e) => updateProject(p.id, "title", e.target.value)}
 										className="w-full font-bold text-zinc-900 dark:text-white bg-transparent mb-2 border-b border-zinc-200"
 									/>
 									<label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1">
@@ -140,9 +131,7 @@ export default function Projects() {
 									</label>
 									<textarea
 										value={p.description}
-										onChange={(e) =>
-											updateProject(p.id, "description", e.target.value)
-										}
+										onChange={(e) => updateProject(p.id, "description", e.target.value)}
 										className="w-full text-sm text-zinc-600 dark:text-zinc-400 bg-transparent h-16 border-b border-zinc-200"
 									/>
 								</div>

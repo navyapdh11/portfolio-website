@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cleaningServices } from "@/lib/constants/services";
-import { states } from "@/lib/data/suburbs";
+import { states, allSuburbs } from "@/lib/data/suburbs-barrel";
 
 const stateNames: Record<string, string> = {
 	nsw: "New South Wales",
@@ -26,9 +26,7 @@ export default function Breadcrumbs() {
 
 	if (segments.length === 0) return null;
 
-	const breadcrumbs: { label: string; href: string }[] = [
-		{ label: "Home", href: "/" },
-	];
+	const breadcrumbs: { label: string; href: string }[] = [{ label: "Home", href: "/" }];
 
 	// Handle /services/[service]/[state]/[city]
 	if (segments[0] === "services" && segments.length >= 4) {
@@ -56,14 +54,9 @@ export default function Breadcrumbs() {
 			>
 				{breadcrumbs.map((crumb, i) => (
 					<span key={i} className="flex items-center gap-1.5">
-						{i > 0 && (
-							<span className="text-zinc-300 dark:text-zinc-600">/</span>
-						)}
+						{i > 0 && <span className="text-zinc-300 dark:text-zinc-600">/</span>}
 						{i === breadcrumbs.length - 1 ? (
-							<span
-								className="text-zinc-900 dark:text-white font-medium"
-								aria-current="page"
-							>
+							<span className="text-zinc-900 dark:text-white font-medium" aria-current="page">
 								{crumb.label}
 							</span>
 						) : (
@@ -89,11 +82,8 @@ export default function Breadcrumbs() {
 		const stateData = states.find((s) => s.slug === stateSlug);
 		const stateAbbr = stateData?.abbr || capitalize(stateSlug);
 
-		// Import suburb data dynamically
-		const { allSuburbs } = require("@/lib/data/suburbs");
-		const suburb = allSuburbs.find(
-			(s: { slug: string; name: string }) => s.slug === suburbSlug,
-		);
+		// Resolve suburb name from imported data
+		const suburb = allSuburbs.find((s: { slug: string; name: string }) => s.slug === suburbSlug);
 		const suburbName = suburb?.name || capitalize(suburbSlug);
 
 		breadcrumbs.push({ label: stateAbbr, href: `/${stateSlug}` });
@@ -106,14 +96,9 @@ export default function Breadcrumbs() {
 			>
 				{breadcrumbs.map((crumb, i) => (
 					<span key={i} className="flex items-center gap-1.5">
-						{i > 0 && (
-							<span className="text-zinc-300 dark:text-zinc-600">/</span>
-						)}
+						{i > 0 && <span className="text-zinc-300 dark:text-zinc-600">/</span>}
 						{i === breadcrumbs.length - 1 ? (
-							<span
-								className="text-zinc-900 dark:text-white font-medium"
-								aria-current="page"
-							>
+							<span className="text-zinc-900 dark:text-white font-medium" aria-current="page">
 								{crumb.label}
 							</span>
 						) : (
@@ -145,10 +130,7 @@ export default function Breadcrumbs() {
 				<span key={i} className="flex items-center gap-1.5">
 					{i > 0 && <span className="text-zinc-300 dark:text-zinc-600">/</span>}
 					{i === breadcrumbs.length - 1 ? (
-						<span
-							className="text-zinc-900 dark:text-white font-medium"
-							aria-current="page"
-						>
+						<span className="text-zinc-900 dark:text-white font-medium" aria-current="page">
 							{crumb.label}
 						</span>
 					) : (

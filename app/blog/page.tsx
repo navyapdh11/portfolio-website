@@ -43,8 +43,8 @@ export default function BlogPage() {
 						Social <span className="text-sky-500">Blog</span>
 					</h1>
 					<p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-						Stay up to date with the latest cleaning hacks, industry news, and
-						updates from the AASTACLEAN team.
+						Stay up to date with the latest cleaning hacks, industry news, and updates from the
+						AASTACLEAN team.
 					</p>
 				</div>
 
@@ -68,17 +68,13 @@ export default function BlogPage() {
 									<span className="px-3 py-1 bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 text-xs font-semibold rounded-full">
 										{post.category}
 									</span>
-									<span className="text-slate-500 dark:text-slate-400 text-xs">
-										{post.date}
-									</span>
+									<span className="text-slate-500 dark:text-slate-400 text-xs">{post.date}</span>
 								</div>
 								<h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-tight">
 									{post.title}
 								</h3>
-								<p className="text-slate-600 dark:text-slate-300 text-sm mb-4">
-									{post.excerpt}
-								</p>
-								<button className="text-sky-500 font-semibold text-sm hover:text-sky-600 transition-colors">
+								<p className="text-slate-600 dark:text-slate-300 text-sm mb-4">{post.excerpt}</p>
+								<button type="button" className="text-sky-500 font-semibold text-sm hover:text-sky-600 transition-colors">
 									Read More →
 								</button>
 							</div>

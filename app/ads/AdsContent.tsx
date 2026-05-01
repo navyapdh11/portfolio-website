@@ -34,9 +34,9 @@ interface SeoMetric {
 }
 
 export default function AdsContent() {
-	const [activeTab, setActiveTab] = useState<
-		"campaigns" | "competitor" | "seo" | "analytics"
-	>("campaigns");
+	const [activeTab, setActiveTab] = useState<"campaigns" | "competitor" | "seo" | "analytics">(
+		"campaigns",
+	);
 
 	const campaigns: AdCampaign[] = [
 		{
@@ -111,11 +111,7 @@ export default function AdsContent() {
 			id: 1,
 			name: "CleanPro Perth",
 			adspend: 4200,
-			keywords: [
-				"perth cleaning",
-				"house cleaning perth",
-				"commercial cleaning",
-			],
+			keywords: ["perth cleaning", "house cleaning perth", "commercial cleaning"],
 			traffic: 8500,
 			ranking: 1,
 		},
@@ -194,23 +190,16 @@ export default function AdsContent() {
 	};
 
 	const getStatusColor = (status: string) => {
-		return status === "active"
-			? "bg-green-100 text-green-700"
-			: "bg-zinc-100 text-zinc-700";
+		return status === "active" ? "bg-green-100 text-green-700" : "bg-zinc-100 text-zinc-700";
 	};
 
 	const getTrendColor = (trend: string) => {
-		return trend === "up"
-			? "text-green-600"
-			: trend === "down"
-				? "text-red-600"
-				: "text-zinc-500";
+		return trend === "up" ? "text-green-600" : trend === "down" ? "text-red-600" : "text-zinc-500";
 	};
 
 	const totalSpend = campaigns.reduce((sum, c) => sum + c.spent, 0);
 	const totalConversions = campaigns.reduce((sum, c) => sum + c.conversions, 0);
-	const avgRoas =
-		campaigns.reduce((sum, c) => sum + c.roas, 0) / campaigns.length;
+	const avgRoas = campaigns.reduce((sum, c) => sum + c.roas, 0) / campaigns.length;
 	const totalImpressions = campaigns.reduce((sum, c) => sum + c.impressions, 0);
 
 	return (
@@ -219,14 +208,12 @@ export default function AdsContent() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 						<div>
-							<h1 className="text-3xl md:text-4xl font-bold mb-2">
-								📣 Ads Manager
-							</h1>
+							<h1 className="text-3xl md:text-4xl font-bold mb-2">📣 Ads Manager</h1>
 							<p className="text-pink-100">
 								Manage campaigns, track competitors, and optimize for CRO/SEO
 							</p>
 						</div>
-						<button className="px-5 py-2.5 bg-white text-purple-700 hover:bg-gray-100 rounded-xl font-medium transition-all">
+						<button type="button" className="px-5 py-2.5 bg-white text-purple-700 hover:bg-gray-100 rounded-xl font-medium transition-all">
 							➕ New Campaign
 						</button>
 					</div>
@@ -241,15 +228,11 @@ export default function AdsContent() {
 					</div>
 					<div className="bg-white dark:bg-zinc-800 p-5 rounded-xl shadow-md">
 						<p className="text-zinc-500 text-sm">Conversions</p>
-						<p className="text-2xl font-bold text-green-600">
-							{totalConversions}
-						</p>
+						<p className="text-2xl font-bold text-green-600">{totalConversions}</p>
 					</div>
 					<div className="bg-white dark:bg-zinc-800 p-5 rounded-xl shadow-md">
 						<p className="text-zinc-500 text-sm">Avg ROAS</p>
-						<p className="text-2xl font-bold text-blue-600">
-							{avgRoas.toFixed(1)}x
-						</p>
+						<p className="text-2xl font-bold text-blue-600">{avgRoas.toFixed(1)}x</p>
 					</div>
 					<div className="bg-white dark:bg-zinc-800 p-5 rounded-xl shadow-md">
 						<p className="text-zinc-500 text-sm">Impressions</p>
@@ -269,6 +252,7 @@ export default function AdsContent() {
 						].map((tab) => (
 							<button
 								key={tab.id}
+								type="button"
 								onClick={() => setActiveTab(tab.id as typeof activeTab)}
 								className={`flex-1 px-5 py-4 font-medium whitespace-nowrap transition-colors ${
 									activeTab === tab.id
@@ -285,22 +269,15 @@ export default function AdsContent() {
 						{activeTab === "campaigns" && (
 							<div className="space-y-4">
 								{campaigns.map((campaign) => (
-									<div
-										key={campaign.id}
-										className="p-4 bg-zinc-50 dark:bg-zinc-700 rounded-xl"
-									>
+									<div key={campaign.id} className="p-4 bg-zinc-50 dark:bg-zinc-700 rounded-xl">
 										<div className="flex flex-wrap justify-between items-start gap-4 mb-3">
 											<div className="flex items-center gap-3">
-												<span className="text-2xl">
-													{getPlatformIcon(campaign.platform)}
-												</span>
+												<span className="text-2xl">{getPlatformIcon(campaign.platform)}</span>
 												<div>
 													<h3 className="font-semibold text-zinc-900 dark:text-white">
 														{campaign.name}
 													</h3>
-													<p className="text-sm text-zinc-500">
-														{campaign.platform}
-													</p>
+													<p className="text-sm text-zinc-500">{campaign.platform}</p>
 												</div>
 											</div>
 											<span
@@ -328,16 +305,14 @@ export default function AdsContent() {
 											</div>
 											<div>
 												<p className="text-zinc-500">ROAS</p>
-												<p className="font-bold text-green-600">
-													{campaign.roas}x
-												</p>
+												<p className="font-bold text-green-600">{campaign.roas}x</p>
 											</div>
 										</div>
 										<div className="mt-3 flex gap-2">
-											<button className="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-lg transition-colors">
+											<button type="button" className="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-lg transition-colors">
 												Edit
 											</button>
-											<button className="px-3 py-1.5 bg-zinc-200 dark:bg-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm rounded-lg transition-colors">
+											<button type="button" className="px-3 py-1.5 bg-zinc-200 dark:bg-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm rounded-lg transition-colors">
 												{campaign.status === "active" ? "Pause" : "Activate"}
 											</button>
 										</div>
@@ -363,14 +338,10 @@ export default function AdsContent() {
 														<p className="font-medium">
 															#{comp.ranking} {comp.name}
 														</p>
-														<p className="text-xs text-zinc-500">
-															{comp.keywords.join(", ")}
-														</p>
+														<p className="text-xs text-zinc-500">{comp.keywords.join(", ")}</p>
 													</div>
 													<div className="text-right">
-														<p className="font-bold text-red-600">
-															${comp.adspend}/mo
-														</p>
+														<p className="font-bold text-red-600">${comp.adspend}/mo</p>
 														<p className="text-xs text-zinc-500">
 															{comp.traffic.toLocaleString()} visits
 														</p>
@@ -389,18 +360,10 @@ export default function AdsContent() {
 													key={metric.keyword}
 													className="flex justify-between items-center p-2 bg-white dark:bg-zinc-800 rounded-lg text-sm"
 												>
-													<span className="text-zinc-700 dark:text-zinc-300">
-														{metric.keyword}
-													</span>
-													<span
-														className={`font-medium ${getTrendColor(metric.trend)}`}
-													>
-														{metric.trend === "up"
-															? "↑"
-															: metric.trend === "down"
-																? "↓"
-																: "→"}{" "}
-														#{metric.ranking}
+													<span className="text-zinc-700 dark:text-zinc-300">{metric.keyword}</span>
+													<span className={`font-medium ${getTrendColor(metric.trend)}`}>
+														{metric.trend === "up" ? "↑" : metric.trend === "down" ? "↓" : "→"} #
+														{metric.ranking}
 													</span>
 												</div>
 											))}
@@ -430,37 +393,21 @@ export default function AdsContent() {
 									<table className="w-full">
 										<thead className="bg-zinc-100 dark:bg-zinc-700">
 											<tr>
-												<th className="px-4 py-3 text-left text-sm font-medium">
-													Keyword
-												</th>
-												<th className="px-4 py-3 text-left text-sm font-medium">
-													Ranking
-												</th>
-												<th className="px-4 py-3 text-left text-sm font-medium">
-													Volume
-												</th>
-												<th className="px-4 py-3 text-left text-sm font-medium">
-													Difficulty
-												</th>
-												<th className="px-4 py-3 text-left text-sm font-medium">
-													Trend
-												</th>
+												<th className="px-4 py-3 text-left text-sm font-medium">Keyword</th>
+												<th className="px-4 py-3 text-left text-sm font-medium">Ranking</th>
+												<th className="px-4 py-3 text-left text-sm font-medium">Volume</th>
+												<th className="px-4 py-3 text-left text-sm font-medium">Difficulty</th>
+												<th className="px-4 py-3 text-left text-sm font-medium">Trend</th>
 											</tr>
 										</thead>
 										<tbody className="divide-y divide-zinc-200 dark:divide-zinc-700">
 											{seoMetrics.map((metric) => (
 												<tr key={metric.keyword}>
-													<td className="px-4 py-3 font-medium">
-														{metric.keyword}
-													</td>
+													<td className="px-4 py-3 font-medium">{metric.keyword}</td>
 													<td className="px-4 py-3">#{metric.ranking}</td>
-													<td className="px-4 py-3">
-														{metric.volume.toLocaleString()}
-													</td>
+													<td className="px-4 py-3">{metric.volume.toLocaleString()}</td>
 													<td className="px-4 py-3">{metric.difficulty}%</td>
-													<td
-														className={`px-4 py-3 font-medium ${getTrendColor(metric.trend)}`}
-													>
+													<td className={`px-4 py-3 font-medium ${getTrendColor(metric.trend)}`}>
 														{metric.trend === "up"
 															? "↑ Improving"
 															: metric.trend === "down"
@@ -511,9 +458,7 @@ export default function AdsContent() {
 										</div>
 									</div>
 									<div className="p-4 bg-zinc-50 dark:bg-zinc-700 rounded-xl">
-										<h3 className="font-semibold mb-4">
-											💰 Revenue Attribution
-										</h3>
+										<h3 className="font-semibold mb-4">💰 Revenue Attribution</h3>
 										<div className="space-y-3">
 											{[
 												{

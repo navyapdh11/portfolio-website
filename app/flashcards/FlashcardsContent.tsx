@@ -142,9 +142,7 @@ export default function FlashcardsContent() {
 	const categories = ["all", ...new Set(flashcards.map((c) => c.category))];
 
 	const filteredCards =
-		activeCategory === "all"
-			? flashcards
-			: flashcards.filter((c) => c.category === activeCategory);
+		activeCategory === "all" ? flashcards : flashcards.filter((c) => c.category === activeCategory);
 
 	const toggleFlip = (id: number) => {
 		const newFlipped = new Set(flippedCards);
@@ -193,9 +191,7 @@ export default function FlashcardsContent() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 						<div>
-							<h1 className="text-3xl md:text-4xl font-bold mb-2">
-								🎴 Strategy Flashcards
-							</h1>
+							<h1 className="text-3xl md:text-4xl font-bold mb-2">🎴 Strategy Flashcards</h1>
 							<p className="text-amber-100">
 								SEO, CRO, GEO, AEO optimization guide for cleaning businesses
 							</p>
@@ -244,9 +240,7 @@ export default function FlashcardsContent() {
 									>
 										{card.category}
 									</span>
-									<span
-										className={`text-xs ${getPriorityColor(card.priority)}`}
-									>
+									<span className={`text-xs ${getPriorityColor(card.priority)}`}>
 										{card.priority === "high"
 											? "🔴 HIGH"
 											: card.priority === "medium"
@@ -255,16 +249,12 @@ export default function FlashcardsContent() {
 									</span>
 								</div>
 
-								<h3 className="font-bold text-zinc-900 dark:text-white mb-3">
-									{card.title}
-								</h3>
+								<h3 className="font-bold text-zinc-900 dark:text-white mb-3">{card.title}</h3>
 
 								<div className="min-h-[100px]">
 									{flippedCards.has(card.id) ? (
 										<div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
-											<p className="text-sm text-zinc-700 dark:text-zinc-300">
-												{card.back}
-											</p>
+											<p className="text-sm text-zinc-700 dark:text-zinc-300">{card.back}</p>
 										</div>
 									) : (
 										<p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">
@@ -315,9 +305,7 @@ export default function FlashcardsContent() {
 									defaultChecked={item.status}
 									className="w-5 h-5 rounded text-amber-600"
 								/>
-								<span className="text-zinc-700 dark:text-zinc-300">
-									{item.action}
-								</span>
+								<span className="text-zinc-700 dark:text-zinc-300">{item.action}</span>
 							</div>
 						))}
 					</div>

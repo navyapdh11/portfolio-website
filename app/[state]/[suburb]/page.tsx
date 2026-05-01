@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { cleaningServices } from "@/lib/constants/services";
-import { type Suburb, suburbsByState } from "@/lib/data/suburbs";
+import { type Suburb, suburbsByState } from "@/lib/data/suburbs-barrel";
 
 // ─────────────────────────────────────────────
 // Caching handled by nextConfig.cacheComponents
@@ -33,8 +33,7 @@ function resolveSuburb(state: string, suburb: string): Suburb | undefined {
 	return list.find((s) => s.slug === suburb);
 }
 
-const SITE_URL =
-	process.env.NEXT_PUBLIC_SITE_URL ?? "https://aastaclean.com.au";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aastaclean.com.au";
 
 function canonicalUrl(state: string, suburb: string) {
 	return `${SITE_URL}/${state}/${suburb}`;
@@ -126,8 +125,7 @@ function getNearbySuburbs(current: Suburb, limit = 8): Suburb[] {
 	const spread = Math.ceil(limit / 2);
 	for (let i = 1; i <= spread && nearby.length < limit; i++) {
 		if (idx - i >= 0) nearby.push(sameState[idx - i]);
-		if (idx + i < sameState.length && nearby.length < limit)
-			nearby.push(sameState[idx + i]);
+		if (idx + i < sameState.length && nearby.length < limit) nearby.push(sameState[idx + i]);
 	}
 	return nearby;
 }
@@ -208,10 +206,7 @@ function renderJsonLd(suburb: Suburb) {
 	};
 
 	return (
-		<script
-			type="application/ld+json"
-			dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
-		/>
+		<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
 	);
 }
 
@@ -264,9 +259,8 @@ export default async function SuburbPage({
 						</span>
 					</h1>
 					<p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
-						AASTACLEAN delivers insured, eco-friendly, police-checked cleaning
-						for homes and businesses across {name} and the greater {abbr}{" "}
-						region. Book online in 60 seconds.
+						AASTACLEAN delivers insured, eco-friendly, police-checked cleaning for homes and
+						businesses across {name} and the greater {abbr} region. Book online in 60 seconds.
 					</p>
 					<div className="mt-8 flex flex-wrap justify-center gap-4">
 						<Link
@@ -290,8 +284,7 @@ export default async function SuburbPage({
 				{/* ===== WHY CHOOSE US ===== */}
 				<section className="mb-20">
 					<h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">
-						Why Choose AASTACLEAN in{" "}
-						<span className="text-sky-500">{name}</span>?
+						Why Choose AASTACLEAN in <span className="text-sky-500">{name}</span>?
 					</h2>
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 						{[
@@ -338,8 +331,8 @@ export default async function SuburbPage({
 						Cleaning Services Available in {name}
 					</h2>
 					<p className="text-center text-slate-600 dark:text-slate-400 max-w-xl mx-auto mb-12">
-						From one-off deep cleans to ongoing commercial contracts, we cover
-						every cleaning need across {name} and surrounding suburbs.
+						From one-off deep cleans to ongoing commercial contracts, we cover every cleaning need
+						across {name} and surrounding suburbs.
 					</p>
 					<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 						{keyServices.map((svc) => (
@@ -376,19 +369,15 @@ export default async function SuburbPage({
 						</h2>
 						<div className="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-300">
 							<p>
-								Located in postcode {postcode}, {name} is part of the vibrant{" "}
-								{abbr} community. Our local cleaning teams know the area
-								intimately &mdash; from typical property types and common
-								real-estate expectations to parking access and building
-								regulations.
+								Located in postcode {postcode}, {name} is part of the vibrant {abbr} community. Our
+								local cleaning teams know the area intimately &mdash; from typical property types
+								and common real-estate expectations to parking access and building regulations.
 							</p>
 							<p>
-								Whether you are in a standalone home, townhouse, apartment, or
-								commercial premises, we tailor our cleaning approach to the
-								specific needs of {name} residents and businesses. We are
-								familiar with the local rental market, strata requirements, and
-								the standards that {abbr} property managers expect at bond
-								inspections.
+								Whether you are in a standalone home, townhouse, apartment, or commercial premises,
+								we tailor our cleaning approach to the specific needs of {name} residents and
+								businesses. We are familiar with the local rental market, strata requirements, and
+								the standards that {abbr} property managers expect at bond inspections.
 							</p>
 						</div>
 						<div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -487,8 +476,8 @@ export default async function SuburbPage({
 								Ready for a Spotless {name} Property?
 							</h2>
 							<p className="text-sky-100 max-w-lg mx-auto mb-8">
-								Join hundreds of satisfied customers across {name} and {abbr}.
-								Get your free, no-obligation quote in under a minute.
+								Join hundreds of satisfied customers across {name} and {abbr}. Get your free,
+								no-obligation quote in under a minute.
 							</p>
 							<Link
 								href="/book"
@@ -508,8 +497,7 @@ export default async function SuburbPage({
 							Also Serving Suburbs Near {name}
 						</h2>
 						<p className="text-center text-slate-600 dark:text-slate-400 max-w-xl mx-auto mb-8">
-							Our cleaning teams cover all of {abbr} &mdash; click a suburb to
-							learn more.
+							Our cleaning teams cover all of {abbr} &mdash; click a suburb to learn more.
 						</p>
 						<div className="flex flex-wrap justify-center gap-3">
 							{nearby.map((s) => (

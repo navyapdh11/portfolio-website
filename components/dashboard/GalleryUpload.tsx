@@ -12,9 +12,7 @@ export default function GalleryUpload() {
 
 	return (
 		<div className="mt-4 p-4 bg-slate-700 rounded-xl">
-			<h4 className="text-sm font-medium text-slate-300 mb-3">
-				Upload Gallery Images
-			</h4>
+			<h4 className="text-sm font-medium text-slate-300 mb-3">Upload Gallery Images</h4>
 			<button
 				onClick={handleUpload}
 				className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"

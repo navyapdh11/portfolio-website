@@ -52,8 +52,7 @@ export default function BookingPage() {
 								<span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
 							</span>
 							<span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-								Book Online —{" "}
-								<span className="text-sky-600">Instant Confirmation</span>
+								Book Online — <span className="text-sky-600">Instant Confirmation</span>
 							</span>
 						</div>
 					</div>
@@ -70,8 +69,8 @@ export default function BookingPage() {
 					</h1>
 
 					<p className="text-lg md:text-xl text-slate-300/90 max-w-2xl mx-auto">
-						Choose your service, pick a date, and confirm your booking in
-						minutes. Bond-back guaranteed with police-checked professionals.
+						Choose your service, pick a date, and confirm your booking in minutes. Bond-back
+						guaranteed with police-checked professionals.
 					</p>
 				</div>
 			</section>

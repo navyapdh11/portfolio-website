@@ -46,9 +46,7 @@ export function csrfCookie(token?: string): string {
  */
 function extractCookieToken(request: Request): string | null {
 	const cookieHeader = request.headers.get("cookie") || "";
-	const match = cookieHeader.match(
-		new RegExp(`(?:^|;)\\s*${CSRF_COOKIE_NAME}=([^;]+)`),
-	);
+	const match = cookieHeader.match(new RegExp(`(?:^|;)\\s*${CSRF_COOKIE_NAME}=([^;]+)`));
 	return match ? match[1] : null;
 }
 
@@ -71,18 +69,14 @@ export function csrfCheck(request: Request): {
 	if (!cookieToken || !headerToken) {
 		return {
 			valid: false,
-			error:
-				"CSRF validation failed — missing token in cookie or X-CSRF-Token header",
+			error: "CSRF validation failed — missing token in cookie or X-CSRF-Token header",
 		};
 	}
 
 	// Timing-safe comparison prevents timing oracle attacks
 	const cookieBuf = Buffer.from(cookieToken);
 	const headerBuf = Buffer.from(headerToken);
-	if (
-		cookieBuf.length !== headerBuf.length ||
-		!timingSafeEqual(cookieBuf, headerBuf)
-	) {
+	if (cookieBuf.length !== headerBuf.length || !timingSafeEqual(cookieBuf, headerBuf)) {
 		return { valid: false, error: "CSRF validation failed — token mismatch" };
 	}
 
@@ -90,8 +84,7 @@ export function csrfCheck(request: Request): {
 	const origin = request.headers.get("origin");
 	if (origin) {
 		const isTrusted = TRUSTED_ORIGINS.some(
-			(trusted) =>
-				trusted === origin || origin.endsWith(trusted.replace("https://", "")),
+			(trusted) => trusted === origin || origin.endsWith(trusted.replace("https://", "")),
 		);
 		if (!isTrusted) {
 			return {

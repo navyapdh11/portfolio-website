@@ -2,15 +2,12 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/data/store";
 import { validateAuth } from "@/lib/middleware/auth";
 import { csrfResponse } from "@/lib/middleware/csrf";
-import {
-	checkRateLimit,
-	getRateLimitHeaders,
-} from "@/lib/middleware/rateLimit";
+import { checkRateLimit, getRateLimitHeaders } from "@/lib/middleware/rateLimit";
 import { ServiceSchema } from "@/lib/validation/schemas";
 
 export async function GET(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -19,23 +16,19 @@ export async function GET(request: Request) {
 		const services = db.services.getAll();
 		return NextResponse.json({ data: services });
 	} catch {
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }
 
 export async function POST(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
 	// Rate limit
-	const clientIp =
-		request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 	const rateLimit = checkRateLimit(`api:${clientIp}:POST:services`);
 	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
 	if (!rateLimit.allowed) {
@@ -68,8 +61,7 @@ export async function POST(request: Request) {
 			{ success: true, service },
 			{ status: 201, headers: rateLimitHeaders },
 		);
-	} catch (err) {
-		console.error("Service creation error:", err);
+	} catch (_err) {
 		return NextResponse.json(
 			{ error: "Internal server error" },
 			{ status: 500, headers: rateLimitHeaders },
@@ -78,15 +70,14 @@ export async function POST(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
 	// Rate limit
-	const clientIp =
-		request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 	const rateLimit = checkRateLimit(`api:${clientIp}:PATCH:services`);
 	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
 	if (!rateLimit.allowed) {
@@ -98,18 +89,11 @@ export async function PATCH(request: Request) {
 
 	try {
 		const body = await request.json();
-		if (!body.id)
-			return NextResponse.json({ error: "ID required" }, { status: 400 });
+		if (!body.id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 		const service = db.services.update(body.id as string, body);
 		if (!service)
-			return NextResponse.json(
-				{ error: "Not found" },
-				{ status: 404, headers: rateLimitHeaders },
-			);
-		return NextResponse.json(
-			{ success: true, service },
-			{ headers: rateLimitHeaders },
-		);
+			return NextResponse.json({ error: "Not found" }, { status: 404, headers: rateLimitHeaders });
+		return NextResponse.json({ success: true, service }, { headers: rateLimitHeaders });
 	} catch {
 		return NextResponse.json(
 			{ error: "Internal server error" },
@@ -119,15 +103,14 @@ export async function PATCH(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
 	// Rate limit
-	const clientIp =
-		request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 	const rateLimit = checkRateLimit(`api:${clientIp}:DELETE:services`);
 	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
 	if (!rateLimit.allowed) {
@@ -141,10 +124,7 @@ export async function DELETE(request: Request) {
 		const body = await request.json();
 		const { id } = body;
 		if (!db.services.delete(id as string))
-			return NextResponse.json(
-				{ error: "Not found" },
-				{ status: 404, headers: rateLimitHeaders },
-			);
+			return NextResponse.json({ error: "Not found" }, { status: 404, headers: rateLimitHeaders });
 		return NextResponse.json({ success: true }, { headers: rateLimitHeaders });
 	} catch {
 		return NextResponse.json(

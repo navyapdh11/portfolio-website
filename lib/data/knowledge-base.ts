@@ -120,15 +120,7 @@ export const knowledgeBase: KnowledgeBase = {
 			icon: "🧹",
 			priceRange: "$90–$200",
 			basePrice: 90,
-			keywords: [
-				"carpet",
-				"steam",
-				"stain",
-				"rug",
-				"deep clean",
-				"stain removal",
-				"quick dry",
-			],
+			keywords: ["carpet", "steam", "stain", "rug", "deep clean", "stain removal", "quick dry"],
 		},
 		{
 			id: "window",
@@ -138,14 +130,7 @@ export const knowledgeBase: KnowledgeBase = {
 			icon: "🪟",
 			priceRange: "$80–$180",
 			basePrice: 80,
-			keywords: [
-				"window",
-				"glass",
-				"high-rise",
-				"streak-free",
-				"exterior",
-				"interior",
-			],
+			keywords: ["window", "glass", "high-rise", "streak-free", "exterior", "interior"],
 		},
 		{
 			id: "deep",
@@ -204,13 +189,7 @@ export const knowledgeBase: KnowledgeBase = {
 			answer:
 				"We guarantee that if your real estate agent or landlord is not satisfied with our end-of-lease clean, we will return and re-clean the property at no extra charge. This guarantee covers all our end-of-lease cleaning services and gives you peace of mind during the stressful moving process.",
 			category: "policies",
-			keywords: [
-				"bond",
-				"guarantee",
-				"end of lease",
-				"re-clean",
-				"satisfaction",
-			],
+			keywords: ["bond", "guarantee", "end of lease", "re-clean", "satisfaction"],
 		},
 		{
 			id: "faq-2",
@@ -350,15 +329,7 @@ export const knowledgeBase: KnowledgeBase = {
 			answer:
 				"Absolutely! We provide free, no-obligation quotes for all our services. Simply tell us your service type, property size, and any special requirements, and we'll get back to you within 1 hour during business hours.",
 			category: "pricing",
-			keywords: [
-				"free",
-				"quote",
-				"estimate",
-				"cost",
-				"no obligation",
-				"how much",
-				"price",
-			],
+			keywords: ["free", "quote", "estimate", "cost", "no obligation", "how much", "price"],
 		},
 		{
 			id: "faq-10",
@@ -402,15 +373,7 @@ export const knowledgeBase: KnowledgeBase = {
 			answer:
 				"We understand plans can change. You can cancel or reschedule your booking with at least 24 hours' notice at no charge. Cancellations within 24 hours may incur a small fee to cover scheduling costs.",
 			category: "policies",
-			keywords: [
-				"cancel",
-				"cancellation",
-				"reschedule",
-				"change",
-				"notice",
-				"fee",
-				"policy",
-			],
+			keywords: ["cancel", "cancellation", "reschedule", "change", "notice", "fee", "policy"],
 		},
 		{
 			id: "faq-13",
@@ -418,15 +381,7 @@ export const knowledgeBase: KnowledgeBase = {
 			answer:
 				"No, you don't need to be home. Many of our clients provide access (key, lockbox, or building manager) and we complete the clean while they're at work or away. We're fully insured and police-checked for your peace of mind.",
 			category: "general",
-			keywords: [
-				"home",
-				"present",
-				"away",
-				"key",
-				"access",
-				"need to be",
-				"during",
-			],
+			keywords: ["home", "present", "away", "key", "access", "need to be", "during"],
 		},
 		{
 			id: "faq-14",
@@ -434,16 +389,7 @@ export const knowledgeBase: KnowledgeBase = {
 			answer:
 				"We accept all major payment methods including credit/debit cards (Visa, Mastercard, AMEX), bank transfers, and PayID. Payment is typically due within 7 days of service completion for commercial clients, and on the day of service for domestic clients.",
 			category: "pricing",
-			keywords: [
-				"payment",
-				"pay",
-				"card",
-				"credit",
-				"bank",
-				"transfer",
-				"method",
-				"invoice",
-			],
+			keywords: ["payment", "pay", "card", "credit", "bank", "transfer", "method", "invoice"],
 		},
 		{
 			id: "faq-15",
@@ -451,16 +397,7 @@ export const knowledgeBase: KnowledgeBase = {
 			answer:
 				"You can reach us by phone at 1300 AASTACLEAN, email at hello@aastaclean.com.au, or through the online contact form on our website. Our AI Assistant is also available 24/7 to answer common questions.",
 			category: "general",
-			keywords: [
-				"contact",
-				"reach",
-				"phone",
-				"email",
-				"call",
-				"get in touch",
-				"support",
-				"help",
-			],
+			keywords: ["contact", "reach", "phone", "email", "call", "get in touch", "support", "help"],
 		},
 	],
 
@@ -470,85 +407,42 @@ export const knowledgeBase: KnowledgeBase = {
 			title: "Bond-Back Guarantee",
 			description:
 				"If your real estate agent or landlord is not satisfied with our end-of-lease clean, we will return and re-clean at no extra charge. This is our commitment to your complete satisfaction.",
-			keywords: [
-				"bond",
-				"guarantee",
-				"end of lease",
-				"satisfaction",
-				"re-clean",
-			],
+			keywords: ["bond", "guarantee", "end of lease", "satisfaction", "re-clean"],
 		},
 		{
 			id: "policy-2",
 			title: "Police-Checked Staff",
 			description:
 				"Every AASTACLEAN team member undergoes a thorough police check before joining. Your safety and security in your home is our top priority.",
-			keywords: [
-				"police check",
-				"staff",
-				"security",
-				"safety",
-				"background",
-				"trusted",
-			],
+			keywords: ["police check", "staff", "security", "safety", "background", "trusted"],
 		},
 		{
 			id: "policy-3",
 			title: "Fully Insured",
 			description:
 				"AASTACLEAN carries comprehensive public liability insurance. In the rare event of any damage during our service, you are fully covered.",
-			keywords: [
-				"insured",
-				"insurance",
-				"liability",
-				"damage",
-				"covered",
-				"protection",
-			],
+			keywords: ["insured", "insurance", "liability", "damage", "covered", "protection"],
 		},
 		{
 			id: "policy-4",
 			title: "Eco-Friendly Products",
 			description:
 				"We prioritize non-toxic, environmentally responsible cleaning products that are safe for families, pets, and the planet.",
-			keywords: [
-				"eco",
-				"friendly",
-				"green",
-				"non-toxic",
-				"environment",
-				"safe",
-				"pet",
-			],
+			keywords: ["eco", "friendly", "green", "non-toxic", "environment", "safe", "pet"],
 		},
 		{
 			id: "policy-5",
 			title: "24-Hour Cancellation",
 			description:
 				"Cancel or reschedule with at least 24 hours' notice at no charge. Late cancellations (within 24 hours) may incur a small fee.",
-			keywords: [
-				"cancel",
-				"cancellation",
-				"reschedule",
-				"change",
-				"notice",
-				"policy",
-				"fee",
-			],
+			keywords: ["cancel", "cancellation", "reschedule", "change", "notice", "policy", "fee"],
 		},
 		{
 			id: "policy-6",
 			title: "Satisfaction Guarantee",
 			description:
 				"If you're not completely happy with our service, contact us within 24 hours and we'll make it right. Your satisfaction is our priority.",
-			keywords: [
-				"satisfaction",
-				"guarantee",
-				"happy",
-				"complaint",
-				"quality",
-				"right",
-			],
+			keywords: ["satisfaction", "guarantee", "happy", "complaint", "quality", "right"],
 		},
 	],
 

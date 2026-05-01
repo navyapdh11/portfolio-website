@@ -1,10 +1,4 @@
-export function Card({
-	children,
-	className,
-}: {
-	children: React.ReactNode;
-	className?: string;
-}) {
+export function Card({ children, className }: { children: React.ReactNode; className?: string }) {
 	return (
 		<div
 			className={`bg-white/10 backdrop-blur-[20px] rounded-2xl border border-white/20 p-6 transition-all duration-300 hover:scale-[1.02] hover:bg-white/15 ${className}`}
@@ -22,11 +16,7 @@ export function CardHeader({
 	className?: string;
 }) {
 	return (
-		<div
-			className={`flex flex-row items-center justify-between pb-2 ${className}`}
-		>
-			{children}
-		</div>
+		<div className={`flex flex-row items-center justify-between pb-2 ${className}`}>{children}</div>
 	);
 }
 
@@ -38,9 +28,7 @@ export function CardTitle({
 	className?: string;
 }) {
 	return (
-		<h3
-			className={`text-lg font-semibold tracking-tight text-slate-100 ${className}`}
-		>
+		<h3 className={`text-lg font-semibold tracking-tight text-slate-100 ${className}`}>
 			{children}
 		</h3>
 	);

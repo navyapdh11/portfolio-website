@@ -20,7 +20,10 @@ export default function SeoDashboard() {
 						<option>Brand Authority Focus</option>
 						<option>Competitor Thrashing Mode</option>
 					</select>
-					<button className="w-full py-3 bg-sky-600 rounded-lg font-bold hover:bg-sky-500">
+					<button
+						type="button"
+						className="w-full py-3 bg-sky-600 rounded-lg font-bold hover:bg-sky-500"
+					>
 						Apply Strategy
 					</button>
 				</div>

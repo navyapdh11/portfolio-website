@@ -38,10 +38,7 @@ export let hashedAdminSecret: string;
  * Timing-safe password verification using bcrypt.compare.
  * Resistant to timing oracle attacks.
  */
-export async function verifyPassword(
-	input: string,
-	hash: string,
-): Promise<boolean> {
+export async function verifyPassword(input: string, hash: string): Promise<boolean> {
 	return bcrypt.compare(input, hash);
 }
 
@@ -99,9 +96,7 @@ function generateToken(sessionId: string, expiresAt: number): string {
 	return [sessionId, String(expiresAt), signature].join(TOKEN_DELIMITER);
 }
 
-function verifyToken(
-	token: string,
-): { sessionId: string; expiresAt: number } | null {
+function verifyToken(token: string): { sessionId: string; expiresAt: number } | null {
 	const parts = token.split(TOKEN_DELIMITER);
 	if (parts.length !== 3) return null;
 
@@ -109,8 +104,7 @@ function verifyToken(
 	const expectedSignature = hmacSign(sessionId, expiresAtStr);
 
 	// Timing-safe comparison prevents timing oracle attacks
-	if (!timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature)))
-		return null;
+	if (!timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) return null;
 
 	const expiresAt = Number(expiresAtStr);
 	if (Number.isNaN(expiresAt) || expiresAt < Date.now()) return null;
@@ -175,8 +169,7 @@ export function validateAuth(request: Request): AuthUser | null {
 
 	// Cookie extraction (NextRequest has .cookies, standard Request needs header parsing)
 	if ("cookies" in request) {
-		token =
-			(request as NextRequest).cookies.get(TOKEN_COOKIE_NAME)?.value ?? null;
+		token = (request as NextRequest).cookies.get(TOKEN_COOKIE_NAME)?.value ?? null;
 	}
 
 	if (!token) {
@@ -213,8 +206,7 @@ export function withAuth(
 ) {
 	return async (request: NextRequest) => {
 		const user = validateAuth(request);
-		if (!user)
-			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+		if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 		if (requiredRole && user.role !== requiredRole) {
 			return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 		}
@@ -226,10 +218,7 @@ export function withAuth(
  * Generate a hash of an IP address for session binding (optional, for rate limiting).
  */
 export function ipHash(ip: string): string {
-	return createHmac("sha256", SESSION_SIGNING_KEY!)
-		.update(ip)
-		.digest("hex")
-		.slice(0, 16);
+	return createHmac("sha256", SESSION_SIGNING_KEY!).update(ip).digest("hex").slice(0, 16);
 }
 
 // ──────────────────────────────────────────────

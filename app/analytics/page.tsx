@@ -5,8 +5,7 @@ export const metadata: Metadata = {
 	title: "Analytics | AASTACLEAN - Complete Metrics Dashboard",
 	description:
 		"AASTACLEAN Analytics - Full metrics, observability, competitor tracking, CRO insights, and performance dashboards.",
-	keywords:
-		"analytics, metrics, dashboard, observability, performance, tracking",
+	keywords: "analytics, metrics, dashboard, observability, performance, tracking",
 	authors: [{ name: "AASTACLEAN" }],
 	openGraph: {
 		title: "Analytics | AASTACLEAN",

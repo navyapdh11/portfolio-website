@@ -39,9 +39,7 @@ export function LaunchPulseDashboard() {
 					</CardHeader>
 					<CardContent>
 						<div className="text-2xl font-bold">{kpi.value}</div>
-						<p className="text-xs text-muted-foreground">
-							{kpi.trend} from last period
-						</p>
+						<p className="text-xs text-muted-foreground">{kpi.trend} from last period</p>
 					</CardContent>
 				</Card>
 			))}

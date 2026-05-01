@@ -80,8 +80,7 @@ export function BeforeAfterGallery() {
 						Real Results, <span className="text-sky-600">Real Clients</span>
 					</h2>
 					<p className="text-slate-600 dark:text-slate-400 mt-4 max-w-2xl mx-auto">
-						See the CleanAgent difference. Every job completed with attention to
-						detail.
+						See the CleanAgent difference. Every job completed with attention to detail.
 					</p>
 				</div>
 
@@ -112,14 +111,10 @@ export function BeforeAfterGallery() {
 							<h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
 								{active.service}
 							</h3>
-							<p className="text-slate-600 dark:text-slate-400">
-								{active.description}
-							</p>
+							<p className="text-slate-600 dark:text-slate-400">{active.description}</p>
 							<div className="flex items-center gap-2 mt-2">
 								<span className="text-sky-600">📍 {active.location}</span>
-								<span className="text-amber-500">
-									{"⭐".repeat(active.rating)}
-								</span>
+								<span className="text-amber-500">{"⭐".repeat(active.rating)}</span>
 							</div>
 						</div>
 						<a
@@ -142,13 +137,9 @@ export function BeforeAfterGallery() {
 							key={String(item.id)}
 							onClick={() => setActiveIndex(index)}
 							onKeyDown={(e) => {
-								if (
-									e.key === "ArrowRight" &&
-									index < beforeAfterImages.length - 1
-								)
+								if (e.key === "ArrowRight" && index < beforeAfterImages.length - 1)
 									setActiveIndex(index + 1);
-								if (e.key === "ArrowLeft" && index > 0)
-									setActiveIndex(index - 1);
+								if (e.key === "ArrowLeft" && index > 0) setActiveIndex(index - 1);
 							}}
 							role="tab"
 							aria-selected={activeIndex === index}
@@ -160,9 +151,7 @@ export function BeforeAfterGallery() {
 							}`}
 						>
 							<div className="text-2xl mb-2">{item.after}</div>
-							<div className="text-xs font-medium truncate">
-								{item.location}
-							</div>
+							<div className="text-xs font-medium truncate">{item.location}</div>
 						</button>
 					))}
 				</div>

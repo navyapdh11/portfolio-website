@@ -14,14 +14,10 @@ interface PaymentStepProps {
 	onConfirm: () => void;
 }
 
-export default function PaymentStep({
-	formData,
-	addons,
-	onConfirm,
-}: PaymentStepProps) {
-	const [paymentMethod, setPaymentMethod] = useState<
-		"pay-on-service" | "invoice"
-	>("pay-on-service");
+export default function PaymentStep({ formData, addons, onConfirm }: PaymentStepProps) {
+	const [paymentMethod, setPaymentMethod] = useState<"pay-on-service" | "invoice">(
+		"pay-on-service",
+	);
 
 	return (
 		<section
@@ -76,9 +72,8 @@ export default function PaymentStep({
 					className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 text-sm"
 					role="alert"
 				>
-					<strong>🔒 Secure Booking:</strong> Your information is encrypted. No
-					upfront payment required. Pay only after the service is completed to
-					your satisfaction.
+					<strong>🔒 Secure Booking:</strong> Your information is encrypted. No upfront payment
+					required. Pay only after the service is completed to your satisfaction.
 				</div>
 
 				{/* ACL Compliant Notice */}
@@ -86,8 +81,8 @@ export default function PaymentStep({
 					className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 text-sm"
 					role="status"
 				>
-					<strong>ACL Compliant Service:</strong> Your booking is protected
-					under Australian Consumer Law. 100% Bond Back Guarantee included.
+					<strong>ACL Compliant Service:</strong> Your booking is protected under Australian
+					Consumer Law. 100% Bond Back Guarantee included.
 				</div>
 
 				<button

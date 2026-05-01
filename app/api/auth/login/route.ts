@@ -7,21 +7,17 @@ import {
 	verifyPassword,
 } from "@/lib/middleware/auth";
 import { csrfResponse } from "@/lib/middleware/csrf";
-import {
-	checkRateLimit,
-	getRateLimitHeaders,
-} from "@/lib/middleware/rateLimit";
+import { checkRateLimit, getRateLimitHeaders } from "@/lib/middleware/rateLimit";
 import { safeJson } from "@/lib/middleware/validation";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
 	// CSRF check
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	// Rate limit — 5 attempts per minute per IP
-	const clientIp =
-		request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 	const rateLimit = checkRateLimit(`login:${clientIp}`);
 	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
 
@@ -33,8 +29,7 @@ export async function POST(request: Request) {
 	}
 
 	const parsed = await safeJson(request);
-	if (parsed.error)
-		return NextResponse.json({ error: parsed.error }, { status: 400 });
+	if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
 	const { email, password, role } = parsed.data as Record<string, string>;
 
 	// Admin login — bcrypt comparison against hashed secret

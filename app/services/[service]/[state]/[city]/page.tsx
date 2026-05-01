@@ -3,8 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Booking from "@/components/Booking";
 import { serviceDetails } from "@/lib/constants/serviceDetails";
-import { australianCities, cleaningServices } from "@/lib/constants/services";
-import { allSuburbs, states } from "@/lib/data/suburbs";
+import { cleaningServices } from "@/lib/constants/services";
+import { allSuburbs, states } from "@/lib/data/suburbs-barrel";
 
 // ─────────────────────────────────────────────
 // Caching handled by nextConfig.cacheComponents
@@ -85,13 +85,13 @@ export async function generateMetadata({
 	const { service: serviceSlug, state, city } = await params;
 	const service = cleaningServices.find((s) => s.slug === serviceSlug);
 	const stateName = stateNames[state] || state.toUpperCase();
-	
+
 	// Look up suburb name from database
-	const suburb = allSuburbs.find(s => s.slug === city && s.state === state);
-	const cityName = suburb?.name || (
+	const suburb = allSuburbs.find((s) => s.slug === city && s.state === state);
+	const cityName =
+		suburb?.name ||
 		cityNames[city] ||
-		city.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-	);
+		city.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 	const postcode = suburb?.postcode || "";
 
 	if (!service) return { title: "Service Not Found" };
@@ -134,11 +134,7 @@ export async function generateStaticParams() {
 }
 
 // FAQ generator per service
-function getServiceFAQs(
-	serviceSlug: string,
-	cityName: string,
-	stateName: string,
-) {
+function getServiceFAQs(serviceSlug: string, cityName: string, stateName: string) {
 	const faqs: Record<string, { q: string; a: string }[]> = {
 		"domestic-cleaning": [
 			{
@@ -266,16 +262,15 @@ export default async function ServiceGeoPage({
 	const service = cleaningServices.find((s) => s.slug === serviceSlug);
 	const details = serviceDetails[serviceSlug as keyof typeof serviceDetails];
 	const stateName = stateNames[state] || state.toUpperCase();
-	const stateAbbr =
-		states.find((s) => s.slug === state)?.abbr || state.toUpperCase();
-	
+	const stateAbbr = states.find((s) => s.slug === state)?.abbr || state.toUpperCase();
+
 	// Look up suburb data
-	const suburb = allSuburbs.find(s => s.slug === city && s.state === state);
-	const cityName = suburb?.name || (
+	const suburb = allSuburbs.find((s) => s.slug === city && s.state === state);
+	const cityName =
+		suburb?.name ||
 		cityNames[city] ||
-		city.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-	);
-	const postcode = suburb?.postcode || "";
+		city.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+	const _postcode = suburb?.postcode || "";
 
 	if (!service) notFound();
 
@@ -374,17 +369,11 @@ export default async function ServiceGeoPage({
 						Home
 					</Link>
 					<span className="mx-2">/</span>
-					<Link
-						href="/pricing"
-						className="hover:text-sky-500 transition-colors"
-					>
+					<Link href="/pricing" className="hover:text-sky-500 transition-colors">
 						Services
 					</Link>
 					<span className="mx-2">/</span>
-					<a
-						href={`/services/${serviceSlug}`}
-						className="hover:text-sky-500 transition-colors"
-					>
+					<a href={`/services/${serviceSlug}`} className="hover:text-sky-500 transition-colors">
 						{service.name}
 					</a>
 					<span className="mx-2">/</span>
@@ -425,9 +414,7 @@ export default async function ServiceGeoPage({
 									✓
 								</div>
 								<div>
-									<h3 className="font-semibold text-slate-900 dark:text-white">
-										{item}
-									</h3>
+									<h3 className="font-semibold text-slate-900 dark:text-white">{item}</h3>
 									<p className="text-sm text-slate-500 dark:text-slate-400">
 										Included in every clean
 									</p>
@@ -480,12 +467,8 @@ export default async function ServiceGeoPage({
 									>
 										<span className="text-2xl flex-shrink-0">{item.icon}</span>
 										<div>
-											<h3 className="font-semibold text-slate-900 dark:text-white">
-												{item.title}
-											</h3>
-											<p className="text-sm text-slate-600 dark:text-slate-400">
-												{item.desc}
-											</p>
+											<h3 className="font-semibold text-slate-900 dark:text-white">{item.title}</h3>
+											<p className="text-sm text-slate-600 dark:text-slate-400">{item.desc}</p>
 										</div>
 									</div>
 								))}
@@ -504,12 +487,8 @@ export default async function ServiceGeoPage({
 											key={i}
 											className="flex justify-between items-center py-2 border-b border-slate-200 dark:border-slate-700 last:border-0"
 										>
-											<span className="text-slate-700 dark:text-slate-300">
-												{addon.label}
-											</span>
-											<span className="font-semibold text-sky-600">
-												+${addon.price.toFixed(2)}
-											</span>
+											<span className="text-slate-700 dark:text-slate-300">{addon.label}</span>
+											<span className="font-semibold text-sky-600">+${addon.price.toFixed(2)}</span>
 										</div>
 									))}
 								</div>
@@ -522,10 +501,7 @@ export default async function ServiceGeoPage({
 								📜 Compliance & Standards
 							</h3>
 							<ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-								<li>
-									• Australian Consumer Law (ACL) — Full consumer rights
-									compliance
-								</li>
+								<li>• Australian Consumer Law (ACL) — Full consumer rights compliance</li>
 								<li>• Work Health & Safety Act 2011 ({stateName})</li>
 								<li>• Privacy Act 1988 (Cth) — Data protection compliant</li>
 								<li>• AS/NZS 4801 — Occupational health & safety management</li>
@@ -600,9 +576,7 @@ export default async function ServiceGeoPage({
 									className="px-4 py-2 rounded-xl glass-subtle text-sm text-slate-700 dark:text-slate-300 hover:bg-sky-50 dark:hover:bg-sky-900/20 hover:text-sky-600 dark:hover:text-sky-400 transition-all border border-white/10"
 								>
 									{sub.name}{" "}
-									{sub.postcode && (
-										<span className="text-slate-400">{sub.postcode}</span>
-									)}
+									{sub.postcode && <span className="text-slate-400">{sub.postcode}</span>}
 								</a>
 							))}
 					</div>

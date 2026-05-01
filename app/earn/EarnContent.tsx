@@ -11,9 +11,7 @@ interface EarningEntry {
 }
 
 export default function EarnContent() {
-	const [activeTab, setActiveTab] = useState<
-		"overview" | "history" | "payouts"
-	>("overview");
+	const [activeTab, setActiveTab] = useState<"overview" | "history" | "payouts">("overview");
 	const [showPayoutModal, setShowPayoutModal] = useState(false);
 	const [payoutAmount, setPayoutAmount] = useState<number | null>(null);
 
@@ -99,9 +97,7 @@ export default function EarnContent() {
 
 	const exportCSV = () => {
 		const headers = "Date,Job,Amount,Status\n";
-		const rows = earnings
-			.map((e) => `${e.date},"${e.job}",${e.amount},${e.status}`)
-			.join("\n");
+		const rows = earnings.map((e) => `${e.date},"${e.job}",${e.amount},${e.status}`).join("\n");
 		const csv = headers + rows;
 		const blob = new Blob([csv], { type: "text/csv" });
 		const url = URL.createObjectURL(blob);
@@ -117,12 +113,8 @@ export default function EarnContent() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 						<div>
-							<h1 className="text-3xl md:text-4xl font-bold mb-2">
-								💰 Earnings Dashboard
-							</h1>
-							<p className="text-emerald-100">
-								Track your cleaning income and performance
-							</p>
+							<h1 className="text-3xl md:text-4xl font-bold mb-2">💰 Earnings Dashboard</h1>
+							<p className="text-emerald-100">Track your cleaning income and performance</p>
 						</div>
 						<div className="flex gap-3">
 							<button
@@ -148,49 +140,31 @@ export default function EarnContent() {
 			<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
 					<div className="bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-md">
-						<p className="text-zinc-500 dark:text-zinc-400 text-sm mb-1">
-							This Month
-						</p>
-						<p className="text-3xl font-bold text-emerald-600">
-							{formatCurrency(stats.thisMonth)}
-						</p>
+						<p className="text-zinc-500 dark:text-zinc-400 text-sm mb-1">This Month</p>
+						<p className="text-3xl font-bold text-emerald-600">{formatCurrency(stats.thisMonth)}</p>
 						<p className="text-xs text-green-500 mt-1">
-							↑{" "}
-							{(
-								((stats.thisMonth - stats.lastMonth) / stats.lastMonth) *
-								100
-							).toFixed(0)}
-							% from last month
+							↑ {(((stats.thisMonth - stats.lastMonth) / stats.lastMonth) * 100).toFixed(0)}% from
+							last month
 						</p>
 					</div>
 					<div className="bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-md">
-						<p className="text-zinc-500 dark:text-zinc-400 text-sm mb-1">
-							Pending Payout
-						</p>
+						<p className="text-zinc-500 dark:text-zinc-400 text-sm mb-1">Pending Payout</p>
 						<p className="text-3xl font-bold text-amber-600">
 							{formatCurrency(stats.pendingPayout)}
 						</p>
 						<p className="text-xs text-zinc-500 mt-1">Available now</p>
 					</div>
 					<div className="bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-md">
-						<p className="text-zinc-500 dark:text-zinc-400 text-sm mb-1">
-							Active Streak
-						</p>
-						<p className="text-3xl font-bold text-orange-600">
-							{stats.streak} days
-						</p>
+						<p className="text-zinc-500 dark:text-zinc-400 text-sm mb-1">Active Streak</p>
+						<p className="text-3xl font-bold text-orange-600">{stats.streak} days</p>
 						<p className="text-xs text-zinc-500 mt-1">🔥 Keep it going!</p>
 					</div>
 					<div className="bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-md">
-						<p className="text-zinc-500 dark:text-zinc-400 text-sm mb-1">
-							Avg per Job
-						</p>
+						<p className="text-zinc-500 dark:text-zinc-400 text-sm mb-1">Avg per Job</p>
 						<p className="text-3xl font-bold text-indigo-600">
 							{formatCurrency(stats.averagePerJob)}
 						</p>
-						<p className="text-xs text-zinc-500 mt-1">
-							{stats.totalJobs} total jobs
-						</p>
+						<p className="text-xs text-zinc-500 mt-1">{stats.totalJobs} total jobs</p>
 					</div>
 				</div>
 
@@ -237,15 +211,13 @@ export default function EarnContent() {
 											Monthly Earnings
 										</h3>
 										<div className="h-40 flex items-end gap-2">
-											{[65, 78, 82, 70, 95, 88, 72, 90, 85, 92, 78, 98].map(
-												(val, i) => (
-													<div
-														key={i}
-														className="flex-1 bg-emerald-500 rounded-t"
-														style={{ height: `${val}%` }}
-													></div>
-												),
-											)}
+											{[65, 78, 82, 70, 95, 88, 72, 90, 85, 92, 78, 98].map((val, i) => (
+												<div
+													key={i}
+													className="flex-1 bg-emerald-500 rounded-t"
+													style={{ height: `${val}%` }}
+												></div>
+											))}
 										</div>
 										<div className="flex justify-between text-xs text-zinc-500 mt-2">
 											<span>Jan</span>
@@ -298,15 +270,11 @@ export default function EarnContent() {
 										className="flex justify-between items-center p-4 bg-zinc-50 dark:bg-zinc-700 rounded-xl"
 									>
 										<div>
-											<p className="font-medium text-zinc-900 dark:text-white">
-												{entry.job}
-											</p>
+											<p className="font-medium text-zinc-900 dark:text-white">{entry.job}</p>
 											<p className="text-sm text-zinc-500">{entry.date}</p>
 										</div>
 										<div className="text-right">
-											<p className="font-bold text-emerald-600">
-												{formatCurrency(entry.amount)}
-											</p>
+											<p className="font-bold text-emerald-600">{formatCurrency(entry.amount)}</p>
 											<span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full">
 												{entry.status}
 											</span>
@@ -321,9 +289,7 @@ export default function EarnContent() {
 								<div className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl">
 									<div className="flex justify-between items-center mb-4">
 										<div>
-											<h3 className="font-semibold text-zinc-900 dark:text-white">
-												Bank Account
-											</h3>
+											<h3 className="font-semibold text-zinc-900 dark:text-white">Bank Account</h3>
 											<p className="text-sm text-zinc-500">****4521</p>
 										</div>
 										<button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-medium transition-colors">
@@ -348,23 +314,17 @@ export default function EarnContent() {
 									</h3>
 									<div className="space-y-2 text-sm">
 										<div className="flex justify-between">
-											<span className="text-zinc-600 dark:text-zinc-400">
-												Apr 5, 2026
-											</span>
+											<span className="text-zinc-600 dark:text-zinc-400">Apr 5, 2026</span>
 											<span className="font-medium">$125.00</span>
 											<span className="text-green-600">Completed</span>
 										</div>
 										<div className="flex justify-between">
-											<span className="text-zinc-600 dark:text-zinc-400">
-												Mar 28, 2026
-											</span>
+											<span className="text-zinc-600 dark:text-zinc-400">Mar 28, 2026</span>
 											<span className="font-medium">$98.50</span>
 											<span className="text-green-600">Completed</span>
 										</div>
 										<div className="flex justify-between">
-											<span className="text-zinc-600 dark:text-zinc-400">
-												Mar 21, 2026
-											</span>
+											<span className="text-zinc-600 dark:text-zinc-400">Mar 21, 2026</span>
 											<span className="font-medium">$145.00</span>
 											<span className="text-green-600">Completed</span>
 										</div>
@@ -380,9 +340,7 @@ export default function EarnContent() {
 				<div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
 					<div className="bg-white dark:bg-zinc-800 rounded-2xl p-6 max-w-md w-full shadow-2xl">
 						<div className="flex justify-between items-center mb-4">
-							<h3 className="text-xl font-bold text-zinc-900 dark:text-white">
-								Request Payout
-							</h3>
+							<h3 className="text-xl font-bold text-zinc-900 dark:text-white">Request Payout</h3>
 							<button
 								onClick={() => setShowPayoutModal(false)}
 								className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-2xl"

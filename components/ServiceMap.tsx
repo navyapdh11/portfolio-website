@@ -87,9 +87,7 @@ export default function ServiceMap() {
 									key={index}
 									className="bg-white dark:bg-slate-700 rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-shadow"
 								>
-									<div className="text-slate-900 dark:text-white font-medium">
-										{area.suburb}
-									</div>
+									<div className="text-slate-900 dark:text-white font-medium">{area.suburb}</div>
 									<div className="text-sm text-sky-600">{area.distance}</div>
 								</div>
 							))}
@@ -104,12 +102,7 @@ export default function ServiceMap() {
 						rel="noopener noreferrer"
 						className="inline-flex items-center gap-2 px-6 py-3 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors font-medium"
 					>
-						<svg
-							className="w-5 h-5"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
+						<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"

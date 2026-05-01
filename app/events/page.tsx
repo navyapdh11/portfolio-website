@@ -33,8 +33,8 @@ export default function EventsPage() {
 						Cultural <span className="text-sky-500">Events</span>
 					</h1>
 					<p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-						Discover community initiatives, local cultural festivals, and
-						sustainability workshops hosted or sponsored by AASTACLEAN.
+						Discover community initiatives, local cultural festivals, and sustainability workshops
+						hosted or sponsored by AASTACLEAN.
 					</p>
 				</div>
 

@@ -36,10 +36,7 @@ export default function Home() {
 					postalCode: "6007",
 					addressCountry: "AU",
 				},
-				sameAs: [
-					"https://www.facebook.com/aastaclean",
-					"https://www.instagram.com/aastaclean",
-				],
+				sameAs: ["https://www.facebook.com/aastaclean", "https://www.instagram.com/aastaclean"],
 				aggregateRating: {
 					"@type": "AggregateRating",
 					ratingValue: "4.9",

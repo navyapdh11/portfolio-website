@@ -5,9 +5,7 @@ export const BookingSchema = z.object({
 	email: z.string().email("Invalid email format"),
 	phone: z.string().min(8, "Phone number too short").max(20),
 	service: z.string().min(1, "Service is required"),
-	date: z
-		.string()
-		.refine((val) => !Number.isNaN(Date.parse(val)), "Invalid date format"),
+	date: z.string().refine((val) => !Number.isNaN(Date.parse(val)), "Invalid date format"),
 });
 
 export const QuoteSchema = z.object({

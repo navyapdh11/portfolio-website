@@ -8,8 +8,7 @@ export default function MicrotasksTab() {
 			<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
 				<h2 className="text-2xl font-bold text-white mb-4">⚡ AI Microtasks</h2>
 				<p className="text-slate-400 mb-6">
-					Earn $0.10-$2.00 per task training cleaning AI models. Uber-style
-					microtasks for cleaners.
+					Earn $0.10-$2.00 per task training cleaning AI models. Uber-style microtasks for cleaners.
 				</p>
 				<Link
 					href="/microtasks"

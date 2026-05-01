@@ -105,20 +105,18 @@ export default function AdminDashboard() {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const [analyticsRes, bookingsRes, servicesRes, galleryRes] =
-					await Promise.all([
-						fetch("/api/analytics", { credentials: "include" }),
-						fetch("/api/bookings", { credentials: "include" }),
-						fetch("/api/services", { credentials: "include" }),
-						fetch("/api/gallery", { credentials: "include" }),
-					]);
-				const [analyticsData, bookingsData, servicesData, galleryData] =
-					await Promise.all([
-						analyticsRes.json(),
-						bookingsRes.json(),
-						servicesRes.json(),
-						galleryRes.json(),
-					]);
+				const [analyticsRes, bookingsRes, servicesRes, galleryRes] = await Promise.all([
+					fetch("/api/analytics", { credentials: "include" }),
+					fetch("/api/bookings", { credentials: "include" }),
+					fetch("/api/services", { credentials: "include" }),
+					fetch("/api/gallery", { credentials: "include" }),
+				]);
+				const [analyticsData, bookingsData, servicesData, galleryData] = await Promise.all([
+					analyticsRes.json(),
+					bookingsRes.json(),
+					servicesRes.json(),
+					galleryRes.json(),
+				]);
 				setAnalytics(analyticsData.analytics);
 				setBookings(bookingsData.data || []);
 				setServices(servicesData.data || []);
@@ -146,9 +144,7 @@ export default function AdminDashboard() {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ status }),
 		});
-		setBookings((prev) =>
-			prev.map((b) => (b.id === id ? { ...b, status } : b)),
-		);
+		setBookings((prev) => prev.map((b) => (b.id === id ? { ...b, status } : b)));
 	};
 
 	const updateService = async (id: string, data: Partial<Service>) => {
@@ -158,9 +154,7 @@ export default function AdminDashboard() {
 			body: JSON.stringify({ id, ...data }),
 			credentials: "include",
 		});
-		setServices((prev) =>
-			prev.map((s) => (s.id === id ? { ...s, ...data } : s)),
-		);
+		setServices((prev) => prev.map((s) => (s.id === id ? { ...s, ...data } : s)));
 		setEditingService(null);
 	};
 
@@ -227,9 +221,7 @@ export default function AdminDashboard() {
 								A
 							</div>
 							<div>
-								<h1 className="text-xl font-bold text-white">
-									Admin Command Center
-								</h1>
+								<h1 className="text-xl font-bold text-white">Admin Command Center</h1>
 								<p className="text-sm text-slate-400">Full System Control</p>
 							</div>
 						</div>
@@ -317,10 +309,7 @@ export default function AdminDashboard() {
 					/>
 				)}
 				{activeTab === "bookings" && (
-					<BookingsTab
-						bookings={bookings}
-						updateBookingStatus={updateBookingStatus}
-					/>
+					<BookingsTab bookings={bookings} updateBookingStatus={updateBookingStatus} />
 				)}
 				{activeTab === "customers" && <CustomersTab />}
 				{activeTab === "services" && (
@@ -343,9 +332,7 @@ export default function AdminDashboard() {
 						deleteGalleryItem={deleteGalleryItem}
 					/>
 				)}
-				{activeTab === "analytics" && (
-					<AnalyticsTab analytics={analytics} services={services} />
-				)}
+				{activeTab === "analytics" && <AnalyticsTab analytics={analytics} services={services} />}
 				{activeTab === "ads" && <AdsTab />}
 				{activeTab === "earn" && <EarnTab />}
 				{activeTab === "flashcards" && <FlashcardsTab />}

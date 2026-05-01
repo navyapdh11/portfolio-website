@@ -82,8 +82,7 @@ export default function MicrotasksContent() {
 		},
 		{
 			id: 2,
-			prompt:
-				'Record instructions: "How to clean marble countertops" in Spanish',
+			prompt: 'Record instructions: "How to clean marble countertops" in Spanish',
 			type: "audio",
 			reward: 1.25,
 			estTime: "30s",
@@ -338,9 +337,7 @@ export default function MicrotasksContent() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 						<div>
-							<h1 className="text-3xl md:text-4xl font-bold mb-2">
-								🧹 AI Microtasks Hub
-							</h1>
+							<h1 className="text-3xl md:text-4xl font-bold mb-2">🧹 AI Microtasks Hub</h1>
 							<p className="text-indigo-100">
 								Earn $0.10-$2.00 per task training cleaning AI models
 							</p>
@@ -399,9 +396,7 @@ export default function MicrotasksContent() {
 								<p className="font-bold text-xl text-zinc-900 dark:text-white">
 									Cleaner: Sarah Wilson
 								</p>
-								<p className="text-2xl font-black text-emerald-600">
-									${userBalance.toFixed(2)}
-								</p>
+								<p className="text-2xl font-black text-emerald-600">${userBalance.toFixed(2)}</p>
 								<p className="text-sm text-zinc-600 dark:text-zinc-400">
 									Tasks completed: {tasksCompleted} | Streak: {streak} days 🔥
 								</p>
@@ -449,12 +444,8 @@ export default function MicrotasksContent() {
 									</p>
 								</div>
 								<div className="text-right">
-									<div className="text-2xl font-bold text-emerald-600">
-										$1.47 avg/task
-									</div>
-									<div className="text-sm text-zinc-500">
-										Available: {availableTasks}
-									</div>
+									<div className="text-2xl font-bold text-emerald-600">$1.47 avg/task</div>
+									<div className="text-sm text-zinc-500">Available: {availableTasks}</div>
 								</div>
 							</div>
 
@@ -471,9 +462,7 @@ export default function MicrotasksContent() {
 											>
 												{task.rarity}
 											</span>
-											<span className="font-bold text-emerald-600">
-												${task.reward.toFixed(2)}
-											</span>
+											<span className="font-bold text-emerald-600">${task.reward.toFixed(2)}</span>
 										</div>
 										<p className="text-sm text-zinc-700 dark:text-zinc-300 mb-2 line-clamp-2">
 											{task.prompt}
@@ -513,35 +502,26 @@ export default function MicrotasksContent() {
 
 							<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 								{jobs.map((job) => (
-									<div
-										key={job.id}
-										className="p-4 bg-zinc-50 dark:bg-zinc-700 rounded-xl"
-									>
+									<div key={job.id} className="p-4 bg-zinc-50 dark:bg-zinc-700 rounded-xl">
 										<div className="flex justify-between items-start mb-3">
 											<span
 												className={`px-2 py-1 rounded text-xs text-white ${getUrgencyColor(job.urgency)}`}
 											>
 												{job.urgency}
 											</span>
-											<span className="font-bold text-emerald-600">
-												${job.pay}
-											</span>
+											<span className="font-bold text-emerald-600">${job.pay}</span>
 										</div>
 										<h3 className="font-semibold text-zinc-900 dark:text-white mb-1">
 											{job.title}
 										</h3>
-										<p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">
-											{job.location}
-										</p>
+										<p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">{job.location}</p>
 										<div className="flex justify-between text-sm">
 											<span className="text-zinc-500">{job.type}</span>
 											<span className="text-zinc-500">{job.distance}</span>
 										</div>
 										<div className="mt-2 flex items-center gap-1">
 											<span className="text-amber-500">⭐</span>
-											<span className="text-sm font-medium">
-												{job.clientRating}
-											</span>
+											<span className="text-sm font-medium">{job.clientRating}</span>
 										</div>
 									</div>
 								))}
@@ -589,15 +569,11 @@ export default function MicrotasksContent() {
 											<h3 className="font-semibold text-zinc-900 dark:text-white">
 												{offer.client}
 											</h3>
-											<p className="text-sm text-zinc-600 dark:text-zinc-400">
-												{offer.job}
-											</p>
+											<p className="text-sm text-zinc-600 dark:text-zinc-400">{offer.job}</p>
 											<p className="text-xs text-zinc-500 mt-1">{offer.time}</p>
 										</div>
 										<div className="text-right">
-											<p className="text-xl font-bold text-emerald-600">
-												${offer.pay}
-											</p>
+											<p className="text-xl font-bold text-emerald-600">${offer.pay}</p>
 											<button className="mt-2 px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded-lg transition-colors">
 												Accept
 											</button>
@@ -627,9 +603,7 @@ export default function MicrotasksContent() {
 												<h3 className="font-semibold text-zinc-900 dark:text-white">
 													{entry.name}
 												</h3>
-												<p className="text-sm text-zinc-500">
-													{entry.tasks} tasks
-												</p>
+												<p className="text-sm text-zinc-500">{entry.tasks} tasks</p>
 											</div>
 										</div>
 										<div className="text-right">
@@ -649,9 +623,7 @@ export default function MicrotasksContent() {
 				<div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
 					<div className="bg-white dark:bg-zinc-800 rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl">
 						<div className="flex justify-between items-center mb-4">
-							<h3 className="text-xl font-bold text-zinc-900 dark:text-white">
-								Task Details
-							</h3>
+							<h3 className="text-xl font-bold text-zinc-900 dark:text-white">Task Details</h3>
 							<button
 								onClick={closeTaskModal}
 								className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-2xl"
@@ -661,9 +633,7 @@ export default function MicrotasksContent() {
 						</div>
 
 						<div className="mb-4 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl">
-							<p className="text-zinc-700 dark:text-zinc-300">
-								{selectedTask.prompt}
-							</p>
+							<p className="text-zinc-700 dark:text-zinc-300">{selectedTask.prompt}</p>
 						</div>
 
 						<div className="grid grid-cols-2 gap-4 mb-4 text-sm">
@@ -687,9 +657,7 @@ export default function MicrotasksContent() {
 							</div>
 							<div>
 								<span className="text-zinc-500">Category:</span>
-								<span className="ml-2 font-medium">
-									{selectedTask.category}
-								</span>
+								<span className="ml-2 font-medium">{selectedTask.category}</span>
 							</div>
 						</div>
 
@@ -732,9 +700,7 @@ export default function MicrotasksContent() {
 							</div>
 							<div>
 								<span className="text-zinc-500">Rarity bonus:</span>
-								<span className="ml-2 font-medium text-purple-600">
-									+${rarityBonus.toFixed(2)}
-								</span>
+								<span className="ml-2 font-medium text-purple-600">+${rarityBonus.toFixed(2)}</span>
 							</div>
 						</div>
 					</div>

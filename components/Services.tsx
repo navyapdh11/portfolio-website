@@ -14,8 +14,7 @@ const services: Service[] = [
 	{
 		id: 1,
 		icon: "🏠",
-		image:
-			"https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=300",
+		image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=300",
 		title: "House Cleaning",
 		description:
 			"Regular maintenance cleaning for homes of all sizes. Includes dusting, vacuuming, mopping, and sanitizing.",
@@ -25,8 +24,7 @@ const services: Service[] = [
 	{
 		id: 2,
 		icon: "🔑",
-		image:
-			"https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=300",
+		image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=300",
 		title: "End of Lease Cleaning",
 		description:
 			"Bond-back guaranteed cleaning for rental properties. Meet all real estate agency requirements.",
@@ -36,8 +34,7 @@ const services: Service[] = [
 	{
 		id: 3,
 		icon: "🏢",
-		image:
-			"https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=300",
+		image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=300",
 		title: "Commercial Cleaning",
 		description:
 			"Professional office and commercial space cleaning. Flexible scheduling to minimize disruption.",
@@ -47,8 +44,7 @@ const services: Service[] = [
 	{
 		id: 4,
 		icon: "🧹",
-		image:
-			"https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=300",
+		image: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=300",
 		title: "Carpet Cleaning",
 		description:
 			"Deep steam cleaning and stain removal for carpets and rugs. Extends carpet life and improves air quality.",
@@ -58,8 +54,7 @@ const services: Service[] = [
 	{
 		id: 5,
 		icon: "🪟",
-		image:
-			"https://images.unsplash.com/photo-1581094794329-c8112a472a14?q=80&w=300",
+		image: "https://images.unsplash.com/photo-1581094794329-c8112a472a14?q=80&w=300",
 		title: "Window Cleaning",
 		description:
 			"Interior and exterior window cleaning for crystal-clear views. Safe equipment for high-rise buildings.",
@@ -69,8 +64,7 @@ const services: Service[] = [
 	{
 		id: 6,
 		icon: "✨",
-		image:
-			"https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300",
+		image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300",
 		title: "Deep Cleaning",
 		description:
 			"Intensive top-to-bottom cleaning for homes that need extra attention. Perfect for spring cleaning or special occasions.",
@@ -108,9 +102,7 @@ export default function Services() {
 							<h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-2">
 								{service.title}
 							</h3>
-							<p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
-								{service.description}
-							</p>
+							<p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">{service.description}</p>
 
 							<ul className="space-y-2 mb-6">
 								{service.features.map((feature) => (

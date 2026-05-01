@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cleaningServices } from "@/lib/constants/services";
-import { allSuburbs, states } from "@/lib/data/suburbs";
+import { allSuburbs, states } from "@/lib/data/suburbs-barrel";
 
 interface SearchResult {
 	type: "suburb" | "service" | "page";
@@ -83,8 +83,7 @@ function search(query: string): SearchResult[] {
 	for (const suburb of allSuburbs) {
 		if (fuzzyMatch(q, suburb.name)) {
 			const stateAbbr =
-				states.find((s) => s.slug === suburb.state)?.abbr ||
-				suburb.state.toUpperCase();
+				states.find((s) => s.slug === suburb.state)?.abbr || suburb.state.toUpperCase();
 			results.push({
 				type: "suburb",
 				label: suburb.name,
@@ -179,9 +178,7 @@ export default function SearchOverlay() {
 	// Scroll selected into view
 	useEffect(() => {
 		if (resultsRef.current) {
-			const selected = resultsRef.current.querySelector(
-				`[data-index="${selectedIndex}"]`,
-			);
+			const selected = resultsRef.current.querySelector(`[data-index="${selectedIndex}"]`);
 			selected?.scrollIntoView({ block: "nearest" });
 		}
 	}, [selectedIndex]);

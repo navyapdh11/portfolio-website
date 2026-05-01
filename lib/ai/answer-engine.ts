@@ -198,11 +198,7 @@ interface ScoredResult {
 	label: string;
 }
 
-function scoreText(
-	queryTokens: string[],
-	targetText: string,
-	keywords: string[] = [],
-): number {
+function scoreText(queryTokens: string[], targetText: string, keywords: string[] = []): number {
 	if (queryTokens.length === 0) return 0;
 
 	const targetTokens = tokenize(targetText);
@@ -337,10 +333,7 @@ export function retrieve(query: string, topK: number = 5): ScoredResult[] {
 // ---------------------------------------------------------------------------
 // Answer Generation — synthesize results into natural language
 // ---------------------------------------------------------------------------
-export function generateAnswer(
-	_query: string,
-	results: ScoredResult[],
-): string {
+export function generateAnswer(_query: string, results: ScoredResult[]): string {
 	if (results.length === 0) {
 		return "I'm not sure I have the specific information you're looking for. Could you try rephrasing your question? You can ask about our services, pricing, booking process, service areas, or company policies. You can also contact us directly at 1300 AASTACLEAN or hello@aastaclean.com.au.";
 	}
@@ -405,10 +398,7 @@ export function generateAnswer(
 // ---------------------------------------------------------------------------
 // Related Questions — suggest follow-ups based on retrieved results
 // ---------------------------------------------------------------------------
-export function getRelatedQuestions(
-	query: string,
-	results: ScoredResult[],
-): string[] {
+export function getRelatedQuestions(query: string, results: ScoredResult[]): string[] {
 	const suggestions: string[] = [];
 	const seen = new Set<string>();
 

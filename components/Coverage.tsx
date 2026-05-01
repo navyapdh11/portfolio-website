@@ -94,11 +94,7 @@ export default function Coverage() {
 						</h3>
 						<ul className="space-y-2 text-zinc-600 dark:text-zinc-400">
 							<li className="flex items-center gap-2">
-								<svg
-									className="w-4 h-4 text-green-500"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-								>
+								<svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
 									<path
 										fillRule="evenodd"
 										d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -108,11 +104,7 @@ export default function Coverage() {
 								Sydney, Melbourne, Brisbane fully covered
 							</li>
 							<li className="flex items-center gap-2">
-								<svg
-									className="w-4 h-4 text-green-500"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-								>
+								<svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
 									<path
 										fillRule="evenodd"
 										d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -122,11 +114,7 @@ export default function Coverage() {
 								Perth, Adelaide 80%+ coverage
 							</li>
 							<li className="flex items-center gap-2">
-								<svg
-									className="w-4 h-4 text-green-500"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-								>
+								<svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
 									<path
 										fillRule="evenodd"
 										d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -144,27 +132,19 @@ export default function Coverage() {
 						</h3>
 						<div className="space-y-3">
 							<div className="flex justify-between items-center">
-								<span className="text-zinc-600 dark:text-zinc-400">
-									New suburbs this month
-								</span>
+								<span className="text-zinc-600 dark:text-zinc-400">New suburbs this month</span>
 								<span className="font-semibold text-green-600">+127</span>
 							</div>
 							<div className="flex justify-between items-center">
-								<span className="text-zinc-600 dark:text-zinc-400">
-									Total coverage
-								</span>
+								<span className="text-zinc-600 dark:text-zinc-400">Total coverage</span>
 								<span className="font-semibold text-blue-600">81%</span>
 							</div>
 							<div className="flex justify-between items-center">
-								<span className="text-zinc-600 dark:text-zinc-400">
-									Monthly revenue
-								</span>
+								<span className="text-zinc-600 dark:text-zinc-400">Monthly revenue</span>
 								<span className="font-semibold text-purple-600">$39.1M</span>
 							</div>
 							<div className="flex justify-between items-center">
-								<span className="text-zinc-600 dark:text-zinc-400">
-									Growth trend
-								</span>
+								<span className="text-zinc-600 dark:text-zinc-400">Growth trend</span>
 								<span className="font-semibold text-green-600">📈 +4.2%</span>
 							</div>
 						</div>

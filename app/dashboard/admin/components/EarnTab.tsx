@@ -6,9 +6,7 @@ export default function EarnTab() {
 	return (
 		<div className="space-y-6">
 			<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
-				<h2 className="text-2xl font-bold text-white mb-4">
-					💰 Earnings Dashboard
-				</h2>
+				<h2 className="text-2xl font-bold text-white mb-4">💰 Earnings Dashboard</h2>
 				<p className="text-slate-400 mb-6">
 					Track cleaner payouts, income streaks, and job history.
 				</p>

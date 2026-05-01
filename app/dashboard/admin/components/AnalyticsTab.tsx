@@ -25,10 +25,7 @@ interface AnalyticsTabProps {
 	services: Service[];
 }
 
-export default function AnalyticsTab({
-	analytics,
-	services,
-}: AnalyticsTabProps) {
+export default function AnalyticsTab({ analytics, services }: AnalyticsTabProps) {
 	if (!analytics) return null;
 
 	return (
@@ -43,15 +40,11 @@ export default function AnalyticsTab({
 				</div>
 				<div className="bg-gradient-to-br from-sky-500/20 to-blue-600/20 backdrop-blur-xl border border-sky-500/30 rounded-2xl p-6">
 					<p className="text-sm text-sky-400 mb-1">Completion Rate</p>
-					<p className="text-3xl font-bold text-white">
-						{analytics.completionRate.toFixed(0)}%
-					</p>
+					<p className="text-3xl font-bold text-white">{analytics.completionRate.toFixed(0)}%</p>
 				</div>
 				<div className="bg-gradient-to-br from-purple-500/20 to-pink-600/20 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-6">
 					<p className="text-sm text-purple-400 mb-1">Avg Booking Value</p>
-					<p className="text-3xl font-bold text-white">
-						${Math.round(analytics.avgBookingValue)}
-					</p>
+					<p className="text-3xl font-bold text-white">${Math.round(analytics.avgBookingValue)}</p>
 				</div>
 				<div className="bg-gradient-to-br from-amber-500/20 to-orange-600/20 backdrop-blur-xl border border-amber-500/30 rounded-2xl p-6">
 					<p className="text-sm text-amber-400 mb-1">Pending Revenue</p>
@@ -61,9 +54,7 @@ export default function AnalyticsTab({
 				</div>
 			</div>
 			<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
-				<h3 className="text-lg font-bold text-white mb-4">
-					Service Distribution
-				</h3>
+				<h3 className="text-lg font-bold text-white mb-4">Service Distribution</h3>
 				<div className="space-y-3">
 					{services.map((s) => (
 						<div key={s.id} className="flex items-center gap-4">
@@ -74,9 +65,7 @@ export default function AnalyticsTab({
 									style={{ width: `${Math.min((s.stock / 50) * 100, 100)}%` }}
 								/>
 							</div>
-							<span className="text-sm text-slate-400 w-16 text-right">
-								{s.stock}
-							</span>
+							<span className="text-sm text-slate-400 w-16 text-right">{s.stock}</span>
 						</div>
 					))}
 				</div>

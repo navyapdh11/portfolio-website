@@ -5,14 +5,10 @@ export default function SettingsTab() {
 		<div className="space-y-6">
 			<h2 className="text-2xl font-bold text-white">⚙️ System Settings</h2>
 			<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
-				<h3 className="text-lg font-bold text-white mb-4">
-					Frontend Configuration
-				</h3>
+				<h3 className="text-lg font-bold text-white mb-4">Frontend Configuration</h3>
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<div>
-						<label className="block text-sm text-slate-400 mb-1">
-							CTA Title
-						</label>
+						<label className="block text-sm text-slate-400 mb-1">CTA Title</label>
 						<input
 							type="text"
 							defaultValue="Ready to Work With Us?"
@@ -20,9 +16,7 @@ export default function SettingsTab() {
 						/>
 					</div>
 					<div>
-						<label className="block text-sm text-slate-400 mb-1">
-							CTA Button Text
-						</label>
+						<label className="block text-sm text-slate-400 mb-1">CTA Button Text</label>
 						<input
 							type="text"
 							defaultValue="Get Free Quote"

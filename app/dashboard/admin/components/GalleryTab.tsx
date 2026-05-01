@@ -45,10 +45,9 @@ export default function GalleryTab({
 	return (
 		<div className="space-y-6">
 			<div className="flex justify-between items-center">
-				<h2 className="text-2xl font-bold text-white">
-					🖼️ Gallery & Content Manager
-				</h2>
+				<h2 className="text-2xl font-bold text-white">🖼️ Gallery & Content Manager</h2>
 				<button
+					type="button"
 					onClick={() => setShowNewGalleryModal(true)}
 					className="px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white rounded-xl font-medium transition-colors"
 				>
@@ -79,14 +78,13 @@ export default function GalleryTab({
 									</span>
 								)}
 							</div>
-							<p className="text-sm text-slate-400 mb-3 line-clamp-2">
-								{item.description}
-							</p>
+							<p className="text-sm text-slate-400 mb-3 line-clamp-2">{item.description}</p>
 							<div className="flex justify-between items-center">
 								<span className="text-xs text-slate-500 bg-slate-700/50 px-2 py-1 rounded">
 									{item.category}
 								</span>
 								<button
+									type="button"
 									onClick={() => deleteGalleryItem(item.id)}
 									className="p-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded transition-colors"
 								>
@@ -102,9 +100,7 @@ export default function GalleryTab({
 			{showNewGalleryModal && (
 				<div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
 					<div className="bg-slate-800 border border-slate-700/50 rounded-2xl p-6 max-w-md w-full">
-						<h3 className="text-xl font-bold text-white mb-4">
-							Add Gallery Item
-						</h3>
+						<h3 className="text-xl font-bold text-white mb-4">Add Gallery Item</h3>
 						<div className="space-y-3">
 							<input
 								type="text"
@@ -170,12 +166,14 @@ export default function GalleryTab({
 							</label>
 							<div className="flex gap-3">
 								<button
+									type="button"
 									onClick={addGalleryItem}
 									className="flex-1 px-4 py-3 bg-sky-500 hover:bg-sky-600 text-white rounded-xl font-medium transition-colors"
 								>
 									Add Item
 								</button>
 								<button
+									type="button"
 									onClick={() => setShowNewGalleryModal(false)}
 									className="px-4 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl transition-colors"
 								>

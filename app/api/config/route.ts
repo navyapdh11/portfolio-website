@@ -35,8 +35,8 @@ let config = {
 };
 
 export async function GET(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
@@ -45,16 +45,13 @@ export async function GET(request: Request) {
 	try {
 		return NextResponse.json(config);
 	} catch {
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }
 
 export async function PATCH(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
@@ -62,20 +59,14 @@ export async function PATCH(request: Request) {
 
 	try {
 		const parsed = await safeJson(request);
-		if (parsed.error)
-			return NextResponse.json({ error: parsed.error }, { status: 400 });
+		if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
 		const updates = parsed.data!;
 		config = {
 			...config,
-			...Object.fromEntries(
-				Object.entries(updates).filter(([k]) => k in config),
-			),
+			...Object.fromEntries(Object.entries(updates).filter(([k]) => k in config)),
 		};
 		return NextResponse.json({ success: true, config });
 	} catch {
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }

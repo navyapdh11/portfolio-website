@@ -455,8 +455,7 @@ const galleryItems: GalleryItem[] = [
 		id: "g1",
 		title: "CBD Office Tower",
 		description: "Complete commercial cleaning",
-		imageUrl:
-			"https://images.unsplash.com/photo-1497366216548-37526070297c?w=600",
+		imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600",
 		category: "commercial",
 		tags: ["office", "tower"],
 		featured: true,
@@ -466,8 +465,7 @@ const galleryItems: GalleryItem[] = [
 		id: "g2",
 		title: "West Leederville Home",
 		description: "Family home deep clean",
-		imageUrl:
-			"https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600",
+		imageUrl: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600",
 		category: "residential",
 		tags: ["home", "deep-clean"],
 		featured: true,
@@ -487,8 +485,7 @@ const galleryItems: GalleryItem[] = [
 		id: "g4",
 		title: "Nedlands Medical Centre",
 		description: "Medical-grade sanitization",
-		imageUrl:
-			"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600",
+		imageUrl: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600",
 		category: "commercial",
 		tags: ["medical", "sanitization"],
 		featured: true,
@@ -540,11 +537,8 @@ let adminSettings: AdminSettings = {
 export const db = {
 	bookings: {
 		getAll: (): Booking[] => bookings,
-		getById: (id: string): Booking | undefined =>
-			bookings.find((b) => b.id === id),
-		create: (
-			data: Omit<Booking, "id" | "createdAt" | "updatedAt">,
-		): Booking => {
+		getById: (id: string): Booking | undefined => bookings.find((b) => b.id === id),
+		create: (data: Omit<Booking, "id" | "createdAt" | "updatedAt">): Booking => {
 			const booking: Booking = {
 				...data,
 				id: `b${Date.now()}`,
@@ -575,8 +569,7 @@ export const db = {
 	},
 	customers: {
 		getAll: (): Customer[] => customers,
-		getById: (id: string): Customer | undefined =>
-			customers.find((c) => c.id === id),
+		getById: (id: string): Customer | undefined => customers.find((c) => c.id === id),
 		create: (data: Omit<Customer, "id" | "createdAt">): Customer => {
 			const customer: Customer = {
 				...data,
@@ -620,8 +613,7 @@ export const db = {
 	},
 	services: {
 		getAll: (): Service[] => services,
-		getById: (id: string): Service | undefined =>
-			services.find((s) => s.id === id),
+		getById: (id: string): Service | undefined => services.find((s) => s.id === id),
 		create: (data: Omit<Service, "id" | "createdAt">): Service => {
 			const service: Service = {
 				...data,
@@ -646,8 +638,7 @@ export const db = {
 	},
 	gallery: {
 		getAll: (): GalleryItem[] => galleryItems,
-		getById: (id: string): GalleryItem | undefined =>
-			galleryItems.find((g) => g.id === id),
+		getById: (id: string): GalleryItem | undefined => galleryItems.find((g) => g.id === id),
 		create: (data: Omit<GalleryItem, "id" | "createdAt">): GalleryItem => {
 			const item: GalleryItem = {
 				...data,
@@ -657,10 +648,7 @@ export const db = {
 			galleryItems.push(item);
 			return item;
 		},
-		update: (
-			id: string,
-			data: Partial<GalleryItem>,
-		): GalleryItem | undefined => {
+		update: (id: string, data: Partial<GalleryItem>): GalleryItem | undefined => {
 			const idx = galleryItems.findIndex((g) => g.id === id);
 			if (idx === -1) return undefined;
 			galleryItems[idx] = { ...galleryItems[idx], ...data };
@@ -694,9 +682,7 @@ export function getAnalytics() {
 		? bookings.reduce((sum, b) => sum + b.totalPrice, 0) / bookings.length
 		: 0;
 	const completionRate = bookings.length
-		? (bookings.filter((b) => b.status === "completed").length /
-				bookings.length) *
-			100
+		? (bookings.filter((b) => b.status === "completed").length / bookings.length) * 100
 		: 0;
 
 	return {

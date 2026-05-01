@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { validateAuth } from "@/lib/middleware/auth";
 import { csrfResponse } from "@/lib/middleware/csrf";
+import { checkRateLimit, getRateLimitHeaders } from "@/lib/middleware/rateLimit";
 import { safeJson } from "@/lib/middleware/validation";
 
 // In-memory ad campaign store (no Prisma model yet — ads are UI-only for now)
@@ -73,8 +74,18 @@ const campaigns: Array<Record<string, unknown>> = [
 ];
 
 export async function GET(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+	const rateLimit = checkRateLimit(`api:${clientIp}:GET:ads`);
+	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
+	if (!rateLimit.allowed) {
+		return NextResponse.json(
+			{ error: "Too many requests. Please try again later." },
+			{ status: 429, headers: rateLimitHeaders },
+		);
+	}
+
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
@@ -83,16 +94,23 @@ export async function GET(request: Request) {
 	try {
 		return NextResponse.json({ data: campaigns });
 	} catch {
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }
 
 export async function POST(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+	const rateLimit = checkRateLimit(`api:${clientIp}:POST:ads`);
+	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
+	if (!rateLimit.allowed) {
+		return NextResponse.json(
+			{ error: "Too many requests. Please try again later." },
+			{ status: 429, headers: rateLimitHeaders },
+		);
+	}
+
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
@@ -100,42 +118,47 @@ export async function POST(request: Request) {
 
 	try {
 		const parsed = await safeJson(request);
-		if (parsed.error)
-			return NextResponse.json({ error: parsed.error }, { status: 400 });
+		if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
 		const body = parsed.data!;
 		const campaign = { ...body, id: `ad${Date.now()}`, status: "active" };
 		campaigns.push(campaign);
 		return NextResponse.json({ success: true, campaign }, { status: 201 });
 	} catch {
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }
 
 export async function PATCH(request: Request) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+	const rateLimit = checkRateLimit(`api:${clientIp}:PATCH:ads`);
+	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
+	if (!rateLimit.allowed) {
+		return NextResponse.json(
+			{ error: "Too many requests. Please try again later." },
+			{ status: 429, headers: rateLimitHeaders },
+		);
+	}
+
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
 	try {
-		const parsed = await safeJson(request);
-		if (parsed.error)
-			return NextResponse.json({ error: parsed.error }, { status: 400 });
-		const { id, ...updates } = parsed.data!;
+		const result = await safeJson(request);
+		const id = result.data?.id as string | undefined;
+		const updates: Partial<(typeof campaigns)[number]> = result.data
+			? (Object.fromEntries(
+					Object.entries(result.data).filter(([k]) => k !== "id"),
+				) as (typeof campaigns)[number])
+			: {};
 		const idx = campaigns.findIndex((c) => c.id === id);
-		if (idx === -1)
-			return NextResponse.json({ error: "Not found" }, { status: 404 });
+		if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
 		campaigns[idx] = { ...campaigns[idx], ...updates };
 		return NextResponse.json({ success: true, campaign: campaigns[idx] });
 	} catch {
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }

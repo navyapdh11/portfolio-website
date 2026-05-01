@@ -200,9 +200,7 @@ const pricingData = pricingConfig.map((p) => {
 	const svc = cleaningServices.find((s) => s.slug === p.slug);
 	return {
 		...p,
-		name:
-			svc?.name ||
-			p.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+		name: svc?.name || p.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
 	};
 });
 
@@ -278,9 +276,8 @@ export default function PricingPage() {
 						</span>
 					</h1>
 					<p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-4">
-						Upfront pricing across 20+ specialist services. Every price includes
-						our bond-back guarantee, police-checked cleaners, and eco-friendly
-						products.
+						Upfront pricing across 20+ specialist services. Every price includes our bond-back
+						guarantee, police-checked cleaners, and eco-friendly products.
 					</p>
 					<p className="text-sm text-slate-500 dark:text-slate-400">
 						Prices shown are starting rates.{" "}
@@ -301,9 +298,7 @@ export default function PricingPage() {
 							<div className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white">
 								{stat.value}
 							</div>
-							<div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-								{stat.label}
-							</div>
+							<div className="text-sm text-slate-500 dark:text-slate-400 mt-1">{stat.label}</div>
 						</div>
 					))}
 				</div>
@@ -323,9 +318,7 @@ export default function PricingPage() {
 								className="flex items-start gap-3 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50"
 							>
 								<span className="text-xl flex-shrink-0">{item.icon}</span>
-								<span className="text-sm text-slate-700 dark:text-slate-300">
-									{item.text}
-								</span>
+								<span className="text-sm text-slate-700 dark:text-slate-300">{item.text}</span>
 							</div>
 						))}
 					</div>
@@ -336,16 +329,13 @@ export default function PricingPage() {
 					<h2 className="text-2xl font-bold text-slate-900 dark:text-white">
 						All Services &amp; Prices
 					</h2>
-					<span className="text-sm text-slate-500 dark:text-slate-400">
-						20 services available
-					</span>
+					<span className="text-sm text-slate-500 dark:text-slate-400">20 services available</span>
 				</div>
 
 				{/* Services Grid — Bento-style */}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
 					{pricingData.map((svc, i) => {
-						const details =
-							serviceDetails[svc.slug as keyof typeof serviceDetails];
+						const details = serviceDetails[svc.slug as keyof typeof serviceDetails];
 						const included = details?.included?.slice(0, 4) || [];
 						return (
 							<div
@@ -372,16 +362,10 @@ export default function PricingPage() {
 									{/* Price */}
 									<div className="mb-4">
 										<div className="flex items-baseline gap-1">
-											<span className="text-3xl font-black text-sky-500">
-												${svc.base}
-											</span>
-											<span className="text-sm text-slate-500">
-												{svc.model}
-											</span>
+											<span className="text-3xl font-black text-sky-500">${svc.base}</span>
+											<span className="text-sm text-slate-500">{svc.model}</span>
 										</div>
-										<p className="text-xs text-slate-400 mt-1">
-											Based on {svc.unit}
-										</p>
+										<p className="text-xs text-slate-400 mt-1">Based on {svc.unit}</p>
 									</div>
 
 									{/* Included */}
@@ -457,9 +441,8 @@ export default function PricingPage() {
 						Need a Custom Quote?
 					</h2>
 					<p className="text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto mb-8">
-						Every property is unique. Tell us about your space and we&apos;ll
-						provide a tailored quote within 24 hours — no obligation, no
-						pressure.
+						Every property is unique. Tell us about your space and we&apos;ll provide a tailored
+						quote within 24 hours — no obligation, no pressure.
 					</p>
 					<div className="flex flex-col sm:flex-row gap-4 justify-center">
 						<Link
@@ -491,9 +474,8 @@ export default function PricingPage() {
 								Best Price Guarantee
 							</h3>
 							<p className="text-slate-600 dark:text-slate-400">
-								Found a lower price for the same service? We&apos;ll beat it by
-								5%. Terms apply — contact us with the competing quote and
-								we&apos;ll respond within 2 hours.
+								Found a lower price for the same service? We&apos;ll beat it by 5%. Terms apply —
+								contact us with the competing quote and we&apos;ll respond within 2 hours.
 							</p>
 						</div>
 					</div>
@@ -505,12 +487,7 @@ export default function PricingPage() {
 						href="/"
 						className="text-slate-500 hover:text-sky-500 font-medium transition-colors inline-flex items-center gap-2"
 					>
-						<svg
-							className="w-4 h-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
+						<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"

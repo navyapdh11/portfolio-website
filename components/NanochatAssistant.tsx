@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-	type AnswerEngineResponse,
-	answerQuery,
-	QUICK_ACTIONS,
-} from "../lib/ai/answer-engine";
+import { type AnswerEngineResponse, answerQuery, QUICK_ACTIONS } from "../lib/ai/answer-engine";
 
 interface ChatMessage {
 	role: "user" | "assistant";
@@ -112,12 +108,8 @@ export default function NanochatAssistant() {
 						<div className="flex items-center gap-2">
 							<span className="text-2xl">💬</span>
 							<div>
-								<h3 className="font-bold text-sm leading-tight">
-									AASTACLEAN Assistant
-								</h3>
-								<p className="text-[10px] text-indigo-200">
-									AI-Powered Support
-								</p>
+								<h3 className="font-bold text-sm leading-tight">AASTACLEAN Assistant</h3>
+								<p className="text-[10px] text-indigo-200">AI-Powered Support</p>
 							</div>
 						</div>
 						<button
@@ -137,9 +129,7 @@ export default function NanochatAssistant() {
 					>
 						{messages.map((msg, i) => (
 							<div key={i}>
-								<div
-									className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-								>
+								<div className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
 									<div
 										className={`max-w-[85%] p-3 rounded-2xl text-sm whitespace-pre-wrap ${
 											msg.role === "user"
@@ -155,9 +145,7 @@ export default function NanochatAssistant() {
 									msg.relatedQuestions &&
 									msg.relatedQuestions.length > 0 && (
 										<div className="mt-2 ml-1 space-y-1.5">
-											<p className="text-xs text-zinc-500 dark:text-zinc-400">
-												Related questions:
-											</p>
+											<p className="text-xs text-zinc-500 dark:text-zinc-400">Related questions:</p>
 											{msg.relatedQuestions.map((q, j) => (
 												<button
 													key={j}
@@ -205,12 +193,7 @@ export default function NanochatAssistant() {
 								disabled={isThinking || !input.trim()}
 								className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 dark:disabled:bg-indigo-800 text-white p-2 rounded-xl transition-colors disabled:cursor-not-allowed"
 							>
-								<svg
-									className="w-5 h-5"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
+								<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path
 										strokeLinecap="round"
 										strokeLinejoin="round"

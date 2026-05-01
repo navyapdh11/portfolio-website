@@ -19,8 +19,7 @@ export default function proxy(request: NextRequest) {
 
 	// Check if this is a protected route
 	const matchedRoute = PROTECTED_ROUTES.find(
-		(route) =>
-			pathname === route.prefix || pathname.startsWith(`${route.prefix}/`),
+		(route) => pathname === route.prefix || pathname.startsWith(`${route.prefix}/`),
 	);
 
 	if (!matchedRoute) {

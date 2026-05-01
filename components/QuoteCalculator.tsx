@@ -25,8 +25,7 @@ export function QuoteCalculator() {
 			msg +=
 				"Spotless windows improve natural lighting by up to 30%. Highly recommended before house inspections.";
 		} else if (serviceType === "carpet") {
-			msg +=
-				"Professional hot water extraction removes allergens trapped deep in carpets.";
+			msg += "Professional hot water extraction removes allergens trapped deep in carpets.";
 		} else {
 			if (bedrooms > 3) {
 				msg +=
@@ -56,8 +55,7 @@ export function QuoteCalculator() {
 	};
 
 	const calc = pricing[serviceType as keyof typeof pricing];
-	const subtotal =
-		calc.base + bedrooms * calc.perBed + bathrooms * calc.perBath;
+	const subtotal = calc.base + bedrooms * calc.perBed + bathrooms * calc.perBath;
 	const discount = discounts[frequency as keyof typeof discounts];
 	const total = Math.round(subtotal * (1 - discount));
 
@@ -163,9 +161,7 @@ export function QuoteCalculator() {
 				</div>
 
 				<div className="mt-4 p-4 bg-slate-900 text-white rounded-lg text-xs space-y-2">
-					<div className="font-bold uppercase text-sky-400">
-						Competitive Efficiency Matrix
-					</div>
+					<div className="font-bold uppercase text-sky-400">Competitive Efficiency Matrix</div>
 					<div className="flex justify-between">
 						<span>Boutique Avg</span> <span>+$145</span>
 					</div>
@@ -176,29 +172,19 @@ export function QuoteCalculator() {
 
 				<div className="p-4 bg-gradient-to-r from-sky-50 to-cyan-50 dark:from-sky-900/20 dark:to-cyan-900/20 rounded-lg border-2 border-sky-200 dark:border-sky-800">
 					<div className="flex justify-between items-center mb-2">
-						<span className="text-slate-600 dark:text-slate-400 text-sm">
-							Base Price
-						</span>
-						<span className="text-slate-700 dark:text-slate-300 font-semibold">
-							${calc.base}
-						</span>
+						<span className="text-slate-600 dark:text-slate-400 text-sm">Base Price</span>
+						<span className="text-slate-700 dark:text-slate-300 font-semibold">${calc.base}</span>
 					</div>
 					<div className="flex justify-between items-center mb-2">
-						<span className="text-slate-600 dark:text-slate-400 text-sm">
-							Additional Rooms
-						</span>
+						<span className="text-slate-600 dark:text-slate-400 text-sm">Additional Rooms</span>
 						<span className="text-slate-700 dark:text-slate-300 font-semibold">
 							${subtotal - calc.base}
 						</span>
 					</div>
 					{discount > 0 && (
 						<div className="flex justify-between items-center mb-2 text-emerald-600">
-							<span className="text-sm font-semibold">
-								✓ Discount ({discount * 100}%)
-							</span>
-							<span className="font-semibold">
-								-${Math.round(subtotal * discount)}
-							</span>
+							<span className="text-sm font-semibold">✓ Discount ({discount * 100}%)</span>
+							<span className="font-semibold">-${Math.round(subtotal * discount)}</span>
 						</div>
 					)}
 					<div className="border-t border-sky-200 dark:border-sky-800 pt-3 mt-3">

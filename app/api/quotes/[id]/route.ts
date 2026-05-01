@@ -4,12 +4,9 @@ import { csrfResponse } from "@/lib/middleware/csrf";
 import { safeJson } from "@/lib/middleware/validation";
 import { prisma } from "@/lib/prisma";
 
-export async function PATCH(
-	request: Request,
-	{ params }: { params: Promise<{ id: string }> },
-) {
-	const { response: csrf } = csrfResponse(request);
-	if (csrf) return csrf;
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
 
 	const user = validateAuth(request);
 	if (!user || user.role !== "admin")
@@ -18,8 +15,7 @@ export async function PATCH(
 	try {
 		const { id } = await params;
 		const parsed = await safeJson(request);
-		if (parsed.error)
-			return NextResponse.json({ error: parsed.error }, { status: 400 });
+		if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
 
 		const quote = await prisma.quote.update({
 			where: { id },

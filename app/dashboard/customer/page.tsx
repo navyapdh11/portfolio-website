@@ -74,14 +74,12 @@ export default function CustomerDashboard() {
 			try {
 				const res = await fetch("/api/auth/me", { credentials: "include" });
 				if (!res.ok) {
-					window.location.href =
-						"/dashboard/login?redirect=/dashboard/customer";
+					window.location.href = "/dashboard/login?redirect=/dashboard/customer";
 					return;
 				}
 				const data = await res.json();
 				if (data.role !== "customer") {
-					window.location.href =
-						"/dashboard/login?redirect=/dashboard/customer";
+					window.location.href = "/dashboard/login?redirect=/dashboard/customer";
 				}
 			} catch {
 				window.location.href = "/dashboard/login?redirect=/dashboard/customer";
@@ -101,8 +99,7 @@ export default function CustomerDashboard() {
 				const bookingsData = await bookingsRes.json();
 				if (custData.data?.length) setCustomer(custData.data[0]);
 				setBookings(bookingsData.data || []);
-			} catch (err) {
-				console.error("[customer] Failed to fetch data:", err);
+			} catch (_err) {
 			} finally {
 				setLoading(false);
 			}
@@ -110,21 +107,16 @@ export default function CustomerDashboard() {
 		fetchData();
 	}, []);
 
-	const removeFromCart = (id: string) =>
-		setCart((prev) => prev.filter((c) => c.id !== id));
+	const removeFromCart = (id: string) => setCart((prev) => prev.filter((c) => c.id !== id));
 
 	const cartTotal = cart.reduce((sum, c) => sum + c.price * c.quantity, 0);
 
 	const getStatusColor = (status: string) => {
 		const colors: Record<string, string> = {
-			pending:
-				"bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
-			confirmed:
-				"bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-			"in-progress":
-				"bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
-			completed:
-				"bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+			pending: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+			confirmed: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+			"in-progress": "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
+			completed: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
 			cancelled: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 		};
 		return colors[status] || "bg-gray-100 text-gray-700";
@@ -152,9 +144,7 @@ export default function CustomerDashboard() {
 								{customer?.name?.[0] || "C"}
 							</div>
 							<div>
-								<h1 className="text-xl font-bold text-white">
-									{customer?.name || "Customer"}
-								</h1>
+								<h1 className="text-xl font-bold text-white">{customer?.name || "Customer"}</h1>
 								<p className="text-sm text-slate-400">{customer?.email}</p>
 							</div>
 						</div>
@@ -163,9 +153,7 @@ export default function CustomerDashboard() {
 								<span className="text-amber-400 text-lg">⭐</span>
 								<div>
 									<p className="text-xs text-amber-400/60">Loyalty Points</p>
-									<p className="text-lg font-bold text-amber-400">
-										{customer?.loyaltyPoints || 0}
-									</p>
+									<p className="text-lg font-bold text-amber-400">{customer?.loyaltyPoints || 0}</p>
 								</div>
 							</div>
 							<button
@@ -290,9 +278,7 @@ export default function CustomerDashboard() {
 									/>
 									<div className="relative">
 										<div className="text-3xl mb-2">{stat.icon}</div>
-										<p className="text-2xl font-bold text-white">
-											{stat.value}
-										</p>
+										<p className="text-2xl font-bold text-white">{stat.value}</p>
 										<p className="text-sm text-slate-400">{stat.label}</p>
 									</div>
 								</div>
@@ -306,24 +292,16 @@ export default function CustomerDashboard() {
 								className="bg-gradient-to-br from-sky-500/20 to-blue-600/20 backdrop-blur-xl border border-sky-500/30 rounded-2xl p-6 text-center hover:from-sky-500/30 hover:to-blue-600/30 transition-all group"
 							>
 								<div className="text-4xl mb-3">🧹</div>
-								<h3 className="text-lg font-bold text-white mb-1">
-									Book a Clean
-								</h3>
-								<p className="text-sm text-slate-400">
-									Schedule your next service
-								</p>
+								<h3 className="text-lg font-bold text-white mb-1">Book a Clean</h3>
+								<p className="text-sm text-slate-400">Schedule your next service</p>
 							</Link>
 							<button
 								onClick={() => setActiveTab("bookings")}
 								className="bg-gradient-to-br from-green-500/20 to-emerald-600/20 backdrop-blur-xl border border-green-500/30 rounded-2xl p-6 text-center hover:from-green-500/30 hover:to-emerald-600/30 transition-all group"
 							>
 								<div className="text-4xl mb-3">📋</div>
-								<h3 className="text-lg font-bold text-white mb-1">
-									View Bookings
-								</h3>
-								<p className="text-sm text-slate-400">
-									Track your upcoming cleans
-								</p>
+								<h3 className="text-lg font-bold text-white mb-1">View Bookings</h3>
+								<p className="text-sm text-slate-400">Track your upcoming cleans</p>
 							</button>
 							<button
 								onClick={() => setActiveTab("loyalty")}
@@ -331,17 +309,13 @@ export default function CustomerDashboard() {
 							>
 								<div className="text-4xl mb-3">🎁</div>
 								<h3 className="text-lg font-bold text-white mb-1">Rewards</h3>
-								<p className="text-sm text-slate-400">
-									Redeem your loyalty points
-								</p>
+								<p className="text-sm text-slate-400">Redeem your loyalty points</p>
 							</button>
 						</div>
 
 						{/* Recent Activity */}
 						<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
-							<h3 className="text-xl font-bold text-white mb-4">
-								Recent Activity
-							</h3>
+							<h3 className="text-xl font-bold text-white mb-4">Recent Activity</h3>
 							<div className="space-y-3">
 								{bookings.slice(0, 5).map((booking) => (
 									<div
@@ -353,18 +327,14 @@ export default function CustomerDashboard() {
 												🧹
 											</div>
 											<div>
-												<p className="font-medium text-white">
-													{booking.service}
-												</p>
+												<p className="font-medium text-white">{booking.service}</p>
 												<p className="text-sm text-slate-400">
 													{booking.date} at {booking.time}
 												</p>
 											</div>
 										</div>
 										<div className="text-right">
-											<p className="font-bold text-white">
-												${booking.totalPrice}
-											</p>
+											<p className="font-bold text-white">${booking.totalPrice}</p>
 											<span
 												className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(booking.status)}`}
 											>
@@ -402,9 +372,7 @@ export default function CustomerDashboard() {
 												🧹
 											</div>
 											<div>
-												<h3 className="text-lg font-bold text-white">
-													{booking.service}
-												</h3>
+												<h3 className="text-lg font-bold text-white">{booking.service}</h3>
 												<p className="text-sm text-slate-400">
 													{booking.address}, {booking.suburb}
 												</p>
@@ -414,9 +382,7 @@ export default function CustomerDashboard() {
 											</div>
 										</div>
 										<div className="flex items-center gap-4">
-											<p className="text-2xl font-bold text-white">
-												${booking.totalPrice}
-											</p>
+											<p className="text-2xl font-bold text-white">${booking.totalPrice}</p>
 											<span
 												className={`px-4 py-2 rounded-full text-sm font-medium ${getStatusColor(booking.status)}`}
 											>
@@ -437,9 +403,7 @@ export default function CustomerDashboard() {
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 							<div className="bg-gradient-to-br from-green-500/20 to-emerald-600/20 backdrop-blur-xl border border-green-500/30 rounded-2xl p-6">
 								<p className="text-sm text-green-400 mb-1">Total Paid</p>
-								<p className="text-3xl font-bold text-white">
-									${customer?.totalSpent || 0}
-								</p>
+								<p className="text-3xl font-bold text-white">${customer?.totalSpent || 0}</p>
 							</div>
 							<div className="bg-gradient-to-br from-blue-500/20 to-sky-600/20 backdrop-blur-xl border border-blue-500/30 rounded-2xl p-6">
 								<p className="text-sm text-blue-400 mb-1">Pending</p>
@@ -470,15 +434,11 @@ export default function CustomerDashboard() {
 											className="flex justify-between items-center p-4 bg-slate-700/50 rounded-xl"
 										>
 											<div>
-												<p className="font-medium text-white">
-													{booking.service}
-												</p>
+												<p className="font-medium text-white">{booking.service}</p>
 												<p className="text-sm text-slate-400">{booking.date}</p>
 											</div>
 											<div className="flex items-center gap-4">
-												<p className="font-bold text-white">
-													${booking.totalPrice}
-												</p>
+												<p className="font-bold text-white">${booking.totalPrice}</p>
 												<span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium">
 													Paid
 												</span>
@@ -498,9 +458,7 @@ export default function CustomerDashboard() {
 							<h2 className="text-3xl font-bold text-white mb-2">
 								{customer?.loyaltyPoints || 0} Points
 							</h2>
-							<p className="text-amber-400">
-								Keep booking to earn more rewards!
-							</p>
+							<p className="text-amber-400">Keep booking to earn more rewards!</p>
 							<div className="mt-6 w-full max-w-md mx-auto bg-slate-800 rounded-full h-4">
 								<div
 									className="bg-gradient-to-r from-amber-500 to-orange-500 h-4 rounded-full transition-all"
@@ -540,12 +498,8 @@ export default function CustomerDashboard() {
 									className={`bg-slate-800/50 backdrop-blur-xl border rounded-2xl p-6 text-center ${reward.available ? "border-amber-500/30" : "border-slate-700/50 opacity-50"}`}
 								>
 									<div className="text-4xl mb-3">{reward.icon}</div>
-									<h3 className="text-lg font-bold text-white mb-1">
-										{reward.reward}
-									</h3>
-									<p className="text-sm text-amber-400">
-										{reward.points} points
-									</p>
+									<h3 className="text-lg font-bold text-white mb-1">{reward.reward}</h3>
+									<p className="text-sm text-amber-400">{reward.points} points</p>
 									{reward.available && (
 										<button className="mt-3 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-sm font-medium transition-colors">
 											Redeem
@@ -586,12 +540,8 @@ export default function CustomerDashboard() {
 						) : (
 							<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-12 text-center">
 								<div className="text-6xl mb-4">📝</div>
-								<h3 className="text-xl font-bold text-white mb-2">
-									No Reviews Yet
-								</h3>
-								<p className="text-slate-400">
-									Book a service and leave your first review!
-								</p>
+								<h3 className="text-xl font-bold text-white mb-2">No Reviews Yet</h3>
+								<p className="text-slate-400">Book a service and leave your first review!</p>
 							</div>
 						)}
 					</div>
@@ -624,25 +574,17 @@ export default function CustomerDashboard() {
 											</div>
 											<div className="flex-1">
 												<h3 className="font-bold text-white">{notif.title}</h3>
-												<p className="text-sm text-slate-400">
-													{notif.message}
-												</p>
-												<p className="text-xs text-slate-500 mt-1">
-													{notif.createdAt}
-												</p>
+												<p className="text-sm text-slate-400">{notif.message}</p>
+												<p className="text-xs text-slate-500 mt-1">{notif.createdAt}</p>
 											</div>
-											{!notif.read && (
-												<div className="w-3 h-3 bg-sky-500 rounded-full" />
-											)}
+											{!notif.read && <div className="w-3 h-3 bg-sky-500 rounded-full" />}
 										</div>
 									</div>
 								))
 							) : (
 								<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-12 text-center">
 									<div className="text-6xl mb-4">🔔</div>
-									<h3 className="text-xl font-bold text-white mb-2">
-										No Notifications
-									</h3>
+									<h3 className="text-xl font-bold text-white mb-2">No Notifications</h3>
 									<p className="text-slate-400">You&apos;re all caught up!</p>
 								</div>
 							)}
@@ -655,14 +597,10 @@ export default function CustomerDashboard() {
 					<div className="space-y-6">
 						<h2 className="text-2xl font-bold text-white">Profile Settings</h2>
 						<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
-							<h3 className="text-lg font-bold text-white mb-4">
-								Personal Information
-							</h3>
+							<h3 className="text-lg font-bold text-white mb-4">Personal Information</h3>
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 								<div>
-									<label className="block text-sm text-slate-400 mb-1">
-										Name
-									</label>
+									<label className="block text-sm text-slate-400 mb-1">Name</label>
 									<input
 										type="text"
 										defaultValue={customer?.name}
@@ -670,9 +608,7 @@ export default function CustomerDashboard() {
 									/>
 								</div>
 								<div>
-									<label className="block text-sm text-slate-400 mb-1">
-										Email
-									</label>
+									<label className="block text-sm text-slate-400 mb-1">Email</label>
 									<input
 										type="email"
 										defaultValue={customer?.email}
@@ -680,9 +616,7 @@ export default function CustomerDashboard() {
 									/>
 								</div>
 								<div>
-									<label className="block text-sm text-slate-400 mb-1">
-										Phone
-									</label>
+									<label className="block text-sm text-slate-400 mb-1">Phone</label>
 									<input
 										type="tel"
 										defaultValue={customer?.phone}
@@ -712,9 +646,7 @@ export default function CustomerDashboard() {
 						</div>
 
 						<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
-							<h3 className="text-lg font-bold text-white mb-4">
-								Saved Addresses
-							</h3>
+							<h3 className="text-lg font-bold text-white mb-4">Saved Addresses</h3>
 							<div className="space-y-3">
 								{customer?.addresses?.map((addr, idx) => (
 									<div
@@ -753,9 +685,7 @@ export default function CustomerDashboard() {
 										>
 											<div>
 												<h3 className="font-bold text-white">{item.title}</h3>
-												<p className="text-sm text-slate-400">
-													Qty: {item.quantity}
-												</p>
+												<p className="text-sm text-slate-400">Qty: {item.quantity}</p>
 											</div>
 											<div className="flex items-center gap-4">
 												<p className="text-xl font-bold text-white">
@@ -774,9 +704,7 @@ export default function CustomerDashboard() {
 								<div className="bg-gradient-to-br from-sky-500/20 to-blue-600/20 backdrop-blur-xl border border-sky-500/30 rounded-2xl p-6">
 									<div className="flex justify-between items-center">
 										<h3 className="text-xl font-bold text-white">Total</h3>
-										<p className="text-3xl font-bold text-white">
-											${cartTotal}
-										</p>
+										<p className="text-3xl font-bold text-white">${cartTotal}</p>
 									</div>
 									<button className="w-full mt-4 px-6 py-4 bg-sky-500 hover:bg-sky-600 text-white rounded-xl font-bold text-lg transition-colors">
 										Checkout — ${cartTotal}
@@ -786,12 +714,8 @@ export default function CustomerDashboard() {
 						) : (
 							<div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-12 text-center">
 								<div className="text-6xl mb-4">🛒</div>
-								<h3 className="text-xl font-bold text-white mb-2">
-									Cart is Empty
-								</h3>
-								<p className="text-slate-400 mb-4">
-									Add services to get started
-								</p>
+								<h3 className="text-xl font-bold text-white mb-2">Cart is Empty</h3>
+								<p className="text-slate-400 mb-4">Add services to get started</p>
 								<Link
 									href="/pricing"
 									className="px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white rounded-xl font-medium transition-colors"

@@ -46,26 +46,16 @@ export function sanitizePhone(phone: string): string {
 }
 
 // Validation helpers
-export function validateRequired(
-	body: Record<string, unknown>,
-	fields: string[],
-): string | null {
+export function validateRequired(body: Record<string, unknown>, fields: string[]): string | null {
 	for (const field of fields) {
-		if (
-			!body[field] ||
-			(typeof body[field] === "string" && !(body[field] as string).trim())
-		) {
+		if (!body[field] || (typeof body[field] === "string" && !(body[field] as string).trim())) {
 			return `Missing required field: ${field}`;
 		}
 	}
 	return null;
 }
 
-export function validateEnum(
-	value: string,
-	allowed: string[],
-	fieldName: string,
-): string | null {
+export function validateEnum(value: string, allowed: string[], fieldName: string): string | null {
 	if (!allowed.includes(value)) {
 		return `Invalid ${fieldName}: must be one of ${allowed.join(", ")}`;
 	}

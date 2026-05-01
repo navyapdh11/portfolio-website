@@ -5,8 +5,7 @@ export const metadata: Metadata = {
 	title: "Earnings Dashboard | AASTACLEAN - Track Your Income",
 	description:
 		"AASTACLEAN Earnings Dashboard - Track your cleaning income, payouts, streaks, and performance metrics. View earnings history and export data.",
-	keywords:
-		"earnings, income, payout, cleaning jobs, money, earnings dashboard",
+	keywords: "earnings, income, payout, cleaning jobs, money, earnings dashboard",
 	authors: [{ name: "AASTACLEAN" }],
 	openGraph: {
 		title: "Earnings Dashboard | AASTACLEAN",

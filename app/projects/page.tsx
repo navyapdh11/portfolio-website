@@ -10,12 +10,7 @@ const fullProjects = [
 		location: "Perth CBD",
 		description:
 			"Complete weekly maintenance cleaning for a 20-story commercial tower including lobby, offices, and common areas.",
-		services: [
-			"Weekly Maintenance",
-			"Deep Cleaning",
-			"Window Cleaning",
-			"Carpet Care",
-		],
+		services: ["Weekly Maintenance", "Deep Cleaning", "Window Cleaning", "Carpet Care"],
 		before: "🏢",
 		after: "✨",
 		testimonial:
@@ -30,16 +25,10 @@ const fullProjects = [
 		location: "West Leederville",
 		description:
 			"Regular fortnightly cleaning service for a 4-bedroom family home including deep cleaning of kitchen and bathrooms.",
-		services: [
-			"Regular Cleaning",
-			"Deep Clean",
-			"Kitchen Sanitation",
-			"Bathroom Treatment",
-		],
+		services: ["Regular Cleaning", "Deep Clean", "Kitchen Sanitation", "Bathroom Treatment"],
 		before: "🏠",
 		after: "🌟",
-		testimonial:
-			"Our home has never looked better. The team is reliable and thorough.",
+		testimonial: "Our home has never looked better. The team is reliable and thorough.",
 		client: "Residential Client",
 		stats: { size: "280 sqm", frequency: "Fortnightly", staff: 2 },
 	},
@@ -50,16 +39,10 @@ const fullProjects = [
 		location: "Subiaco",
 		description:
 			"Comprehensive end-of-lease clean for a 2-bedroom apartment ensuring full bond return. Includes carpet steam cleaning.",
-		services: [
-			"End of Lease",
-			"Carpet Steam Clean",
-			"Wall Spot Removal",
-			"Window Clean",
-		],
+		services: ["End of Lease", "Carpet Steam Clean", "Wall Spot Removal", "Window Clean"],
 		before: "🔑",
 		after: "✅",
-		testimonial:
-			"Got full bond back! The place looked brand new. Highly recommend.",
+		testimonial: "Got full bond back! The place looked brand new. Highly recommend.",
 		client: "Tenant",
 		stats: { size: "95 sqm", frequency: "One-time", staff: 2 },
 	},
@@ -90,16 +73,10 @@ const fullProjects = [
 		location: "Claremont",
 		description:
 			"Daily cleaning for a high-end retail fashion store. Opening and closing cleans with focus on window displays.",
-		services: [
-			"Daily Opening Clean",
-			"Floor Care",
-			"Display Cleaning",
-			"Stock Area Maintenance",
-		],
+		services: ["Daily Opening Clean", "Floor Care", "Display Cleaning", "Stock Area Maintenance"],
 		before: "🛍️",
 		after: "✨",
-		testimonial:
-			"Our store always looks impeccable for customers. Outstanding service.",
+		testimonial: "Our store always looks impeccable for customers. Outstanding service.",
 		client: "Fashion Retailer",
 		stats: { size: "350 sqm", frequency: "Daily", staff: 2 },
 	},
@@ -110,16 +87,10 @@ const fullProjects = [
 		location: "Mount Lawley",
 		description:
 			"Post-renovation deep clean for a duplex property. Complete removal of construction dust and debris.",
-		services: [
-			"Post-Renovation Clean",
-			"Construction Debris",
-			"Dust Removal",
-			"Final Polish",
-		],
+		services: ["Post-Renovation Clean", "Construction Debris", "Dust Removal", "Final Polish"],
 		before: "🔨",
 		after: "🏡",
-		testimonial:
-			"They transformed our property after renovations. Couldn't be happier.",
+		testimonial: "They transformed our property after renovations. Couldn't be happier.",
 		client: "Property Developer",
 		stats: { size: "180 sqm", frequency: "One-time", staff: 4 },
 	},
@@ -130,9 +101,7 @@ export default function ProjectsPage() {
 	const [projects, setProjects] = useState(fullProjects);
 
 	const updateProject = (id: string, field: string, value: string) => {
-		setProjects(
-			projects.map((p) => (p.id === id ? { ...p, [field]: value } : p)),
-		);
+		setProjects(projects.map((p) => (p.id === id ? { ...p, [field]: value } : p)));
 	};
 
 	return (
@@ -164,9 +133,7 @@ export default function ProjectsPage() {
 									</label>
 									<input
 										value={p.title}
-										onChange={(e) =>
-											updateProject(p.id, "title", e.target.value)
-										}
+										onChange={(e) => updateProject(p.id, "title", e.target.value)}
 										className="w-full font-bold border-b mb-2"
 									/>
 									<label className="block text-[10px] font-bold uppercase text-zinc-500">
@@ -174,9 +141,7 @@ export default function ProjectsPage() {
 									</label>
 									<textarea
 										value={p.description}
-										onChange={(e) =>
-											updateProject(p.id, "description", e.target.value)
-										}
+										onChange={(e) => updateProject(p.id, "description", e.target.value)}
 										className="w-full text-sm border-b mb-2"
 									/>
 									<label className="block text-[10px] font-bold uppercase text-zinc-500">
@@ -184,9 +149,7 @@ export default function ProjectsPage() {
 									</label>
 									<input
 										value={p.location}
-										onChange={(e) =>
-											updateProject(p.id, "location", e.target.value)
-										}
+										onChange={(e) => updateProject(p.id, "location", e.target.value)}
 										className="w-full text-sm border-b"
 									/>
 								</div>

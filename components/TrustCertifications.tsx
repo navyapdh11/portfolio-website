@@ -15,8 +15,7 @@ export function TrustCertifications() {
 		{
 			icon: "🌿",
 			title: "Eco-Friendly Products",
-			description:
-				"Non-toxic, biodegradable cleaning solutions safe for families & pets",
+			description: "Non-toxic, biodegradable cleaning solutions safe for families & pets",
 			badge: "Green Certified",
 		},
 		{
@@ -43,12 +42,8 @@ export function TrustCertifications() {
 		<section className="py-16 bg-gradient-to-r from-sky-500 to-cyan-500 dark:from-sky-700 dark:to-cyan-700">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="text-center mb-12">
-					<h2 className="text-3xl font-bold text-white mb-4">
-						Why Australia Trusts AASTACLEAN
-					</h2>
-					<p className="text-sky-100 text-lg">
-						Your peace of mind is our priority
-					</p>
+					<h2 className="text-3xl font-bold text-white mb-4">Why Australia Trusts AASTACLEAN</h2>
+					<p className="text-sky-100 text-lg">Your peace of mind is our priority</p>
 				</div>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -66,9 +61,7 @@ export function TrustCertifications() {
 							<h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
 								{cert.title}
 							</h3>
-							<p className="text-sm text-slate-600 dark:text-slate-400">
-								{cert.description}
-							</p>
+							<p className="text-sm text-slate-600 dark:text-slate-400">{cert.description}</p>
 						</div>
 					))}
 				</div>

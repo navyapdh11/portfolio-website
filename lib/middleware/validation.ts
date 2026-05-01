@@ -36,10 +36,7 @@ export function validateRequired(
 ): ValidationResult {
 	const errors: ApiError[] = [];
 	for (const field of fields) {
-		if (
-			!body[field] ||
-			(typeof body[field] === "string" && !body[field].trim())
-		) {
+		if (!body[field] || (typeof body[field] === "string" && !body[field].trim())) {
 			errors.push({ field, message: `${field} is required`, code: "REQUIRED" });
 		}
 	}
@@ -54,18 +51,11 @@ export function validatePhone(phone: string): boolean {
 	return /^[+]?[\d\s()-]{8,}$/.test(phone);
 }
 
-export function validateEnum<T extends string>(
-	value: T,
-	validValues: T[],
-): boolean {
+export function validateEnum<T extends string>(value: T, validValues: T[]): boolean {
 	return validValues.includes(value);
 }
 
-export function validateNumber(
-	value: unknown,
-	min?: number,
-	max?: number,
-): boolean {
+export function validateNumber(value: unknown, min?: number, max?: number): boolean {
 	const num = Number(value);
 	if (Number.isNaN(num)) return false;
 	if (min !== undefined && num < min) return false;
@@ -108,9 +98,7 @@ export async function safeJson(
 }
 
 export function formatValidationErrors(errors: ApiError[]): string {
-	return errors
-		.map((e) => (e.field ? `${e.field}: ${e.message}` : e.message))
-		.join(", ");
+	return errors.map((e) => (e.field ? `${e.field}: ${e.message}` : e.message)).join(", ");
 }
 
 export async function parseAndValidate<T>(

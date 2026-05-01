@@ -83,19 +83,13 @@ export default function Pricing() {
 								<h3 className="text-2xl font-bold text-zinc-900 dark:text-white mb-2">
 									{plan.name}
 								</h3>
-								<p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-									{plan.description}
-								</p>
+								<p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">{plan.description}</p>
 								<div className="flex items-baseline justify-center gap-1">
-									<span className="text-2xl text-zinc-600 dark:text-zinc-400">
-										$
-									</span>
+									<span className="text-2xl text-zinc-600 dark:text-zinc-400">$</span>
 									<span className="text-5xl font-bold text-zinc-900 dark:text-white">
 										{plan.price}
 									</span>
-									<span className="text-zinc-600 dark:text-zinc-400 ml-1">
-										/session
-									</span>
+									<span className="text-zinc-600 dark:text-zinc-400 ml-1">/session</span>
 								</div>
 							</div>
 
@@ -113,9 +107,7 @@ export default function Pricing() {
 												clipRule="evenodd"
 											/>
 										</svg>
-										<span className="text-zinc-700 dark:text-zinc-300 text-sm">
-											{feature}
-										</span>
+										<span className="text-zinc-700 dark:text-zinc-300 text-sm">{feature}</span>
 									</li>
 								))}
 							</ul>
@@ -137,20 +129,14 @@ export default function Pricing() {
 				{/* Additional Info */}
 				<div className="mt-12 text-center">
 					<p className="text-zinc-600 dark:text-zinc-400 mb-4">
-						Need a custom solution? We offer tailored packages for commercial
-						and recurring clients.
+						Need a custom solution? We offer tailored packages for commercial and recurring clients.
 					</p>
 					<a
 						href="#contact"
 						className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:underline"
 					>
 						Contact us for custom pricing
-						<svg
-							className="w-4 h-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
+						<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"

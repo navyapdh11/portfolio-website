@@ -6,11 +6,7 @@ interface CoverageMapProps {
 	onSuburbClick: (suburb: { name: string; state: string }) => void;
 }
 
-export function CoverageMap({
-	state,
-	services,
-	onSuburbClick,
-}: CoverageMapProps) {
+export function CoverageMap({ state, services, onSuburbClick }: CoverageMapProps) {
 	return (
 		<div className="bg-white dark:bg-zinc-900 rounded-xl p-8 shadow-xl border">
 			<div className="text-center mb-6">
@@ -18,8 +14,8 @@ export function CoverageMap({
 					🗺️ Australia Coverage Map
 				</h3>
 				<p className="text-zinc-600 dark:text-zinc-400">
-					{state === "ALL" ? "National Overview" : `${state} Region`} •{" "}
-					{services.length} service{services.length !== 1 ? "s" : ""} selected
+					{state === "ALL" ? "National Overview" : `${state} Region`} • {services.length} service
+					{services.length !== 1 ? "s" : ""} selected
 				</p>
 			</div>
 
@@ -29,10 +25,7 @@ export function CoverageMap({
 				<div className="absolute inset-0 opacity-10">
 					<div className="grid grid-cols-12 grid-rows-8 h-full">
 						{Array.from({ length: 96 }).map((_, i) => (
-							<div
-								key={i}
-								className="border border-zinc-300 dark:border-zinc-700"
-							/>
+							<div key={i} className="border border-zinc-300 dark:border-zinc-700" />
 						))}
 					</div>
 				</div>
@@ -98,30 +91,23 @@ export function CoverageMap({
 			<div className="mt-6 flex flex-wrap justify-center gap-6">
 				<div className="flex items-center gap-2">
 					<div className="w-4 h-4 bg-green-500 rounded-full" />
-					<span className="text-sm text-zinc-700 dark:text-zinc-300">
-						Active Service Area
-					</span>
+					<span className="text-sm text-zinc-700 dark:text-zinc-300">Active Service Area</span>
 				</div>
 				<div className="flex items-center gap-2">
 					<div className="w-4 h-4 bg-blue-500 rounded-full" />
-					<span className="text-sm text-zinc-700 dark:text-zinc-300">
-						Partial Coverage
-					</span>
+					<span className="text-sm text-zinc-700 dark:text-zinc-300">Partial Coverage</span>
 				</div>
 				<div className="flex items-center gap-2">
 					<div className="w-4 h-4 bg-zinc-300 dark:bg-zinc-600 rounded-full" />
-					<span className="text-sm text-zinc-700 dark:text-zinc-300">
-						Not Yet Available
-					</span>
+					<span className="text-sm text-zinc-700 dark:text-zinc-300">Not Yet Available</span>
 				</div>
 			</div>
 
 			{/* Note */}
 			<div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
 				<p className="text-sm text-blue-700 dark:text-blue-400">
-					<strong>Interactive Map:</strong> Click on hotspots to filter suburbs
-					by location. In production, this integrates with Leaflet or Google
-					Maps for full interactivity.
+					<strong>Interactive Map:</strong> Click on hotspots to filter suburbs by location. In
+					production, this integrates with Leaflet or Google Maps for full interactivity.
 				</p>
 			</div>
 		</div>

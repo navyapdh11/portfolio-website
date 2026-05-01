@@ -30,23 +30,16 @@ export default function NotFound() {
 					<div className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-400 mb-4">
 						404
 					</div>
-					<h1 className="text-3xl sm:text-4xl font-black text-white mb-4">
-						Page Not Found
-					</h1>
+					<h1 className="text-3xl sm:text-4xl font-black text-white mb-4">Page Not Found</h1>
 					<p className="text-lg text-slate-300/90 mb-8 max-w-md mx-auto">
-						The page you&apos;re looking for doesn&apos;t exist or has been
-						moved. Let&apos;s get you back on track.
+						The page you&apos;re looking for doesn&apos;t exist or has been moved. Let&apos;s get
+						you back on track.
 					</p>
 					<Link
 						href="/"
 						className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-sky-500 to-cyan-500 text-white rounded-2xl font-bold text-lg shadow-lg shadow-sky-500/25 hover:shadow-xl hover:shadow-sky-500/40 transition-all duration-300 hover:-translate-y-1"
 					>
-						<svg
-							className="w-5 h-5"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
+						<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"

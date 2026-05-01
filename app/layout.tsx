@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import NanochatAssistant from "@/components/NanochatAssistant";
 import { ScrollFix } from "@/components/ScrollFix";
 import SearchOverlay from "@/components/SearchOverlay";
@@ -9,11 +10,13 @@ import SearchOverlay from "@/components/SearchOverlay";
 const interTight = Inter_Tight({
 	variable: "--font-inter-tight",
 	subsets: ["latin"],
+	display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
 	variable: "--font-jetbrains-mono",
 	subsets: ["latin"],
+	display: "swap",
 });
 
 const jsonLd = {
@@ -21,12 +24,7 @@ const jsonLd = {
 	"@type": "ProfessionalService",
 	name: "AASTACLEAN",
 	url: "https://www.aastaclean.com.au",
-	knowsAbout: [
-		"RAG Engineering",
-		"LPU Optimization",
-		"Agentic Systems",
-		"Cloud Infrastructure",
-	],
+	knowsAbout: ["RAG Engineering", "LPU Optimization", "Agentic Systems", "Cloud Infrastructure"],
 	areaServed: {
 		"@type": "AdministrativeArea",
 		name: "Perth",
@@ -41,8 +39,7 @@ const jsonLd = {
 export const metadata: Metadata = {
 	metadataBase: new URL("https://www.aastaclean.com.au"),
 	title: {
-		default:
-			"AASTACLEAN | Australia's Premier Cleaning Services — Nationwide Coverage",
+		default: "AASTACLEAN | Australia's Premier Cleaning Services — Nationwide Coverage",
 		template: "%s | AASTACLEAN",
 	},
 	description:
@@ -120,17 +117,19 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<a
-						href="#main-content"
-						className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-sky-500 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none"
-					>
-						Skip to main content
-					</a>
-					<ScrollFix />
-					<FloatingHomeButton />
-					<SearchOverlay />
-					{children}
-					<NanochatAssistant />
+					<ErrorBoundary>
+						<a
+							href="#main-content"
+							className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-sky-500 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none"
+						>
+							Skip to main content
+						</a>
+						<ScrollFix />
+						<FloatingHomeButton />
+						<SearchOverlay />
+						{children}
+						<NanochatAssistant />
+					</ErrorBoundary>
 				</ThemeProvider>
 			</body>
 		</html>
