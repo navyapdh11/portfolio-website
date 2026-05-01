@@ -6,6 +6,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import NanochatAssistant from "@/components/NanochatAssistant";
 import { ScrollFix } from "@/components/ScrollFix";
 import SearchOverlay from "@/components/SearchOverlay";
+import { WebVitalsRUM } from "@/components/WebVitalsRUM";
 
 const interTight = Inter_Tight({
 	variable: "--font-inter-tight",
@@ -124,6 +125,7 @@ export default function RootLayout({
 						>
 							Skip to main content
 						</a>
+						<WebVitalsRUM />
 						<ScrollFix />
 						<FloatingHomeButton />
 						<SearchOverlay />

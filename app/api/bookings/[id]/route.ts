@@ -16,7 +16,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 		const { id } = await params;
 		const parsed = await safeJson(request);
 		if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
-		const body = parsed.data!;
+		const body = parsed.data ?? {};
 
 		const safeBody: Record<string, unknown> = {};
 		for (const [key, value] of Object.entries(body)) {

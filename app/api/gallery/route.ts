@@ -1,8 +1,9 @@
+// AASTACLEAN — Gallery API (Prisma-backed)
 import { NextResponse } from "next/server";
-import { db } from "@/lib/data/store";
 import { validateAuth } from "@/lib/middleware/auth";
 import { csrfResponse } from "@/lib/middleware/csrf";
 import { checkRateLimit, getRateLimitHeaders } from "@/lib/middleware/rateLimit";
+import { prisma } from "@/lib/prisma";
 import { GallerySchema } from "@/lib/validation/schemas";
 
 export async function GET(request: Request) {
@@ -13,7 +14,7 @@ export async function GET(request: Request) {
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
 	try {
-		const items = db.gallery.getAll();
+		const items = await prisma.galleryItem.findMany({ orderBy: { createdAt: "desc" } });
 		return NextResponse.json({ data: items });
 	} catch {
 		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -27,7 +28,6 @@ export async function POST(request: Request) {
 	if (!user || user.role !== "admin")
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-	// Rate limit
 	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 	const rateLimit = checkRateLimit(`api:${clientIp}:POST:gallery`);
 	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
@@ -46,16 +46,18 @@ export async function POST(request: Request) {
 		}
 
 		const data = result.data;
-		const item = db.gallery.create({
-			title: data.title,
-			description: data.description || "",
-			imageUrl: data.imageUrl,
-			category: data.category || "general",
-			tags: data.tags || [],
-			featured: !!data.featured,
+		const item = await prisma.galleryItem.create({
+			data: {
+				title: data.title,
+				description: data.description || "",
+				imageUrl: data.imageUrl,
+				category: data.category || "general",
+				tags: data.tags || [],
+				featured: !!data.featured,
+			},
 		});
 		return NextResponse.json({ success: true, item }, { status: 201, headers: rateLimitHeaders });
-	} catch (_err) {
+	} catch {
 		return NextResponse.json(
 			{ error: "Internal server error" },
 			{ status: 500, headers: rateLimitHeaders },
@@ -73,8 +75,11 @@ export async function PATCH(request: Request) {
 	try {
 		const body = await request.json();
 		if (!body.id) return NextResponse.json({ error: "ID required" }, { status: 400 });
-		const item = db.gallery.update(body.id as string, body);
-		if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 });
+		const { id, ...updates } = body;
+		const existing = await prisma.galleryItem.findUnique({ where: { id } });
+		if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+		const item = await prisma.galleryItem.update({ where: { id }, data: updates });
 		return NextResponse.json({ success: true, item });
 	} catch {
 		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -88,7 +93,6 @@ export async function DELETE(request: Request) {
 	if (!user || user.role !== "admin")
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-	// Rate limit
 	const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 	const rateLimit = checkRateLimit(`api:${clientIp}:DELETE:gallery`);
 	const rateLimitHeaders = getRateLimitHeaders(rateLimit);
@@ -102,8 +106,10 @@ export async function DELETE(request: Request) {
 	try {
 		const body = await request.json();
 		const { id } = body;
-		if (!db.gallery.delete(id as string))
-			return NextResponse.json({ error: "Not found" }, { status: 404, headers: rateLimitHeaders });
+		const existing = await prisma.galleryItem.findUnique({ where: { id } });
+		if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+		await prisma.galleryItem.delete({ where: { id } });
 		return NextResponse.json({ success: true }, { headers: rateLimitHeaders });
 	} catch {
 		return NextResponse.json(

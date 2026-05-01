@@ -1,52 +1,9 @@
+// AASTACLEAN — Earnings API (Prisma-backed)
 import { NextResponse } from "next/server";
 import { validateAuth } from "@/lib/middleware/auth";
 import { csrfResponse } from "@/lib/middleware/csrf";
 import { safeJson } from "@/lib/middleware/validation";
-
-// In-memory earnings/payout store (no Prisma model yet)
-const earnings: Array<Record<string, unknown>> = [
-	{
-		id: "e1",
-		date: "2026-04-10",
-		job: "Deep Clean - West Leederville",
-		amount: 85,
-		status: "completed",
-	},
-	{
-		id: "e2",
-		date: "2026-04-09",
-		job: "Office Tower - Weekly",
-		amount: 450,
-		status: "completed",
-	},
-	{
-		id: "e3",
-		date: "2026-04-08",
-		job: "End of Lease - Subiaco",
-		amount: 120,
-		status: "completed",
-	},
-	{
-		id: "e4",
-		date: "2026-04-07",
-		job: "Medical Centre - Daily",
-		amount: 95,
-		status: "completed",
-	},
-	{
-		id: "e5",
-		date: "2026-04-06",
-		job: "Regular House Clean",
-		amount: 75,
-		status: "completed",
-	},
-];
-
-const payouts: Array<Record<string, unknown>> = [
-	{ id: "p1", date: "2026-04-05", amount: 125.0, status: "Completed" },
-	{ id: "p2", date: "2026-03-28", amount: 98.5, status: "Completed" },
-	{ id: "p3", date: "2026-03-21", amount: 145.0, status: "Completed" },
-];
+import { prisma } from "@/lib/prisma";
 
 export async function GET(request: Request) {
 	const { response: csrfResp } = csrfResponse(request);
@@ -57,15 +14,12 @@ export async function GET(request: Request) {
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
 	try {
-		const totalEarned = earnings.reduce((s, e) => s + (Number(e.amount) || 0), 0);
-		const totalPaid = payouts.reduce((s, p) => s + (Number(p.amount) || 0), 0);
+		const earnings = await prisma.earning.findMany({ orderBy: { date: "desc" } });
+		const totalEarned = earnings.reduce((sum, e) => sum + e.amount, 0);
 		return NextResponse.json({
 			data: earnings,
-			payouts,
 			stats: {
 				totalEarned,
-				totalPaid,
-				pending: totalEarned - totalPaid,
 				totalJobs: earnings.length,
 			},
 		});
@@ -85,18 +39,38 @@ export async function POST(request: Request) {
 	try {
 		const parsed = await safeJson(request);
 		if (parsed.error) return NextResponse.json({ error: parsed.error }, { status: 400 });
-		const { type, ...body } = parsed.data!;
-		if (type === "earning") {
-			const entry = { ...body, id: `e${Date.now()}`, status: "completed" };
-			earnings.push(entry);
-			return NextResponse.json({ success: true, entry }, { status: 201 });
-		}
-		if (type === "payout") {
-			const payout = { ...body, id: `p${Date.now()}`, status: "Pending" };
-			payouts.unshift(payout);
-			return NextResponse.json({ success: true, payout }, { status: 201 });
-		}
-		return NextResponse.json({ error: "Unknown type" }, { status: 400 });
+		const body = parsed.data ?? {};
+
+		const entry = await prisma.earning.create({
+			data: {
+				description: String(body.description || ""),
+				amount: Number(body.amount) || 0,
+				type: String(body.type || "income"),
+				category: String(body.category || "service"),
+				date: new Date(String(body.date || new Date())),
+			},
+		});
+		return NextResponse.json({ success: true, entry }, { status: 201 });
+	} catch {
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+	}
+}
+
+export async function DELETE(request: Request) {
+	const { response: csrfResp } = csrfResponse(request);
+	if (csrfResp) return csrfResp;
+
+	const user = validateAuth(request);
+	if (!user || user.role !== "admin")
+		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+	try {
+		const body = await request.json();
+		const { id } = body;
+		if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
+
+		await prisma.earning.delete({ where: { id } });
+		return NextResponse.json({ success: true });
 	} catch {
 		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}

@@ -13,13 +13,13 @@
 		"test:watch": "vitest",
 		"db:push": "prisma db push",
 		"db:migrate": "prisma migrate dev",
-		"db:seed": "node prisma/seed.mjs",
+		"db:seed": "tsx prisma/seed.ts",
 		"suburbs:generate": "python scripts/generate_suburbs.py",
 		"sbom": "python scripts/generate-sbom.py",
 		"security": "python scripts/security_check.py"
 	},
 	"prisma": {
-		"seed": "node prisma/seed.mjs"
+		"seed": "tsx prisma/seed.ts"
 	},
 	"dependencies": {
 		"@prisma/client": "^6.19.3",
@@ -34,6 +34,7 @@
 		"zod": "^4.4.1"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.11.3",
 		"@biomejs/biome": "^2.4.13",
 		"@tailwindcss/postcss": "^4",
 		"@types/bcrypt": "^6.0.0",
@@ -42,8 +43,11 @@
 		"@types/react-dom": "^19",
 		"eslint": "^9",
 		"eslint-config-next": "16.2.2",
+		"eslint-plugin-jsx-a11y": "^6.10.2",
 		"tailwindcss": "^4",
+		"tsx": "^4.21.0",
 		"typescript": "^5",
-		"vitest": "^4.1.5"
+		"vitest": "^4.1.5",
+		"vitest-axe": "^0.1.0"
 	}
 }

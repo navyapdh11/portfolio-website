@@ -4,11 +4,30 @@ import { notFound } from "next/navigation";
 import Booking from "@/components/Booking";
 import { serviceDetails } from "@/lib/constants/serviceDetails";
 import { cleaningServices } from "@/lib/constants/services";
-import { allSuburbs, states } from "@/lib/data/suburbs-barrel";
+import { allSuburbs, states, suburbsByState } from "@/lib/data/suburbs-barrel";
 
 // ─────────────────────────────────────────────
-// Caching handled by nextConfig.cacheComponents
+// Caching handled by nextConfig.cacheComponents (ISR via Turbopack)
 // ─────────────────────────────────────────────
+
+// ---------------------------------------------------------------------------
+// Static params — top 108 suburbs per state per service for build-time SSG
+// Remaining pages generated on-demand via ISR
+// ---------------------------------------------------------------------------
+
+export function generateStaticParams() {
+	const params: { service: string; state: string; city: string }[] = [];
+	const CITIES_PER_STATE = 108;
+	for (const service of cleaningServices) {
+		for (const [state, suburbs] of Object.entries(suburbsByState)) {
+			const top = suburbs.slice(0, CITIES_PER_STATE);
+			for (const suburb of top) {
+				params.push({ service: service.slug, state, city: suburb.slug });
+			}
+		}
+	}
+	return params;
+}
 
 // Service-specific SEO descriptions
 const serviceDescriptions: Record<string, string> = {
@@ -115,22 +134,6 @@ export async function generateMetadata({
 			locale: "en_AU",
 		},
 	};
-}
-
-// Generate static params for ALL service × suburb combos
-// 22 services × 3,365 suburbs = 74,030 SSG pages
-export async function generateStaticParams() {
-	const params: { service: string; state: string; city: string }[] = [];
-	for (const service of cleaningServices) {
-		for (const sub of allSuburbs) {
-			params.push({
-				service: service.slug,
-				state: sub.state,
-				city: sub.slug,
-			});
-		}
-	}
-	return params;
 }
 
 // FAQ generator per service

@@ -74,7 +74,10 @@ export default function BlogPage() {
 									{post.title}
 								</h3>
 								<p className="text-slate-600 dark:text-slate-300 text-sm mb-4">{post.excerpt}</p>
-								<button type="button" className="text-sky-500 font-semibold text-sm hover:text-sky-600 transition-colors">
+								<button
+									type="button"
+									className="text-sky-500 font-semibold text-sm hover:text-sky-600 transition-colors"
+								>
 									Read More →
 								</button>
 							</div>

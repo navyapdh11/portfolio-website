@@ -6,17 +6,21 @@ import { cleaningServices } from "@/lib/constants/services";
 import { type Suburb, suburbsByState } from "@/lib/data/suburbs-barrel";
 
 // ─────────────────────────────────────────────
-// Caching handled by nextConfig.cacheComponents
+// Caching handled by nextConfig.cacheComponents (ISR via Turbopack)
 // ─────────────────────────────────────────────
 
 // ---------------------------------------------------------------------------
-// Static params
+// Static params — generate top 108 suburbs per state for build-time SSG
+// Remaining pages are generated on-demand via ISR (revalidate = 86400)
+// This reduces build from ~52K pages to ~9K while maintaining full coverage.
 // ---------------------------------------------------------------------------
 
 export function generateStaticParams() {
 	const params: { state: string; suburb: string }[] = [];
+	const SUBURBS_PER_STATE = 108;
 	for (const [state, suburbs] of Object.entries(suburbsByState)) {
-		for (const suburb of suburbs) {
+		const top = suburbs.slice(0, SUBURBS_PER_STATE);
+		for (const suburb of top) {
 			params.push({ state, suburb: suburb.slug });
 		}
 	}

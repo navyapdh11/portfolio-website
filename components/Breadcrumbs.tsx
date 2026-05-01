@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cleaningServices } from "@/lib/constants/services";
-import { states, allSuburbs } from "@/lib/data/suburbs-barrel";
+import { allSuburbs, states } from "@/lib/data/suburbs-barrel";
 
 const stateNames: Record<string, string> = {
 	nsw: "New South Wales",

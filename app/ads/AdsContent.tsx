@@ -213,7 +213,10 @@ export default function AdsContent() {
 								Manage campaigns, track competitors, and optimize for CRO/SEO
 							</p>
 						</div>
-						<button type="button" className="px-5 py-2.5 bg-white text-purple-700 hover:bg-gray-100 rounded-xl font-medium transition-all">
+						<button
+							type="button"
+							className="px-5 py-2.5 bg-white text-purple-700 hover:bg-gray-100 rounded-xl font-medium transition-all"
+						>
 							➕ New Campaign
 						</button>
 					</div>
@@ -309,10 +312,16 @@ export default function AdsContent() {
 											</div>
 										</div>
 										<div className="mt-3 flex gap-2">
-											<button type="button" className="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-lg transition-colors">
+											<button
+												type="button"
+												className="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-lg transition-colors"
+											>
 												Edit
 											</button>
-											<button type="button" className="px-3 py-1.5 bg-zinc-200 dark:bg-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm rounded-lg transition-colors">
+											<button
+												type="button"
+												className="px-3 py-1.5 bg-zinc-200 dark:bg-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm rounded-lg transition-colors"
+											>
 												{campaign.status === "active" ? "Pause" : "Activate"}
 											</button>
 										</div>

@@ -109,3 +109,172 @@ model Customer {
   @@index([email])
   @@index([status])
 }
+
+// ─── Service Catalog ─────────────────────────────────────────────────────
+
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  icon        String   @default("")
+  imageUrl    String   @default("")
+  description String   @default("")
+  features    String[] @default([])
+  basePrice   Float    @default(0)
+  category    String   @default("residential")
+  available   Boolean  @default(true)
+  stock       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([available])
+}
+
+// ─── Gallery ─────────────────────────────────────────────────────────────
+
+model GalleryItem {
+  id          String   @id @default(uuid())
+  title       String
+  description String   @default("")
+  imageUrl    String
+  category    String   @default("residential")
+  tags        String[] @default([])
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([featured])
+}
+
+// ─── Admin Settings (singleton) ──────────────────────────────────────────
+
+model AdminSettings {
+  id            String   @id @default("settings-1")
+  ctaTitle      String   @default("Ready to Work With Us?")
+  ctaDescription String  @default("Get a free quote for your cleaning project.")
+  ctaButtonText String   @default("Get Free Quote")
+  ctaButtonLink String   @default("/contact")
+  heroTitle     String   @default("Australia's #1 Cleaning Service")
+  heroSubtitle  String   @default("Same-Day Domestic, Commercial & Bond-Back Excellence")
+  trustStats    Json     @default("[]")
+  socialLinks   Json     @default("[]")
+  updatedAt     DateTime @updatedAt
+}
+
+// ─── Ad Campaigns ────────────────────────────────────────────────────────
+
+model AdCampaign {
+  id           String   @id @default(uuid())
+  platform     String
+  name         String
+  status       String   @default("active")
+  budget       Float    @default(0)
+  spent        Float    @default(0)
+  impressions  Int      @default(0)
+  clicks       Int      @default(0)
+  conversions  Int      @default(0)
+  ctr          Float    @default(0)
+  roas         Float    @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([status])
+  @@index([platform])
+}
+
+// ─── Flashcards ──────────────────────────────────────────────────────────
+
+model Flashcard {
+  id        String   @id @default(uuid())
+  question  String
+  answer    String
+  category  String   @default("general")
+  tags      String[] @default([])
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+}
+
+// ─── Microtasks ──────────────────────────────────────────────────────────
+
+model Microtask {
+  id          String   @id @default(uuid())
+  title       String
+  description String   @default("")
+  status      String   @default("pending")
+  assignee    String   @default("")
+  priority    String   @default("medium")
+  reward      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([assignee])
+}
+
+// ─── Earnings ────────────────────────────────────────────────────────────
+
+model Earning {
+  id          String   @id @default(uuid())
+  description String
+  amount      Float
+  type        String   @default("income")
+  category    String   @default("service")
+  date        DateTime @db.Date
+  createdAt   DateTime @default(now())
+
+  @@index([type])
+  @@index([date])
+}
+
+// ─── Config ──────────────────────────────────────────────────────────────
+
+model Config {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+}
+
+// ─── Projects ────────────────────────────────────────────────────────────
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  category    String
+  location    String
+  description String   @default("")
+  beforeImage String   @default("")
+  afterImage  String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+}
+
+// ─── Audit Log ───────────────────────────────────────────────────────────
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actor     String
+  action    String
+  resource  String
+  resourceId String?
+  before    Json?
+  after     Json?
+  ip        String   @default("")
+  userAgent String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([actor])
+  @@index([action])
+  @@index([resource])
+  @@index([createdAt])
+}
