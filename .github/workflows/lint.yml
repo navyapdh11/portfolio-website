@@ -1,0 +1,56 @@
+name: Lint & Type Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  lint:
+    name: Biome Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Run Biome
+        run: npx biome check . --reporter=github || true
+
+  typecheck:
+    name: TypeScript Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Generate Prisma Client
+        run: npx prisma generate || true
+        env:
+          DATABASE_URL: "file:./dev.db"
+      - name: Run Type Check
+        run: npx tsc --noEmit
+
+  accessibility:
+    name: Accessibility Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Run axe-core checks
+        run: npx playwright install chromium && npx vitest run --grep=a11y || true

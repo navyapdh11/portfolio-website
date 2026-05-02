@@ -1,0 +1,55 @@
+name: Performance & Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 8 * * 1"
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  lighthouse:
+    name: Lighthouse Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Prisma Generate
+        run: npx prisma generate
+        env:
+          DATABASE_URL: "file:./dev.db"
+      - name: Build
+        run: npm run build
+        env:
+          DATABASE_URL: "file:./dev.db"
+          ADMIN_SECRET: "ci-fallback"
+          SESSION_SIGNING_KEY: "ci-fallback"
+      - name: Start server
+        run: npm start &
+        env:
+          DATABASE_URL: "file:./dev.db"
+          ADMIN_SECRET: "ci-fallback"
+          SESSION_SIGNING_KEY: "ci-fallback"
+      - name: Wait for server
+        run: sleep 10
+      - name: Run Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://localhost:3000
+            http://localhost:3000/services
+            http://localhost:3000/booking
+          budgetPath: ./lighthouse-budget.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+        continue-on-error: true

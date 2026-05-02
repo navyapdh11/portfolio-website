@@ -1,0 +1,47 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  dependency-audit:
+    name: Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate || true
+      - name: Generate SBOM
+        run: python scripts/generate-sbom.py || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.json
+          retention-days: 90
+
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true

@@ -6,33 +6,46 @@ import bcrypt from "bcrypt";
 import { type NextRequest, NextResponse } from "next/server";
 
 // ──────────────────────────────────────────────
-// Configuration — fail fast if secrets are missing
+// Configuration — validated lazily at runtime (not at module load)
+// This allows Vercel builds to succeed without runtime secrets.
 // ──────────────────────────────────────────────
 
-const ADMIN_SECRET = process.env.ADMIN_SECRET;
-const SESSION_SIGNING_KEY = process.env.SESSION_SIGNING_KEY;
+function requireEnv(name: string): string {
+	const val = process.env[name];
+	if (!val) {
+		throw new Error(
+			`[auth] ${name} environment variable is required. ` +
+				"Set it in your .env or Vercel project settings.",
+		);
+	}
+	return val;
+}
 
-if (!ADMIN_SECRET) {
-	throw new Error(
-		"[auth] ADMIN_SECRET environment variable is required. " +
-			"Generate one: node -e \"require('crypto').randomBytes(32).toString('hex')\" " +
-			"and set it in .env.local before starting the server.",
-	);
+let _adminSecret: string | null = null;
+let _sessionSigningKey: string | null = null;
+
+function getAdminSecret(): string {
+	if (!_adminSecret) _adminSecret = requireEnv("ADMIN_SECRET");
+	return _adminSecret;
+}
+
+function getSigningKey(): string {
+	if (!_sessionSigningKey) _sessionSigningKey = requireEnv("SESSION_SIGNING_KEY");
+	return _sessionSigningKey;
 }
 
 // ──────────────────────────────────────────────
-// Password hashing — bcrypt at server startup
+// Password hashing — bcrypt at first use (lazy)
 // ──────────────────────────────────────────────
 
-/**
- * Hash the ADMIN_SECRET at server startup to avoid plaintext comparison.
- * Uses bcrypt with cost factor 12 (OWASP 2026 recommended minimum).
- */
-export let hashedAdminSecret: string;
+export let hashedAdminSecret: string | null = null;
 
-(async () => {
-	hashedAdminSecret = await bcrypt.hash(ADMIN_SECRET, 12);
-})();
+async function ensureHashedSecret(): Promise<string> {
+	if (!hashedAdminSecret) {
+		hashedAdminSecret = await bcrypt.hash(getAdminSecret(), 12);
+	}
+	return hashedAdminSecret;
+}
 
 /**
  * Timing-safe password verification using bcrypt.compare.
@@ -42,12 +55,10 @@ export async function verifyPassword(input: string, hash: string): Promise<boole
 	return bcrypt.compare(input, hash);
 }
 
-if (!SESSION_SIGNING_KEY) {
-	throw new Error(
-		"[auth] SESSION_SIGNING_KEY environment variable is required. " +
-			"Generate one: node -e \"require('crypto').randomBytes(64).toString('hex')\" " +
-			"and set it in .env.local before starting the server.",
-	);
+/** Ensure the hashed secret is available before auth checks. */
+export async function initAuth(): Promise<void> {
+	await ensureHashedSecret();
+	getSigningKey();
 }
 
 // ──────────────────────────────────────────────
@@ -86,7 +97,7 @@ const SESSION_TTL_CUSTOMER = 30 * 24 * 60 * 60 * 1000; // 30 days
 const TOKEN_DELIMITER = ".";
 
 function hmacSign(...parts: string[]): string {
-	return createHmac("sha256", SESSION_SIGNING_KEY!)
+	return createHmac("sha256", getSigningKey())
 		.update(parts.join(TOKEN_DELIMITER))
 		.digest("hex");
 }
@@ -218,7 +229,7 @@ export function withAuth(
  * Generate a hash of an IP address for session binding (optional, for rate limiting).
  */
 export function ipHash(ip: string): string {
-	return createHmac("sha256", SESSION_SIGNING_KEY!).update(ip).digest("hex").slice(0, 16);
+	return createHmac("sha256", getSigningKey()).update(ip).digest("hex").slice(0, 16);
 }
 
 // ──────────────────────────────────────────────

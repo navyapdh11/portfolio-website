@@ -3,6 +3,7 @@ import {
 	cookieAttrs,
 	createSession,
 	hashedAdminSecret,
+	initAuth,
 	TOKEN_COOKIE_NAME,
 	verifyPassword,
 } from "@/lib/middleware/auth";
@@ -34,7 +35,8 @@ export async function POST(request: Request) {
 
 	// Admin login — bcrypt comparison against hashed secret
 	if (role === "admin") {
-		const validPassword = await verifyPassword(password, hashedAdminSecret);
+		await initAuth();
+		const validPassword = await verifyPassword(password, hashedAdminSecret!);
 		if (validPassword) {
 			const { token } = createSession(
 				{
