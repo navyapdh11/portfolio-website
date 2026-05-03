@@ -17,7 +17,7 @@ import { allSuburbs, states, suburbsByState } from "@/lib/data/suburbs-barrel";
 
 export function generateStaticParams() {
 	const params: { service: string; state: string; city: string }[] = [];
-	const CITIES_PER_STATE = 108;
+	const CITIES_PER_STATE = 10;
 	for (const service of cleaningServices) {
 		for (const [state, suburbs] of Object.entries(suburbsByState)) {
 			const top = suburbs.slice(0, CITIES_PER_STATE);
