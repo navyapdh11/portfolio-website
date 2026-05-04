@@ -218,7 +218,7 @@ const nswRaw = [
 	["Matraville", "2036"],
 	["Malabar", "2036"],
 ];
-export const nsw = nswRaw.map(([n, p]) => S(n, p, "nsw"));
+export const nsw = nswRaw.map(([n, p]) => S(n as string, p as string, "nsw"));
 
 // VIC — Melbourne Metro + Regional
 const vicRaw = [
@@ -379,7 +379,7 @@ const vicRaw = [
 	["Cowes", "3922"],
 	["San Remo", "3925"],
 ];
-export const vic = vicRaw.map(([n, p]) => S(n, p, "vic"));
+export const vic = vicRaw.map(([n, p]) => S(n as string, p as string, "vic"));
 
 // QLD
 const qldRaw = [
@@ -534,7 +534,7 @@ const qldRaw = [
 	["Cooroy", "4563"],
 	["Pomona", "4568"],
 ];
-export const qld = qldRaw.map(([n, p]) => S(n, p, "qld"));
+export const qld = qldRaw.map(([n, p]) => S(n as string, p as string, "qld"));
 
 // WA
 const waRaw = [
@@ -650,7 +650,7 @@ const waRaw = [
 	["Dampier", "6713"],
 	["Wickham", "6714"],
 ];
-export const wa = waRaw.map(([n, p]) => S(n, p, "wa"));
+export const wa = waRaw.map(([n, p]) => S(n as string, p as string, "wa"));
 
 // SA
 const saRaw = [
@@ -768,7 +768,7 @@ const saRaw = [
 	["Munno Para", "5115"],
 	["Angle Vale", "5117"],
 ];
-export const sa = saRaw.map(([n, p]) => S(n, p, "sa"));
+export const sa = saRaw.map(([n, p]) => S(n as string, p as string, "sa"));
 
 // TAS
 const tasRaw = [
@@ -832,7 +832,7 @@ const tasRaw = [
 	["Cambridge", "7170"],
 	["Claremont", "7011"],
 ];
-export const tas = tasRaw.map(([n, p]) => S(n, p, "tas"));
+export const tas = tasRaw.map(([n, p]) => S(n as string, p as string, "tas"));
 
 // ACT
 const actRaw = [
@@ -913,7 +913,7 @@ const actRaw = [
 	["Wanniassa", "2903"],
 	["Fadden", "2904"],
 ];
-export const act = actRaw.map(([n, p]) => S(n, p, "act"));
+export const act = actRaw.map(([n, p]) => S(n as string, p as string, "act"));
 
 // NT
 const ntRaw = [
@@ -968,7 +968,7 @@ const ntRaw = [
 	["Coolalinga", "0835"],
 	["Adelaide River", "0846"],
 ];
-export const nt = ntRaw.map(([n, p]) => S(n, p, "nt"));
+export const nt = ntRaw.map(([n, p]) => S(n as string, p as string, "nt"));
 
 // Combined exports — curated set
 export const suburbsByStateCurated: Record<string, Suburb[]> = {

@@ -71,6 +71,7 @@ const beforeAfterImages = [
 export function BeforeAfterGallery() {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const active = beforeAfterImages[activeIndex];
+	if (!active) return null;
 
 	return (
 		<section id="gallery" className="py-20 bg-white dark:bg-slate-900">

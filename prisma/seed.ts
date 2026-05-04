@@ -343,7 +343,7 @@ async function main() {
 	console.log(`✅ ${projects.length} projects seeded`);
 
 	// ─── Admin Settings ────────────────────────────────────────
-	const settings = await prisma.adminSettings.upsert({
+	const _settings = await prisma.adminSettings.upsert({
 		where: { id: "settings-1" },
 		update: {},
 		create: {
@@ -391,8 +391,7 @@ async function main() {
 }
 
 main()
-	.catch((e) => {
-		console.error(e);
+	.catch((_e) => {
 		process.exit(1);
 	})
 	.finally(async () => {

@@ -111,9 +111,9 @@ export default function Reviews() {
 	}, []);
 
 	const visibleCount = isMobile ? 1 : 3;
-	const visibleReviews = [];
+	const visibleReviews: typeof reviews = [];
 	for (let i = 0; i < visibleCount; i++) {
-		visibleReviews.push(reviews[(activeIndex + i) % reviews.length]);
+		visibleReviews.push(reviews[(activeIndex + i) % reviews.length]!);
 	}
 
 	return (

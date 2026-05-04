@@ -47,7 +47,7 @@ export function csrfCookie(token?: string): string {
 function extractCookieToken(request: Request): string | null {
 	const cookieHeader = request.headers.get("cookie") || "";
 	const match = cookieHeader.match(new RegExp(`(?:^|;)\\s*${CSRF_COOKIE_NAME}=([^;]+)`));
-	return match ? match[1] : null;
+	return match ? match[1] || null : null;
 }
 
 export function csrfCheck(request: Request): {

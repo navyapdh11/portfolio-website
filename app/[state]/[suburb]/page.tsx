@@ -128,8 +128,10 @@ function getNearbySuburbs(current: Suburb, limit = 8): Suburb[] {
 	const nearby: Suburb[] = [];
 	const spread = Math.ceil(limit / 2);
 	for (let i = 1; i <= spread && nearby.length < limit; i++) {
-		if (idx - i >= 0) nearby.push(sameState[idx - i]);
-		if (idx + i < sameState.length && nearby.length < limit) nearby.push(sameState[idx + i]);
+		const prev = sameState[idx - i];
+		if (prev) nearby.push(prev);
+		const next = sameState[idx + i];
+		if (next && nearby.length < limit) nearby.push(next);
 	}
 	return nearby;
 }

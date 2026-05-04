@@ -17,6 +17,7 @@ export default function Booking({
 	const details =
 		serviceDetails[serviceSlug as keyof typeof serviceDetails] ||
 		serviceDetails["domestic-cleaning"];
+	if (!details) return null;
 	const [step, setStep] = useState(1);
 	const [formData, setFormData] = useState({
 		name: "",

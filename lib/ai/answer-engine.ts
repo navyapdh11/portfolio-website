@@ -389,7 +389,7 @@ export function generateAnswer(_query: string, results: ScoredResult[]): string 
 
 	// Combine with natural transitions
 	if (parts.length === 1) {
-		return parts[0];
+		return parts[0] || "";
 	}
 
 	return parts.join("\n\n---\n\n");

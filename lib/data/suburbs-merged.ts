@@ -22,10 +22,10 @@ const allMerged: Suburb[] = [
 const allByState: Record<string, Suburb[]> = {};
 for (const suburb of allMerged) {
 	if (!allByState[suburb.state]) allByState[suburb.state] = [];
-	allByState[suburb.state].push(suburb);
+	allByState[suburb.state]?.push(suburb);
 }
 for (const state of Object.keys(allByState)) {
-	allByState[state].sort((a, b) => a.name.localeCompare(b.name));
+	allByState[state]?.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 // Merged exports

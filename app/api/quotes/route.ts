@@ -58,8 +58,7 @@ export async function POST(request: Request) {
 	try {
 		const rawBody = await request.json();
 		const result = QuoteSchema.safeParse(rawBody);
-		if (!result.success)
-			return NextResponse.json({ error: result.error.issues }, { status: 400 });
+		if (!result.success) return NextResponse.json({ error: result.error.issues }, { status: 400 });
 
 		const user = validateAuth(request);
 		if (user && user.role !== "admin")

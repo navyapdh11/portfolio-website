@@ -639,7 +639,7 @@ const nswRaw = [
 	["Jerilderie", "2716", "jerilderie"],
 	["Coleambally", "2718", "coleambally"],
 ];
-const nsw = nswRaw.map(([n, p, s]) => S(n, p, s, "nsw"));
+const nsw = nswRaw.map(([n, p, s]) => S(n as string, p as string, s as string, "nsw"));
 
 // vic — 408 suburbs
 const vicRaw = [
@@ -1052,7 +1052,7 @@ const vicRaw = [
 	["Nhill", "3418", "nhill"],
 	["Dimboola", "3419", "dimboola"],
 ];
-const vic = vicRaw.map(([n, p, s]) => S(n, p, s, "vic"));
+const vic = vicRaw.map(([n, p, s]) => S(n as string, p as string, s as string, "vic"));
 
 // qld — 487 suburbs
 const qldRaw = [
@@ -1544,7 +1544,7 @@ const qldRaw = [
 	["Nanango", "4615", "nanango"],
 	["Kingaroy", "4610", "kingaroy"],
 ];
-const qld = qldRaw.map(([n, p, s]) => S(n, p, s, "qld"));
+const qld = qldRaw.map(([n, p, s]) => S(n as string, p as string, s as string, "qld"));
 
 // wa — 370 suburbs
 const waRaw = [
@@ -1919,7 +1919,7 @@ const waRaw = [
 	["Leeman", "6514", "leeman"],
 	["Regans Ford", "6512", "regans-ford"],
 ];
-const wa = waRaw.map(([n, p, s]) => S(n, p, s, "wa"));
+const wa = waRaw.map(([n, p, s]) => S(n as string, p as string, s as string, "wa"));
 
 // sa — 254 suburbs
 const saRaw = [
@@ -2178,7 +2178,7 @@ const saRaw = [
 	["Meningie", "5264", "meningie"],
 	["Coomandook", "5262", "coomandook"],
 ];
-const sa = saRaw.map(([n, p, s]) => S(n, p, s, "sa"));
+const sa = saRaw.map(([n, p, s]) => S(n as string, p as string, s as string, "sa"));
 
 // tas — 151 suburbs
 const tasRaw = [
@@ -2334,7 +2334,7 @@ const tasRaw = [
 	["Railton", "7307", "railton"],
 	["Forth", "7310", "forth"],
 ];
-const tas = tasRaw.map(([n, p, s]) => S(n, p, s, "tas"));
+const tas = tasRaw.map(([n, p, s]) => S(n as string, p as string, s as string, "tas"));
 
 // act — 109 suburbs
 const actRaw = [
@@ -2448,7 +2448,7 @@ const actRaw = [
 	["Pierces Creek", "2611", "pierces-creek"],
 	["Namadgi", "2611", "namadgi"],
 ];
-const act = actRaw.map(([n, p, s]) => S(n, p, s, "act"));
+const act = actRaw.map(([n, p, s]) => S(n as string, p as string, s as string, "act"));
 
 // nt — 73 suburbs
 const ntRaw = [
@@ -2526,7 +2526,7 @@ const ntRaw = [
 	["Ngukurr", "0852", "ngukurr"],
 	["Borroloola", "0852", "borroloola"],
 ];
-const nt = ntRaw.map(([n, p, s]) => S(n, p, s, "nt"));
+const nt = ntRaw.map(([n, p, s]) => S(n as string, p as string, s as string, "nt"));
 
 export const suburbsByStateExpanded: Record<string, SuburbExpanded[]> = {
 	nsw,

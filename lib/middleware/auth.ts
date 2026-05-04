@@ -97,9 +97,7 @@ const SESSION_TTL_CUSTOMER = 30 * 24 * 60 * 60 * 1000; // 30 days
 const TOKEN_DELIMITER = ".";
 
 function hmacSign(...parts: string[]): string {
-	return createHmac("sha256", getSigningKey())
-		.update(parts.join(TOKEN_DELIMITER))
-		.digest("hex");
+	return createHmac("sha256", getSigningKey()).update(parts.join(TOKEN_DELIMITER)).digest("hex");
 }
 
 function generateToken(sessionId: string, expiresAt: number): string {
@@ -111,7 +109,7 @@ function verifyToken(token: string): { sessionId: string; expiresAt: number } | 
 	const parts = token.split(TOKEN_DELIMITER);
 	if (parts.length !== 3) return null;
 
-	const [sessionId, expiresAtStr, signature] = parts;
+	const [sessionId, expiresAtStr, signature] = parts as [string, string, string];
 	const expectedSignature = hmacSign(sessionId, expiresAtStr);
 
 	// Timing-safe comparison prevents timing oracle attacks

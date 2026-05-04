@@ -36,6 +36,12 @@ export async function POST(request: Request) {
 	// Admin login — bcrypt comparison against hashed secret
 	if (role === "admin") {
 		await initAuth();
+		if (!password) {
+			return NextResponse.json(
+				{ error: "Password is required" },
+				{ status: 400, headers: rateLimitHeaders },
+			);
+		}
 		const validPassword = await verifyPassword(password, hashedAdminSecret!);
 		if (validPassword) {
 			const { token } = createSession(

@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 	}
 	const cookies = request.headers?.get?.("cookie") || "";
 	const match = cookies.match(new RegExp(`(?:^|;)\\s*${TOKEN_COOKIE_NAME}=([^;]+)`));
-	if (match) destroySession(match[1]);
+	if (match?.[1]) destroySession(match[1]);
 
 	return NextResponse.json(
 		{ success: true },

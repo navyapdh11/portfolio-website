@@ -23,9 +23,10 @@ const FALLBACKS = [
 ];
 
 function getProjectEmoji(category: string): string {
-	const match = FALLBACKS.find((f) =>
-		category.toLowerCase().includes(f.label.toLowerCase().split(" ")[0]),
-	);
+	const match = FALLBACKS.find((f) => {
+		const keyword = (f.label || "").toLowerCase().split(" ")[0] || "";
+		return category.toLowerCase().includes(keyword);
+	});
 	return match?.emoji || "✨";
 }
 

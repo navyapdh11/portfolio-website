@@ -14,6 +14,7 @@ export function BookingAddons({
 	const details =
 		serviceDetails[serviceSlug as keyof typeof serviceDetails] ||
 		serviceDetails["domestic-cleaning"];
+	if (!details) return null;
 
 	return (
 		<div className="space-y-6">

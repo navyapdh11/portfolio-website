@@ -30,9 +30,9 @@ export default function Breadcrumbs() {
 
 	// Handle /services/[service]/[state]/[city]
 	if (segments[0] === "services" && segments.length >= 4) {
-		const serviceSlug = segments[1];
-		const stateSlug = segments[2];
-		const citySlug = segments[3];
+		const serviceSlug = segments[1] || "";
+		const stateSlug = segments[2] || "";
+		const citySlug = segments[3] || "";
 
 		const service = cleaningServices.find((s) => s.slug === serviceSlug);
 		const stateName = stateNames[stateSlug] || capitalize(stateSlug);
@@ -75,8 +75,8 @@ export default function Breadcrumbs() {
 
 	// Handle /[state]/[suburb]
 	if (segments.length === 2) {
-		const stateSlug = segments[0];
-		const suburbSlug = segments[1];
+		const stateSlug = segments[0] || "";
+		const suburbSlug = segments[1] || "";
 
 		// Try to resolve suburb name
 		const stateData = states.find((s) => s.slug === stateSlug);
@@ -117,8 +117,9 @@ export default function Breadcrumbs() {
 
 	// Handle generic paths
 	for (let i = 0; i < segments.length; i++) {
+		const seg = segments[i] || "";
 		const href = `/${segments.slice(0, i + 1).join("/")}`;
-		breadcrumbs.push({ label: capitalize(segments[i]), href });
+		breadcrumbs.push({ label: capitalize(seg), href });
 	}
 
 	return (
