@@ -293,6 +293,7 @@ export default async function ServiceGeoPage({
 				"@type": "State",
 				name: stateName,
 			},
+			priceRange: "$$",
 		},
 		areaServed: {
 			"@type": "City",
@@ -300,11 +301,21 @@ export default async function ServiceGeoPage({
 			containedInPlace: { "@type": "State", name: stateName },
 		},
 		description: serviceDescriptions[serviceSlug] || service.name,
-		offers: {
-			"@type": "Offer",
-			priceCurrency: "AUD",
-			availability: "https://schema.org/InStock",
-			url: `https://www.aastaclean.com.au/services/${serviceSlug}/${state}/${city}#booking`,
+		hasOfferCatalog: {
+			"@type": "OfferCatalog",
+			name: `${service.name} Services`,
+			itemListElement: [
+				{
+					"@type": "Offer",
+					itemOffered: {
+						"@type": "Service",
+						name: service.name,
+					},
+					priceCurrency: "AUD",
+					availability: "https://schema.org/InStock",
+					url: `https://www.aastaclean.com.au/services/${serviceSlug}/${state}/${city}#booking`,
+				},
+			],
 		},
 	};
 
